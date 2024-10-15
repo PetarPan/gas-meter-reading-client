@@ -319,7 +319,7 @@ function InputMeterState() {
                     ]
                 });
             } else {
-                // Ako novo stanje nije manje
+                // Ako novo stanje nije manje od starog
                 // Snimanje u bazu
                 try {
                     const response = await axios.put(`http://localhost:3001/trasa/unos/${stateId}`, {
