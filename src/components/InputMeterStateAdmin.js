@@ -21,13 +21,16 @@ function InputMeterStateAdmin() {
 
     //filter search filter 
     const [searchTerm, setSearchTerm] = useState('');
+    //pretraga po RJ, broju Ugovora, broju merila
     const filteredData = states.filter((item) =>
         item.contructNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.RJ.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.meterId.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        item.meterId.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.readerId.toString().toLowerCase().includes(searchTerm.toLowerCase()) 
     );
+    
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
     };
@@ -268,10 +271,25 @@ function InputMeterStateAdmin() {
         { label: 'Komentar', key: 'comment' }
     ]
 
+
+    //broj MI, očitani/neočitani...
+    const mi = filteredData.filter(MI => MI.name.length > 0);
+    const numberMi = mi.length;
+    const miRead = filteredData.filter(MI => MI.newMeter.length > 0);
+    const numberMiRead = miRead.length;
+    const miUnread = numberMi - numberMiRead;
+
+    const readInformation = (
+        <div>
+            <div>Broj MI: {numberMi}</div>
+            <div>Broj očitanih MI: {numberMiRead}</div>
+            <div>Broj neočitanih MI: {miUnread} </div>
+        </div>
+    );
     return (
         <>
             <HelmetProvider>
-
+            {readInformation}
                 {/* Helmet - naziv kartice u pregledaču */}
                 <Helmet>
                     <title>Pregled količina</title>
@@ -348,6 +366,7 @@ function InputMeterStateAdmin() {
                             {/* Kolone tabele */}
                             <tr>
                                 <th>ID Trase</th>
+                                <th>ID Čitača</th>
                                 <th>Ugovor</th>
                                 <th>Ime</th>
                                 <th>Adresa</th>
@@ -371,6 +390,7 @@ function InputMeterStateAdmin() {
                                 .map((state, index) => (
                                     <tr key={index} onKeyDown={(e) => handleKeyDown(e, index)}>
                                         <td>{state.trasaId}</td>
+                                        <td>{state.readerId}</td>
                                         <td>{state.contructNumber}</td>
                                         <td>{state.name}</td>
                                         <td>{state.address}</td>

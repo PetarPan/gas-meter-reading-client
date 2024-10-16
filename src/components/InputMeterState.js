@@ -62,21 +62,6 @@ function InputMeterState() {
                 });
         }
     }, [id]);
-    //pretraga po broju merila za mobilnu verziju
-    // Funkcija za ažuriranje stanja pretrage
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
-    };
-    const filteredData = states.filter((item) =>
-
-        item.meterId.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    // Funkcija koja se poziva na klik dugmeta "Pronađi"
-    const handleSearchClick = () => {
-        // Ovde možeš da postaviš šta želiš da se desi kada se klikne dugme "Pronađi"
-        // Filtrirani podaci su već spremljeni u `filteredData`
-        setCurrentCustomer(filteredData[0]); // Ovo prikazuje prvog pronađenog kupca
-    };
 
     const handleKeyDown = (e, rowIndex) => {
         if (e.key === 'ArrowDown') {
@@ -234,27 +219,43 @@ function InputMeterState() {
     };
 
     //mobilna verzija
+
+    //pretraga po broju merila za mobilnu verziju
+    // Funkcija za ažuriranje stanja pretrage
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+    const filteredData = states.filter((item) =>
+
+        item.meterId.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    // Funkcija koja se poziva na klik dugmeta "Pronađi"
+    const handleSearchClick = () => {
+        // Filtrirani podaci su već spremljeni u `filteredData`
+        setCurrentCustomer(filteredData[0]); // Ovo prikazuje prvog pronađenog kupca
+    };
+    //kraj pretrage po merilu za mobilnu verziju
+
     //naivigacija kroz mobilnu verziju
-    const handleNext = () => {
-        const currentIndex = states.findIndex(state => state === currentCustomer);
-        console.log("Trenutni indeks:", currentIndex);
-        if (currentIndex < states.length - 1) {
-            setCurrentCustomer(states[currentIndex + 1]); // Prikaz sledećeg kupca
-        } else {
-            console.log("Već ste na poslednjem kupcu.");
+    const inputRef = useRef(null);
+    const [currentCustomerIndex, setCurrentCustomerIndex] = useState(0);
+
+    const handleNavigation = (direction) => {
+        if (direction === 'next' && currentCustomerIndex < states.length - 1) {
+            setCurrentCustomerIndex(prevIndex => prevIndex + 1);
+            setCurrentCustomer(states[currentCustomerIndex + 1]);
+            if (inputRef.current) {
+                inputRef.current.focus(); // Fokusira input polje
+            }
+        } else if (direction === 'prev' && currentCustomerIndex > 0) {
+            setCurrentCustomerIndex(prevIndex => prevIndex - 1);
+            setCurrentCustomer(states[currentCustomerIndex - 1]);
+            if (inputRef.current) {
+                inputRef.current.focus();
+            }
         }
     };
-
-    const handlePrevious = () => {
-        const currentIndex = states.findIndex(state => state === currentCustomer);
-        console.log("Trenutni indeks:", currentIndex);
-        if (currentIndex > 0) {
-            setCurrentCustomer(states[currentIndex - 1]); // Prikaz prethodnog kupca
-        } else {
-            console.log("Već ste na prvom kupcu.");
-        }
-    };
-
+//kraj navigacije za mobilnu verziju
 
     //kontrolisanje unosa u input polje mobilna verzija
 
@@ -265,8 +266,9 @@ function InputMeterState() {
             ...prevState,
             newMeter: value,  // postavljanje nove vrednosti
         }));
-
     };
+
+
 
     const handleState = async () => {
         try {
@@ -300,7 +302,7 @@ function InputMeterState() {
                                     });
 
                                     if (response.status === 200) {
-                                        handleNext();
+                                        handleNavigation('next');
                                     } else {
                                         alert('Došlo je do greške prilikom čuvanja novog stanja.');
                                     }
@@ -329,7 +331,7 @@ function InputMeterState() {
                     });
 
                     if (response.status === 200) {
-                        handleNext();
+                        handleNavigation('next');
                     } else {
                         alert('Došlo je do greške prilikom čuvanja novog stanja.');
                     }
@@ -384,6 +386,7 @@ function InputMeterState() {
                                 <section>
                                     <div className="user-info">
                                         <div className="ugovor">
+                                            Redni broj u trasi: {currentCustomer.id} <br></br>
                                             Broj Ugovora: {currentCustomer.contructNumber}
                                         </div>
                                         <div className="ime">
@@ -423,21 +426,29 @@ function InputMeterState() {
                                         </div>
                                         <label>Unesi novo stanje merila: </label>
                                         <input
+                                            ref={inputRef}
+
                                             type="number"
                                             placeholder="unesite novo stanje merila"
                                             min='0'
                                             step='1'
                                             inputMode="numeric"
                                             pattern="\d"
+                                            value={currentCustomer.newMeter || ''}
                                             onChange={(e) => handleInputChangeMob(e)}
+                                            onKeyDown={handleKeyDown}
                                         />
                                         {/* dugme za prompt unos komentara */}
 
                                     </div>
                                     <div className="buttons">
-                                        <button className="nav-btn" onClick={handlePrevious}>Prethodni kupac</button>
-                                        <button className="state-btn" onClick={handleState}>Unesi stanje</button>
-                                        <button className="nav-btn" onClick={handleNext}>Sledeći kupac</button>
+                                        <button onClick={() => handleNavigation('prev')}>Prethodni</button>
+                                        {/*                                         <button className="nav-btn" onClick={handlePrevious}>Prethodni kupac</button>
+ */}                                        <button className="state-btn" onClick={handleState}>Unesi stanje</button>
+                                        {/*                                         <button className="nav-btn" onClick={handleNext}>Sledeći kupac</button>
+ */}
+
+                                        <button onClick={() => handleNavigation('next')}>Sledeći</button>
                                         <br />
                                     </div>
                                     <button onClick={() => handleCommentClick(currentCustomer.id)}>Unesi komentar</button>
