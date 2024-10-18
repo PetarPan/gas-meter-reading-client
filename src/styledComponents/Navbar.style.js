@@ -40,6 +40,7 @@ const Navbar = styled.div`
   h4 {
     padding: 10px;
   }
+  
 `
 
 export default Navbar;

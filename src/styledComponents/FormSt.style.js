@@ -65,6 +65,39 @@ const FormSt = styled.div`
   .label {
     font-size: 1.5em;
 }
+
+/* Media Query for Mobile Devices */
+@media (max-width: 600px) {
+    .formContainer {
+        width: 90%; /* Širina formContainer se smanjuje */
+        padding: 10px; /* Smanjenje padding-a */
+    }
+
+    .container {
+        width: 100%; /* Širina kontejnera se prilagođava */
+    }
+
+    .formContainer .inputCreatePost {
+        height: 40px; /* Smanjenje visine polja */
+        width: 90%; /* Širina polja se prilagođava */
+        font-size: 14px; /* Smanjenje veličine fonta */
+    }
+
+    .formContainer button {
+        height: 35px; /* Smanjenje visine dugmeta */
+        width: 80px; /* Smanjenje širine dugmeta */
+        font-size: 14px; /* Smanjenje veličine fonta */
+    }
+
+    .title {
+        font-size: 2em; /* Smanjenje veličine naslova */
+    }
+
+    .label {
+        font-size: 1.2em; /* Smanjenje veličine fonta za oznake */
+    }
+}
+
 `
 
 export default FormSt;

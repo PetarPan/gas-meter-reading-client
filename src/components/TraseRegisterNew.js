@@ -31,10 +31,10 @@ const TraseRegisterNew = () => {
         try {
             await axios.post('http://localhost:3001/trase', values);
             resetForm();
-            alert('Trasa successfully added');
+            alert('Trasa je uspešno registrovana.');
         } catch (error) {
             console.error('Error adding trasa:', error);
-            alert('Error adding trasa');
+            alert('ID trase već postoji. Proverite i unesite ispravan ID nove trase.');
         }
     };
 

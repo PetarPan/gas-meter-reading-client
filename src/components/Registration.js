@@ -42,9 +42,14 @@ function Registration() {
             })
             .catch(error => {
                 console.error('There was an error!', error);
+                if (error.response && error.response.data) {
+                    alert("Greška: " + error.response.data.error); // Prikazivanje tačne greške
+                } else {
+                    alert("Došlo je do greške prilikom registracije.");
+                }
             });
 
-    };
+              };
     return (
         <>
             {authState.userRole === "1" || authState.userRole === "2" ? (

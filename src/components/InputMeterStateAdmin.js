@@ -314,7 +314,7 @@ function InputMeterStateAdmin() {
 
                             <button className='export-csv'>
                                 <CSVLink
-                                    data={states.filter(state => state.newMeter && state.newMeter.length > 0)} // Provera da li newMeter postoji i da li nije prazan
+                                    data={states.filter(state => state.newMeter && state.newMeter.length > 0)} // Provera da li newMeter postoji i da li je prazan
                                     //data={states}
                                     headers={headersQuantities}
                                     filename={"očitavanja.csv"}
@@ -325,7 +325,7 @@ function InputMeterStateAdmin() {
                             {/* dugme za preuzimanje neočitanih MI */}
                             <button className='export-csv'>
                                 <CSVLink
-                                    data={states.filter(state => (state.newMeter - state.oldMeter) < 0)}
+                                    data={states.filter(state => (state.newMeter) == "")} //Provera polja bez unesenih količina
                                     headers={headersUnread}
                                     filename={"neočitana-MI.csv"}
                                     target="_blank"
@@ -337,7 +337,7 @@ function InputMeterStateAdmin() {
 
                             <button className='export-csv'>
                                 <CSVLink
-                                    data={states.filter(state => (state.lessState) > 0)}
+                                    data={states.filter(state => (state.lessState) > 0)} //Provera i eksport manjih stanja
                                     headers={headersLessState}
                                     filename={"manja-stanja-MI.csv"}
                                     target="_blank"

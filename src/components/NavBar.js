@@ -23,13 +23,14 @@ function NavBar() {
                 <Link className="links" to="/registration">Registracija čitača</Link>
                 <Link className="links" to="/registracija-trase">Registracija trase</Link>
                 <Link className="links" to="/unos-stanja">Pregled unesenih količina</Link>
+                <a className="links" href="/adminManual.pdf" target='_blank'>Uputstvo</a>
             </>
         )}
         {authState.userRole === "3" && (
             <>
-                <Link className="links" to="/">Home</Link>
+                <Link className="links" to="/">Pregled trasa</Link>
                 <Link className="links" to="/changepassword">Promena lozinke</Link>
-                <Link className="links" to="/pregled-trasa-citaci">Pregled trasa čitači</Link>
+                <a className="links" href="/readerManual.pdf" target='_blank'>Uputstvo</a>
             </>
         )}
         <button onClick={logout}>Logout</button>

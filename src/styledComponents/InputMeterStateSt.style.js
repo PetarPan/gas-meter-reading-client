@@ -77,7 +77,7 @@ const InputMeterStateSt = styled.div`
         background: orange;
     }
     .title {
-    font-size: 2.5em;
+    font-size: 1.7em;
     text-align: center;
     padding: 15px
   }
@@ -102,6 +102,119 @@ const InputMeterStateSt = styled.div`
     justify-content: center;  
     align-items: center;     
   }
+
+${'' /* mobilna verzija */}
+
+@media (max-width: 600px) {
+    html, body {
+        height: 100vh; /* Puna visina ekrana */
+        padding: 0;
+    }
+
+    .mobile-view {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: -35px; 
+        height: 750px; 
+        box-sizing: border-box;
+        overflow: hidden; 
+    }
+
+    .user-info, .search, .input-style, .buttons {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        flex: 1;
+        font-size: 3.5vw; 
+    }
+
+    .title {
+        font-size: 17px; 
+        text-align: center;
+    }
+
+    .user-info div, .input-style div {
+        font-size: 3.8vw; 
+        margin-bottom: 8px;
+    }
+
+    .search label {
+        font-size: 3.5vw;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    input {
+        width: 100%;
+        padding: 5px;
+        font-size: 3vw;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        padding: 5px;
+        font-size: 3vw; /* Smanjen font za dugmad */
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 5px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    .buttons button {
+        width: 48%;
+    }
+
+    .consumption {
+        font-size: 3vw;
+        padding: 5px;
+        margin-top: 2px;
+    }
+
+    .consumption.green {
+        background: green;
+        color: black
+    }
+
+    .consumption.orange {
+        background: orange;
+        color: black;
+    }
+
+    .consumption.red {
+        background: red;
+        color: black;
+    }
+
+    .newMeter {
+        font-size: 3vw;
+        margin-bottom: 3px;
+    }
+
+    .input-style, .user-info {
+        
+       
+    }
+}
+
+
+
+
 
 `;
 

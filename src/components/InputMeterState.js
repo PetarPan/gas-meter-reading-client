@@ -219,26 +219,40 @@ function InputMeterState() {
     };
 
     //mobilna verzija
-
+    const inputRef = useRef(null);
+    const [currentCustomerIndex, setCurrentCustomerIndex] = useState(0);
     //pretraga po broju merila za mobilnu verziju
     // Funkcija za ažuriranje stanja pretrage
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
     };
     const filteredData = states.filter((item) =>
-
         item.meterId.toString().toLowerCase().includes(searchTerm.toLowerCase())
     );
     // Funkcija koja se poziva na klik dugmeta "Pronađi"
     const handleSearchClick = () => {
         // Filtrirani podaci su već spremljeni u `filteredData`
-        setCurrentCustomer(filteredData[0]); // Ovo prikazuje prvog pronađenog kupca
+
+        if (filteredData.length > 0) {
+            // Pronađi indeks kupca iz `filteredData` u nizu `states`
+            const foundIndex = states.findIndex(customer => customer.id === filteredData[0].id);
+
+            // Ako je kupac pronađen u nizu `states`, postavi currentCustomer i currentCustomerIndex
+            if (foundIndex !== -1) {
+                alert(`Pronađeno je merilo broj: ${filteredData[0].meterId}`)
+                setCurrentCustomer(filteredData[0]); // Prikazujemo prvog pronađenog kupca iz `filteredData`
+                setCurrentCustomerIndex(foundIndex); // Postavljamo indeks na mesto tog kupca u `states`
+            } else {
+                console.error("Kupac nije pronađen u `states`.");
+            }
+        } else {
+            console.error("Nema rezultata pretrage.");
+        }
     };
     //kraj pretrage po merilu za mobilnu verziju
 
     //naivigacija kroz mobilnu verziju
-    const inputRef = useRef(null);
-    const [currentCustomerIndex, setCurrentCustomerIndex] = useState(0);
+
 
     const handleNavigation = (direction) => {
         if (direction === 'next' && currentCustomerIndex < states.length - 1) {
@@ -255,7 +269,7 @@ function InputMeterState() {
             }
         }
     };
-//kraj navigacije za mobilnu verziju
+    //kraj navigacije za mobilnu verziju
 
     //kontrolisanje unosa u input polje mobilna verzija
 
@@ -267,8 +281,6 @@ function InputMeterState() {
             newMeter: value,  // postavljanje nove vrednosti
         }));
     };
-
-
 
     const handleState = async () => {
         try {
@@ -374,11 +386,13 @@ function InputMeterState() {
 
 
                     {isMobile ? (
+
                         <div className="mobile-view">
+                            <h3 className="title">Unos stanja za trasu ID: {id}</h3>
+
                             {/* Prikaz za mobilne uređaje */}
                             <div>
                                 {readInformation}
-                                <h2 className="title">Unos stanja za trasu ID: {id}</h2>
                             </div>
 
                             {currentCustomer && (

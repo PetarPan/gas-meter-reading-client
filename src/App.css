@@ -64,3 +64,9 @@ h4 {
 
 }
 
+@media (max-width: 820px) {
+  html, body {
+      height: 100vh; /* Puna visina ekrana */
+      width: 100vw;
+  }
+}
