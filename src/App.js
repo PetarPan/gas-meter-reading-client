@@ -23,6 +23,7 @@ import InputMeterState from "./components/InputMeterState";
 import NavBar from "./components/NavBar";
 import InputMeterStateAdmin from "./components/InputMeterStateAdmin";
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import AdminStuff from "./components/AdminStuff";
 
 
 //portal distribucije, linkovi ka aplikaciji za konverziju količina u kWh, aplikacija za računanje havarijskih curenja, aplikacija za prijemi obradu reklamacija, aplikacija za očitavanje potrošnje => pSion
@@ -39,6 +40,41 @@ function App() {
     status: false
   });
 
+  //prevencija pristupa
+  useEffect(() => {
+    // Sprečavanje desnog klika
+    const handleContextMenu = (event) => {
+        event.preventDefault();
+    };
+
+    // Onemogućavanje tastaturskih prečica
+    const handleKeyDown = (event) => {
+        if (event.ctrlKey && (event.key === 'I' || event.key === 'u') || event.key === 'F12') {
+            event.preventDefault();
+        }
+    };
+
+    // Proveravanje da li su alati za razvojne programere otvoreni
+    const devToolsOpened = () => {
+        if (window.outerWidth - window.innerWidth > 100) {
+            alert('Alati za razvojne programere su otvoreni!');
+        }
+    };
+
+    // Postavljanje intervala za proveru otvorenih alata
+    const interval = setInterval(devToolsOpened, 1000);
+
+    // Dodavanje event listener-a
+    window.addEventListener('contextmenu', handleContextMenu);
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Čišćenje na unmount
+    return () => {
+        clearInterval(interval);
+        window.removeEventListener('contextmenu', handleContextMenu);
+        window.removeEventListener('keydown', handleKeyDown);
+    };
+}, []);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -52,12 +88,13 @@ function App() {
           setAuthState({ ...authState, status: false });
         } else {
           setAuthState({
-            username: response.data.userName,
+            userName: response.data.userName,
             id: response.data.id,
             userRealname: response.data.userRealname,
             userSurName: response.data.userSurName,
             userRole: response.data.userRole,
             userRJ: response.data.userRJ,
+            userStatus: response.data.userStatus,
             status: true,
           });
         }
@@ -66,10 +103,7 @@ function App() {
       setAuthState({ ...authState, status: false });
     }
   }, []);
-
-
-
-
+  
   return (
     <AuthContext.Provider value={{ authState, setAuthState }} >
       <Router>
@@ -93,6 +127,7 @@ function App() {
           <Route path="/changepassword" element={<ChangePassword />} />
           {/* admin */}
           <Route path="/admin-page" exact element={<AdminPage />} />
+          <Route path="/admin-stuff" exact element={<AdminStuff />} />
           {/* pregled trasa unique + unos stanja za admina svi */}
           <Route path="/pregled-trasa-citaci" exact element={<TraseForReader />} />
           <Route path="/unos-stanja/:id" exact element={<InputMeterState />} />

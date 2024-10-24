@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const ListaSvihTrasa = () => {
     const [trase, setTrase] = useState([]);
@@ -15,6 +16,10 @@ const ListaSvihTrasa = () => {
     }, []);
 
     return (
+        <HelmetProvider>
+        <Helmet>
+            <title>Lista trasa</title>
+        </Helmet>
         <div>
             <h1>Lista Trasa</h1>
             <ul>
@@ -25,6 +30,7 @@ const ListaSvihTrasa = () => {
                 ))}
             </ul>
         </div>
+        </HelmetProvider>
     );
 };
 

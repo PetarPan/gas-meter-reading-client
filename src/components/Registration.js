@@ -27,7 +27,7 @@ function Registration() {
     //validacija input polja
     const validationSchema = Yup.object().shape({
         userName: Yup.string().min(3, "Ime mora da sadrži najmanje tri karaktera").max(15, "Ime može da sadrži najviše petnaest karaktera").required("Polje ime je obavezno"),
-        userSurName: Yup.string().min(3, "Prezime mora da sadrži najmanje tri karaktera").max(25, "Prezime može da sadrži najviše dvadeset i pet karaktera").required("Polje Perezime je obavezno"),
+        userSurName: Yup.string().min(3, "Prezime mora da sadrži najmanje tri karaktera").max(25, "Prezime može da sadrži najviše dvadeset i pet karaktera").required("Polje Prezime je obavezno"),
         userRole: Yup.number().required("Odabrati ulogu korisnika"),
         userRJ: Yup.string().required("Odabrati radnu jedinicu"),
         userPassword: Yup.string().min(4, "Šifra mora da sadrži najmanje četiri karaktera").max(20, "Šifra može da sadrži najviše do dvadeset karaktera").required("Polje Šifra je obavezno")

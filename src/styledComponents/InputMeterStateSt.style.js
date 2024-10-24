@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const InputMeterStateSt = styled.div`
     margin: 50px auto;
-    width: 90%;
+    width: 95%;
     position: relative;
 
     table {
@@ -29,8 +29,20 @@ const InputMeterStateSt = styled.div`
 
     .save {
         position: absolute;
-        top: 10px;
+        top: 20px;
         right: 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        width: 80px;
+        height: 35px;
+        border: black 1.5px solid;
+    }
+    .info {
+        position: absolute;
+        top: 20px;
+        right: 120px;
         background-color: #007bff;
         color: white;
         border: none;
@@ -83,7 +95,7 @@ const InputMeterStateSt = styled.div`
   }
   .main-title {
     position: sticky;
-    top: 70px;           /* Udaljenost od vrha prozora */
+    top: 75px;           /* Udaljenost od vrha prozora */
     z-index: 100; 
     background: white;
     padding-bottom: 10px;
@@ -102,29 +114,43 @@ const InputMeterStateSt = styled.div`
     justify-content: center;  
     align-items: center;     
   }
+  .read-information {
+    position: relative;
+}
+.verification-st {
+    padding: 10px 0 10px 0;
+    font-size: 17px;
+}
+.ver-btn {
+    background: dodgerblue;
+    color: white;
+    width: 75px;
+    height: 40px;
+    border-radius: 10px;
+}
 
 ${'' /* mobilna verzija */}
 
 @media (max-width: 600px) {
     html, body {
-        height: 100vh; /* Puna visina ekrana */
-        padding: 0;
-    }
-
+    overflow-x: hidden;
+}
     .mobile-view {
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
         margin-top: -35px; 
-        height: 750px; 
+        height: 700px; 
+        width: 425px;
         box-sizing: border-box;
         overflow: hidden; 
     }
 
-    .user-info, .search, .input-style, .buttons {
-        width: 100%;
-        margin-bottom: 15px;
+    .user-info-input, .search, .input-style, .buttons {
+        margin: 0 auto;
+        width: 85%;
         padding: 15px;
         border-radius: 8px;
         text-align: center;
@@ -133,24 +159,25 @@ ${'' /* mobilna verzija */}
     }
 
     .title {
-        font-size: 17px; 
+        font-size: 19px; 
         text-align: center;
     }
 
     .user-info div, .input-style div {
         font-size: 3.8vw; 
-        margin-bottom: 8px;
+        margin-bottom: 5px;
     }
 
     .search label {
         font-size: 3.5vw;
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 5px;
     }
 
     input {
         width: 100%;
-        padding: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
         font-size: 3vw;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -166,15 +193,15 @@ ${'' /* mobilna verzija */}
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        margin-top: 5px;
-    }
+${'' /*         margin-top: 5px;
+ */}    }
 
     .buttons {
         display: flex;
         justify-content: space-between;
         width: 100%;
-        margin-top: 5px;
-    }
+${'' /*         margin-top: 5px;
+ */}    }
 
     .buttons button {
         width: 48%;
@@ -210,9 +237,15 @@ ${'' /* mobilna verzija */}
         
        
     }
+    .info-btn {
+        margin-left: 45%;
+        width: 50px;
+    }
 }
 
-
+.verification-st {
+    font-size: 15px;
+}
 
 
 

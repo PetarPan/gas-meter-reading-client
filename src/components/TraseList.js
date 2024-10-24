@@ -1,12 +1,12 @@
 //prikaz svih trasa, klikom na jednu ide se na izmenu podataka, veze citaca i trasa
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Table from '../styledComponents/Table.style';
 import { AuthContext } from '../helpers/AuthContext';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import BootstrapTable from 'react-bootstrap-table-next';
-import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
+import filterFactory, { selectFilter, textFilter } from 'react-bootstrap-table2-filter';
 
 const TraseList = () => {
     const [listOfTrase, setListOfTrase] = useState([]);
@@ -38,6 +38,18 @@ const TraseList = () => {
         history(`/trase/${row.id}`);
     };
 
+    const uniqueRJValues = listOfTrase && listOfTrase.length > 0 ? [...new Set(listOfTrase.map((user) => user.RJ))] : [];
+    const selectRJOptions = {};
+    uniqueRJValues.forEach((value) => {
+        selectRJOptions[value] = value;
+    });
+
+    const uniqueIDValues = listOfTrase && listOfTrase.length > 0 ? [...new Set(listOfTrase.map((user) => user.readerId))] : [];
+    const selectIDOptions = {};
+    uniqueIDValues.forEach((value) => {
+        selectIDOptions[value] = value;
+    });
+
     const columns = [
         {
             dataField: 'trasaId',
@@ -60,12 +72,18 @@ const TraseList = () => {
             dataField: 'readerId',
             text: 'ID čitača',
             sort: true,
+            filter: selectFilter({
+                options: selectIDOptions,
+                placeholder: 'Izaberite čitača'})
 
         },
         {
             dataField: 'RJ',
             text: 'RJ',
             sort: true,
+            filter: selectFilter({
+                options: selectRJOptions,
+                placeholder: 'Izaberite radnu jedinicu'})
 
         },
         {

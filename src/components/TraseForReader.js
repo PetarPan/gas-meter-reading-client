@@ -7,8 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 function TraseForReader() {
     const [uniqueTrases, setUniqueTrases] = useState([]);
-    const { authState } = useContext(AuthContext);
-    //const [toggle, setToggle] = useState(0);
+    const { authState, setAuthState } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -49,19 +48,31 @@ function TraseForReader() {
 
     //promena statusa očitavanja
 
-    /* const handleToggle = () => {
-        const newStatus = toggle === 0 ? 1 : 0; 
-        setToggle(newStatus);
+    const handleToggle = async () => {
+        const accessToken = localStorage.getItem("accessToken");
+        try {
+            const response = await axios.put("http://localhost:3001/users/toggleStatus", {}, {
+                headers: {
+                    accessToken: accessToken  // Token za autentifikaciju
+                }
+            });
 
-        axios.put('http://localhost:3001/trase', {status: newStatus})
-        .then(res => {
-            alert('Status očitavanja uspešno ažuriran');            
-        })
-        .catch(err => {
-            console.log('Došlo je do greške prilikom ažuriranja statusa:', err);
-            
-        })
-    } */
+
+            // Ažuriraj authState nakon uspešnog odgovora
+            const newStatus = authState.userStatus === 'Da' ? 'Ne' : 'Da';
+            setAuthState((prevState) => ({
+                ...prevState,
+                userStatus: newStatus,  // Promeni userStatus odmah na frontend-u
+            }));
+            alert(response.data.message);  // Notifikacija korisniku
+        } catch (error) {
+            console.error("Greška prilikom ažuriranja statusa:", error);
+            alert("Došlo je do greške pri ažuriranju statusa.");
+        }
+    };
+
+
+
 
     return (
         <>
@@ -72,10 +83,8 @@ function TraseForReader() {
                     </Helmet>
                     <InputMeterStateSt>
                         <h2>Lista trasa za očitavanje</h2>
-                       {/*  <button onClick={handleToggle}>
-                            {toggle === 0 ? 'U procesu očitavanja' : 'Završeno očitavanje'}
-                        </button> */}                        
-                    <table>
+
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Trasa ID</th>
@@ -99,6 +108,18 @@ function TraseForReader() {
                                 ))}
                             </tbody>
                         </table>
+                        <div>
+                            <h3>Status očitavanja:</h3>
+                            <p className='verification-st'>Status očitavanja, odnosno verifikacije na početku očitavanja je podešen na vrednost
+                                "Ne", tek nakon završetka očitavanja, unosa količina i kontrole istih  postavljate status na "Da", odnosno klikom na dugme   =&gt;Verifikuj&lt;=
+                                vršite
+                                verifikaciju unesenih količina, odnosno očitavanja.</p>
+                            <p className='verification-st'>Verifikaciju očitavanja ne vršite sve dok ne budete sigurni da ste završili sa unosom svih očitanih količina!</p>
+{/*                             <p className='verification-st'>Verifikovano očitavanje: {authState.userStatus}</p>
+ */}
+                            <button className='verification-st ver-btn' onClick={handleToggle}>Verifikuj</button>
+                           
+                        </div>
                     </InputMeterStateSt>
                 </HelmetProvider>
             ) : (

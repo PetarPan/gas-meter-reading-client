@@ -32,12 +32,7 @@ function AdminPage() {
       Admin Page
       <ul>
         <h3>Komponente za Admina</h3>
-        <li>Lista trasa, dodavanje i brisanje</li>
-        <li>Lista citaca, dodavanje i brisanje</li>
         <li>Dugme uvoz nove baze, trasa</li>
-        <li>Dugme popunjavanje baza trasa iz gornjeg uvoza</li>
-        <li>Dugme brisanje podataka iz baza trasa</li>
-        <li>Tabelarni prikaz svih trasa, sort i filter svih kolona uz dugme za eksport u .csv</li>
       </ul>
     </div>
 

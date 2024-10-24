@@ -123,7 +123,7 @@ const TrasaID = () => {
                        
                     </tbody>
                 </Table>
-                {/* Dugme za brisanje čitača, sa prikazom imena, prezimena  ID citaca */}
+                {/* Dugme za brisanje*/}
                 <button style={{ padding: '10px' }}
                     onClick={() => {
                         deleteTrasa(trase.id);

@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef, useContext } from 'react';
 import InputMeterStateSt from "../styledComponents/InputMeterStateSt.style"
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { AuthContext } from '../helpers/AuthContext';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CSVLink } from "react-csv";
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -13,7 +13,6 @@ function InputMeterStateAdmin() {
     const [states, setStates] = useState([]);
     const [selectedRow, setSelectedRow] = useState(0);
     const [newMeterValues, setNewMeterValues] = useState([]);
-    const [newComment, setNewComment] = useState([]);
     const inputRefs = useRef([]);
     const { authState } = useContext(AuthContext);
 
@@ -28,9 +27,11 @@ function InputMeterStateAdmin() {
         item.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.RJ.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.meterId.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.readerId.toString().toLowerCase().includes(searchTerm.toLowerCase()) 
+        item.readerId.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.trasaId.toString().includes(searchTerm.toLowerCase()) 
+
     );
-    
+
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
     };
@@ -41,8 +42,8 @@ function InputMeterStateAdmin() {
 
     const handleSort = () => {
         const sortedData = [...states].sort((a, b) => {
-            const aValue = parseFloat(a.newMeter) || 0; // Konvertuj u broj ili postavi na 0
-            const bValue = parseFloat(b.newMeter) || 0; // Isto kao gore
+            const aValue = parseFloat(a.newMeter) - parseFloat(a.oldMeter) || 0; // Konvertuj u broj ili postavi na 0
+            const bValue = parseFloat(b.newMeter) - parseFloat(b.oldMeter) || 0; // Isto kao gore
 
             return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
         });
@@ -122,9 +123,6 @@ function InputMeterStateAdmin() {
 
         const newMeterValue = parseInt(newMeterValues[rowIndex]);
         const oldMeterValue = parseInt(states[rowIndex].oldMeter);
-        //const lessState = parseInt(states[rowIndex].lessState);
-        const newMeterOfficial = parseInt(states[rowIndex].newMeterOfficial);
-        const comment = parseInt(newComment[rowIndex]);
         const consumption = newMeterValue - oldMeterValue;
 
         //potrebno da se prilikom novog ucitavanja i navigacije po tabeli ne bi brisala nova stanja i postavljala Nan...
@@ -136,7 +134,6 @@ function InputMeterStateAdmin() {
         // Ako je novo stanje manje od starog, prikaži prozor za potvrdu
         if (newMeterValue < oldMeterValue) {
 
-            //const confirm = window.confirm('manje stanje?')
 
             confirmAlert({
                 title: 'Potvrda unosa',
@@ -155,11 +152,10 @@ function InputMeterStateAdmin() {
                                     consumption: Math.ceil(consumption),
                                     newMeterOfficial: oldMeterValue,
                                     lessState: newMeterValue
-                                    // comment: comment
                                 };
                                 return updatedStates;
                             });
-    
+
                             // Snimanje u bazu
                             try {
                                 await axios.put(`http://localhost:3001/trasa/unos/${states[rowIndex].id}`, { newMeter: newMeterValue, newMeterOfficial: oldMeterValue, lessState: newMeterValue });
@@ -188,14 +184,13 @@ function InputMeterStateAdmin() {
                     consumption: Math.ceil(consumption),
                     lessState: "",
                     newMeterOfficial: newMeterValue,
-                    comment: comment
                 };
                 return updatedStates;
             });
 
             // Snimanje u bazu
             try {
-                await axios.put(`http://localhost:3001/trasa/unos/${states[rowIndex].id}`, { newMeter: newMeterValue, newMeterOfficial: newMeterValue, lessState: "", comment: comment });
+                await axios.put(`http://localhost:3001/trasa/unos/${states[rowIndex].id}`, { newMeter: newMeterValue, newMeterOfficial: newMeterValue, lessState: ""});
             } catch (error) {
                 console.error('Greška prilikom čuvanja unosa:', error);
             }
@@ -280,27 +275,31 @@ function InputMeterStateAdmin() {
     const miUnread = numberMi - numberMiRead;
 
     const readInformation = (
-        <div>
-            <div>Broj MI: {numberMi}</div>
-            <div>Broj očitanih MI: {numberMiRead}</div>
-            <div>Broj neočitanih MI: {miUnread} </div>
-        </div>
+        ` 
+        Informacija o ukupnom broju MI, očitano/neočitano:
+            Broj MI: ${numberMi}
+            Broj očitanih MI: ${numberMiRead}
+            Broj neočitanih MI: ${miUnread}
+        `
     );
     return (
         <>
             <HelmetProvider>
-            {readInformation}
                 {/* Helmet - naziv kartice u pregledaču */}
                 <Helmet>
                     <title>Pregled količina</title>
                 </Helmet>
 
                 <InputMeterStateSt>
+
                     <div className='main-title'>
+                        <div className='read-information'>
+                        </div>
+
                         <h2 className='title'>Unos stanja</h2>
                         {/* search input */}
                         <div>
-                            <label>Pretraga po broju Ugovora, nazivu kupca, adresis i broju merila: </label>
+                            <label>Pretraga po broju Ugovora, nazivu kupca, adresi i broju merila: </label>
                             <input
                                 type="text"
                                 placeholder="Unesite željeni parametar za pretragu"
@@ -357,6 +356,7 @@ function InputMeterStateAdmin() {
                             </button>
                             {/* dugme za čuvanje unesenih vrednosti u kolonu Novo stanje */}
                             <button className='save' onClick={handleSave}>Sačuvaj</button> <br />
+                            <button className='info' onClick={() => {alert(readInformation)}}>Info</button> <br />
                         </div>
                     </div>
 
@@ -420,12 +420,13 @@ function InputMeterStateAdmin() {
                                         </td>
                                         {/* consumption field table */}
                                         <td className={
-                                            (state.newMeter - state.oldMeter) > 1500 || (state.newMeter - state.oldMeter) < 0
-                                                ? 'red'
-                                                : (state.newMeter - state.oldMeter) > 0 && (state.newMeter - state.oldMeter) <= 1500
-                                                    ? 'green' : (state.newMeter - state.oldMeter) < 0 ? 'orange'
-                                                        : 'white'
-                                        }>{state.newMeter - state.oldMeter}</td>
+                                                        (state.newMeter - state.oldMeter) > 1500
+                                                            ? 'red'
+                                                            : (state.newMeter - state.oldMeter) <= 1500 && (state.newMeter - state.oldMeter) >= 0
+                                                                ? 'green' : (state.newMeter - state.oldMeter) < 0 ? 'orange' :
+                                                                    (state.newMeter) ? 'white'
+                                                                        : 'white'
+                                                    }>{state.newMeter - state.oldMeter}</td>
                                         <td>
                                             <button onClick={() => handleCommentClick(state.id)}>Unesi komentar</button>
                                         </td>

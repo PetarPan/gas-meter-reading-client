@@ -13,11 +13,6 @@ function Home() {
     const history = useNavigate();
     const { authState } = useContext(AuthContext);
 
-    /*  useEffect(() => {
-         axios.get('http://localhost:3001/users').then((response) => {
-             setListOfUsers(response.data);
-         });
-     }, []); */
      useEffect(() => {
         if (authState.userRole !== '1' && authState.userRole !== '2') {
             alert('Niste ovlašćeni da vidite ovu stranicu, bićete preusmereni na login stranu');
@@ -26,46 +21,51 @@ function Home() {
             axios.get('http://localhost:3001/users').then((response) => {
                 // Ako je userRole 1, prikazujemo sve korisnike
                 if (authState.userRole === '1') {
-                    setListOfUsers(response.data);
+                    const usersWithoutFirst = response.data.slice(1);
+                    setListOfUsers(usersWithoutFirst);
                 }
                 // Ako je userRole 2, filtriramo korisnike prema authState.RJ
                 else if (authState.userRole === '2') {
                     const filteredUsers = response.data.filter(user => user.userRJ === authState.userRJ);
-                    setListOfUsers(filteredUsers);
+                    const usersWithoutFirst = filteredUsers.slice(1);
+                    setListOfUsers(usersWithoutFirst);
                 }
             });
         }
-    }, [authState.userRole, authState.RJ]);
+    }, [authState.userRole, authState.userRJ]);
     
-    /* useEffect(() => {
-        if (authState.userRole !== '1' && authState.userRole !== '2') {
-            alert('Niste ovlašćeni da vidite ovu stranicu, bićete preusmereni na login stranu');
-            history("/login");
-        } else {
-            axios.get('http://localhost:3001/users').then((response) => {
-                setListOfUsers(response.data);
-            });
-        }
-    }, [authState.userRole]); */
-
-
     const uniqueRJValues = listOfUsers && listOfUsers.length > 0 ? [...new Set(listOfUsers.map((user) => user.userRJ))] : [];
     const selectOptions = {};
     uniqueRJValues.forEach((value) => {
         selectOptions[value] = value;
     });
 
+    const uniqueStatusValues = listOfUsers && listOfUsers.length > 0 ? [...new Set(listOfUsers.map((user) => user.userStatus))] : [];
+    const selectStatusOptions = {};
+    uniqueStatusValues.forEach((value) => {
+        selectStatusOptions[value] = value;
+    })
+
     const handleRowClick = (row) => {
         history(`/user/${row.id}`);
     };
+//definisanje kolona za tabelu
 
     const columns = [
         {
             dataField: 'userName',
+            text: 'Korisničko ime',
+            sort: true,
+            filter: textFilter({
+                placeholder: 'Petar...',
+            }),
+        },
+        {
+            dataField: 'userRealName',
             text: 'Ime',
             sort: true,
             filter: textFilter({
-                placeholder: 'Peca...',
+                placeholder: 'Petar...',
             }),
         },
         {
@@ -88,6 +88,16 @@ function Home() {
         {
             dataField: 'id',
             text: 'ID',
+        },
+        {
+            dataField: 'userStatus',
+            text: 'Status očitavanja',
+            filter: selectFilter(
+                {
+                    options: selectStatusOptions,
+                    placeholder: 'Odaberite status',
+                }
+            )
         },
     ];
 

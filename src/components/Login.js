@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useRef, useContext, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -13,15 +13,17 @@ function Login() {
         userPassword: ""
     };
 
+    const inputRef = useRef(null); //kreiranje reference za input polje
+    
+    useEffect(() => {
+        inputRef.current.focus(); ///postavlja fokus na input polje za username
+    }, [])
     const validationSchema = Yup.object().shape({
         userName: Yup.string()
             .required('Polje korisniko ime je obavezno'),
         userPassword: Yup.string()
             .required('Polje lozinka ime je obavezno'),
     });
-
-    //const [userName, setUserName] = useState('');
-    //const [userPassword, setPassword] = useState('');
     const { authState, setAuthState } = useContext(AuthContext);
     const history = useNavigate();
     //provera da li je korisnik ulogovan, ukoliko jeste ne moze da ide na /login
@@ -40,7 +42,7 @@ function Login() {
                 alert(response.data.error);
             } else {
                 localStorage.setItem("accessToken", response.data.token);
-                setAuthState({ userName: response.data.userName, id: response.data.id, userSurName: response.data.userSurName, userRole: response.data.userRole, userRJ: response.data.userRJ, status: true });
+                setAuthState({ userName: response.data.userName, id: response.data.id, userSurName: response.data.userSurName, userRole: response.data.userRole, userRJ: response.data.userRJ, status: true, userStatus: response.data.userStatus });
                 history("/");
                 //window.location.reload();
             }
@@ -54,7 +56,7 @@ function Login() {
                 <title>Login</title>
             </Helmet>
             <FormSt>
-            <h1 className='title'>Login za čitače</h1>
+                <h1 className='title'>Login za čitače</h1>
 
                 {/* ovde dodaj formik, form i field tagove sa pripadajucim atributima */}
                 <Formik
@@ -71,6 +73,7 @@ function Login() {
                                 <ErrorMessage name='userName' component='span' />
                                 <label className='label'>Korisničko ime:</label>
                                 <Field
+                                    innerRef={inputRef}
                                     className='inputCreatePost'
                                     name='userName'
                                     placeholder='(Ex. josh123)'
