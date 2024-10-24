@@ -29,7 +29,7 @@ const TraseRegisterNew = () => {
 
     const dodajTrasu = async (values, { resetForm }) => {
         try {
-            await axios.post('http://localhost:3001/trase', values);
+            await axios.post('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase', values);
             resetForm();
             alert('Trasa je uspešno registrovana.');
         } catch (error) {

@@ -34,7 +34,7 @@ function Registration() {
     });
     //funkcija za kreiranje novog čitača
     const register = (data, { resetForm }) => {
-        axios.post("http://localhost:3001/auth", data)
+        axios.post("https://gas-meter-reading-c5519d2e37b4.herokuapp.com/auth", data)
             .then(() => {
                 console.log(data);
                 resetForm();

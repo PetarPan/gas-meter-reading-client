@@ -15,7 +15,7 @@ const TraseList = () => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3001/trase')
+        axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase')
             .then(response => {
                 setListOfTrase(response.data);
             })

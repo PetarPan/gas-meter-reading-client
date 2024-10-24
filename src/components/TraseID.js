@@ -12,7 +12,7 @@ const TrasaID = () => {
     const history = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/trase/byId/${id}`).then((response) => {
+        axios.get(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/byId/${id}`).then((response) => {
         setTrase(response.data);
         });
 
@@ -20,7 +20,7 @@ const TrasaID = () => {
     /* funkcija za brisanje trase */
     const deleteTrasa = (id) => {
         axios
-            .delete(`http://localhost:3001/trase/${id}`, {
+            .delete(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/${id}`, {
                 headers: { accessToken: localStorage.getItem("accessToken") },
             })
             .then(() => {
@@ -38,7 +38,7 @@ const TrasaID = () => {
             case "trasaId":
                 newValue = prompt(`Enter new ${option}: `);
                 axios.put(
-                    `http://localhost:3001/trase/trasaId`,
+                    `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/trasaId`,
                     {
                         newTrasaId: newValue,
                         id: id,
@@ -51,7 +51,7 @@ const TrasaID = () => {
             case "trasaName":
                 newValue = prompt(`Enter new ${option}: `);
                 axios.put(
-                    `http://localhost:3001/trase/trasaName`,
+                    `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/trasaName`,
                     {
                         newTrasaName: newValue,
                         id: id,
@@ -64,7 +64,7 @@ const TrasaID = () => {
                 case "readerId":
                 newValue = prompt(`Enter new ${option}: `);
                 axios.put(
-                    `http://localhost:3001/trase/readerId`,
+                    `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/readerId`,
                     {
                         newReaderId: newValue,
                         id: id,
@@ -77,7 +77,7 @@ const TrasaID = () => {
                 case "RJ":
                 newValue = prompt(`Enter new ${option}: `);
                 axios.put(
-                    `http://localhost:3001/trase/RJ`,
+                    `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/RJ`,
                     {
                         newRJ: newValue,
                         id: id,

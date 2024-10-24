@@ -29,7 +29,7 @@ const validationSchema = Yup.object().shape({
   const changePassword = (values) => {   
     axios
       .put(
-        "http://localhost:3001/auth/changepassword",
+        "https://gas-meter-reading-c5519d2e37b4.herokuapp.com/auth/changepassword",
         {
           oldPassword: values.oldPassword,
           newPassword: values.newPassword,
