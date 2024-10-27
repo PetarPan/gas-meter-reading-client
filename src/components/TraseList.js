@@ -53,6 +53,9 @@ const TraseList = () => {
     const uniqueRJValues = [...new Set(listOfTrase.map(trasa => trasa.RJ))];
     const uniqueReaderId = [...new Set(listOfTrase.map(trasa => trasa.readerId))];
     
+    const handleRowClick = (trasaId) => {
+        history(`/trase/${trasaId}`);  // Navigacija ka stranici sa detaljima o korisniku
+    };
 
     return (
         <Table>
@@ -91,7 +94,7 @@ const TraseList = () => {
                     <tbody>
                         {filteredTrase.length > 0 ? (
                             filteredTrase.map((trasa) => (
-                                <tr key={trasa.trasaId}>
+                                <tr key={trasa.trasaId} onClick={() => handleRowClick(trasa.id)}>
                                     <td>{trasa.trasaId}</td>
                                     <td>{trasa.trasaName}</td>
                                     <td>{trasa.trasaName2}</td>

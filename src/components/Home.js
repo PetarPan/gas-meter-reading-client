@@ -14,6 +14,7 @@ function Home() {
     const history = useNavigate();
     const { authState } = useContext(AuthContext);
 
+
     useEffect(() => {
         if (authState.userRole !== '1' && authState.userRole !== '2') {
             alert('Niste ovlašćeni da vidite ovu stranicu, bićete preusmereni na login stranu');
@@ -56,6 +57,10 @@ function Home() {
     const uniqueRJValues = [...new Set(listOfUsers.map(user => user.userRJ))];
     const uniqueStatusValues = [...new Set(listOfUsers.map(user => user.userStatus))];
     
+    const handleRowClick = (userId) => {
+        history(`/user/${userId}`);  // Navigacija ka stranici sa detaljima o korisniku
+    };
+
     return (
         <>
             <Table>
@@ -95,7 +100,7 @@ function Home() {
                             <tbody>
                                 {filteredUsers.length > 0 ? (
                                     filteredUsers.map((user) => (
-                                        <tr key={user.id}>
+                                        <tr key={user.id} onClick={() => handleRowClick(user.id)}>
                                             <td>{user.id}</td>
                                             <td>{user.userName}</td>
                                             <td>{user.userSurName}</td>
