@@ -13,7 +13,7 @@ function AdminStuff() {
         setError(null); // Resetovanje greške pre nego što pokušamo
         try {
             // Poziv nove rute za resetovanje statusa
-            const response = await axios.put('http://localhost:3001/users/resetStatus');
+            const response = await axios.put('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/resetStatus');
             setMessage(response.data.message); // Prikazivanje poruke
         } catch (err) {
             setError('Došlo je do greške prilikom resetovanja statusa čitača.');

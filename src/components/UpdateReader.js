@@ -11,7 +11,7 @@ function UpdateReader() {
   let history = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/users/byId/${id}`).then((response) => {
+    axios.get(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/byId/${id}`).then((response) => {
       setUserObject(response.data);
     });
 
@@ -20,7 +20,7 @@ function UpdateReader() {
   /* funkcija za brisanje čitača */
   const deleteUser = (id) => {
     axios
-      .delete(`http://localhost:3001/users/${id}`, {
+      .delete(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/${id}`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then(() => {
@@ -38,7 +38,7 @@ function UpdateReader() {
       case "userName":
         newValue = prompt(`Enter new ${option}: `);
         axios.put(
-          `http://localhost:3001/users/userName`,
+          `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userName`,
           {
             newUserName: newValue,
             id: id,
@@ -51,7 +51,7 @@ function UpdateReader() {
       case "userRealName":
         newValue = prompt(`Enter new ${option}: `);
         axios.put(
-          `http://localhost:3001/users/userRealName`,
+          `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userRealName`,
           {
             newUserRealName: newValue,
             id: id,
@@ -64,7 +64,7 @@ function UpdateReader() {
       case "userSurName":
         newValue = prompt(`Enter new ${option}: `);
         axios.put(
-          `http://localhost:3001/users/userSurName`,
+          `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userSurName`,
           {
             newUserSurName: newValue,
             id: id,
@@ -77,7 +77,7 @@ function UpdateReader() {
       case "userRJ":
         newValue = prompt(`Enter new ${option}: `);
         axios.put(
-          `http://localhost:3001/users/userRJ`,
+          `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userRJ`,
           {
             newUserRJ: newValue,
             id: id,

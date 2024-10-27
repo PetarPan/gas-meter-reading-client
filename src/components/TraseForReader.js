@@ -17,7 +17,7 @@ function TraseForReader() {
     }, [authState, navigate]);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/trase')
+        axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase')
             .then(response => {
                 // Izdvoj jedinstvene trase
                 const uniqueTrasesMap = new Map();
@@ -51,7 +51,7 @@ function TraseForReader() {
     const handleToggle = async () => {
         const accessToken = localStorage.getItem("accessToken");
         try {
-            const response = await axios.put("http://localhost:3001/users/toggleStatus", {}, {
+            const response = await axios.put("https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/toggleStatus", {}, {
                 headers: {
                     accessToken: accessToken  // Token za autentifikaciju
                 }

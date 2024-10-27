@@ -19,7 +19,7 @@ function Home() {
             alert('Niste ovlašćeni da vidite ovu stranicu, bićete preusmereni na login stranu');
             history("/login");
         } else {
-            axios.get('http://localhost:3001/users').then((response) => {
+            axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users').then((response) => {
                 // Ako je userRole 1, prikazujemo sve korisnike
                 if (authState.userRole === '1') {
                     const usersWithoutFirst = response.data.slice(1);

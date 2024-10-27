@@ -36,7 +36,7 @@ function Login() {
     //funkcija za login čitača i preusmeravanje na početnu stranicu u slučaju uspešnog logovanja
     const login = (values) => {
         const data = { userName: values.userName, userPassword: values.userPassword }
-        axios.post('http://localhost:3001/auth/login', data).then((response) => {
+        axios.post('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/auth/login', data).then((response) => {
 
             if (response.data.error) {
                 alert(response.data.error);

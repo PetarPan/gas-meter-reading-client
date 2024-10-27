@@ -53,7 +53,7 @@ function InputMeterStateAdmin() {
     //kraj sort funkcije
 
     useEffect(() => {
-        axios.get('http://localhost:3001/trasa/unos')
+        axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos')
             .then(response => {
                 setStates(response.data);
                 // setNewMeterValues(response.data.map(() => ''));
@@ -97,7 +97,7 @@ function InputMeterStateAdmin() {
 
             await Promise.all(
                 updatedStates.map(async (state) => {
-                    await axios.put(`http://localhost:3001/trasa/unos/${state.id}`, { newMeter: state.newMeter });
+                    await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { newMeter: state.newMeter });
                 })
             );
             alert('Unesene vrednosti su uspešno sačuvane.');
@@ -158,7 +158,7 @@ function InputMeterStateAdmin() {
 
                             // Snimanje u bazu
                             try {
-                                await axios.put(`http://localhost:3001/trasa/unos/${states[rowIndex].id}`, { newMeter: newMeterValue, newMeterOfficial: oldMeterValue, lessState: newMeterValue });
+                                await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${states[rowIndex].id}`, { newMeter: newMeterValue, newMeterOfficial: oldMeterValue, lessState: newMeterValue });
                             } catch (error) {
                                 console.error('Greška prilikom čuvanja unosa:', error);
                             }
@@ -190,7 +190,7 @@ function InputMeterStateAdmin() {
 
             // Snimanje u bazu
             try {
-                await axios.put(`http://localhost:3001/trasa/unos/${states[rowIndex].id}`, { newMeter: newMeterValue, newMeterOfficial: newMeterValue, lessState: ""});
+                await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${states[rowIndex].id}`, { newMeter: newMeterValue, newMeterOfficial: newMeterValue, lessState: ""});
             } catch (error) {
                 console.error('Greška prilikom čuvanja unosa:', error);
             }
@@ -217,7 +217,7 @@ function InputMeterStateAdmin() {
 
             await Promise.all(
                 updatedStates.map(async (state) => {
-                    await axios.put(`localhost:3001/trasa/unos/${state.id}`, { comment: state.comment });
+                    await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { comment: state.comment });
                 })
             );
             alert('Komentar je uspešno sačuvan!');
