@@ -208,21 +208,21 @@ function InputMeterStateAdmin() {
         try {
             const updatedStates = states.map((state) => {
                 if (state.id === stateId) {
-                    return { ...state, comment };
+                    return { ...state, comment }; // Ažuriraj samo lokalno
                 }
                 return state;
             });
             setStates(updatedStates);
     
-            for (const state of updatedStates) {
-                await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { comment: state.comment });
-            }
+            // Umesto da ažurirate sve, šaljite samo za trenutni state
+            const stateToUpdate = updatedStates.find(state => state.id === stateId);
+            await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${stateId}/comment`, { comment: stateToUpdate.comment });
+            
+            alert('Komentar je uspešno sačuvan!');
         } catch (error) {
             console.error('Došlo je do greške prilikom čuvanja komentara:', error);
             alert('Došlo je do greške prilikom čuvanja komentara.');
         }
-        alert('Komentar je uspešno sačuvan!');
-
     };
     
     

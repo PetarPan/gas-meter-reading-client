@@ -76,7 +76,7 @@ function InputMeterState() {
         }
     };
 
-    const handleSave = async () => {
+    /* const handleSave = async () => {
         try {
             const updatedStates = states.map((state, index) => ({
                 ...state,
@@ -92,7 +92,39 @@ function InputMeterState() {
             console.error('Došlo je do greške prilikom čuvanja novog stanja:', error);
             alert('Došlo je do greške prilikom čuvanja novog stanja.');
         }
+    }; */
+    const handleSave = async () => {
+        try {
+            // Filtriramo samo stanja koja su promenjena
+            const updatedStates = states.map((state, index) => ({
+                ...state,
+                newMeter: newMeterValues[index] || state.newMeter,
+            }));
+            
+            const statesToSave = updatedStates.filter((state, index) => 
+                newMeterValues[index] && newMeterValues[index] !== state.newMeter
+            );
+    
+            if (statesToSave.length === 0) {
+                alert('Nema novih promena za čuvanje.');
+                return;
+            }
+    
+            // Snimamo samo promenjena stanja
+            await Promise.all(
+                statesToSave.map(async (state) => {
+                    await axios.put(`http://localhost:3001/trasa/unos/${state.id}`, { newMeter: state.newMeter });
+                })
+            );
+    
+            setStates(updatedStates);
+            alert('Unesene vrednosti su uspešno sačuvane.');
+        } catch (error) {
+            console.error('Došlo je do greške prilikom čuvanja novog stanja:', error);
+            alert('Došlo je do greške prilikom čuvanja novog stanja.');
+        }
     };
+    
 
     const handleInputChange = async (e, rowIndex) => {
 
@@ -184,27 +216,7 @@ function InputMeterState() {
         }
     };
     //kraj unosa i čuvanja novog stanja
-   /*  const saveComment = async (stateId, comment) => {
-        try {
-            const updatedStates = states.map((state) => {
-                if (state.id === stateId) {
-                    return { ...state, comment };
-                }
-                return state;
-            });
-            setStates(updatedStates);
-    
-            for (const state of updatedStates) {
-                await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { comment: state.comment });
-            }
-        } catch (error) {
-            console.error('Došlo je do greške prilikom čuvanja komentara:', error);
-            alert('Došlo je do greške prilikom čuvanja komentara.');
-        }
-        alert('Komentar je uspešno sačuvan!');
-
-    };
- */
+   
     const saveComment = async (stateId, comment) => {
         try {
             const updatedStates = states.map((state) => {
