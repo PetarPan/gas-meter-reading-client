@@ -63,7 +63,7 @@ function InputMeterState() {
     }, [id]);
 
     const handleKeyDown = (e, rowIndex) => {
-        if (e.key === 'ArrowDown') {
+        if (e.key === 'ArrowDown' || e.key === 'Enter') {
             if (rowIndex < states.length - 1) {
                 setSelectedRow(rowIndex + 1);
                 inputRefs.current[rowIndex + 1].focus();
@@ -83,12 +83,10 @@ function InputMeterState() {
                 newMeter: newMeterValues[index] || state.newMeter,
             }));
             setStates(updatedStates);
-
-            await Promise.all(
-                updatedStates.map(async (state) => {
-                    await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/unos/${state.id}`, { newMeter: state.newMeter });
-                })
-            );
+    
+            for (const state of updatedStates) {
+                await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { newMeter: state.newMeter });
+            }
             alert('Unesene vrednosti su uspešno sačuvane.');
         } catch (error) {
             console.error('Došlo je do greške prilikom čuvanja novog stanja:', error);
@@ -195,17 +193,16 @@ function InputMeterState() {
                 return state;
             });
             setStates(updatedStates);
-
-            await Promise.all(
-                updatedStates.map(async (state) => {
-                    await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { comment: state.comment });
-                })
-            );
-            alert('Komentar je uspešno sačuvan!');
+    
+            for (const state of updatedStates) {
+                await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { comment: state.comment });
+            }
         } catch (error) {
             console.error('Došlo je do greške prilikom čuvanja komentara:', error);
             alert('Došlo je do greške prilikom čuvanja komentara.');
         }
+        alert('Komentar je uspešno sačuvan!');
+
     };
 
     const handleCommentClick = (stateId) => {

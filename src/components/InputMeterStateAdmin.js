@@ -94,18 +94,17 @@ function InputMeterStateAdmin() {
                 newMeter: newMeterValues[index] || state.newMeter,
             }));
             setStates(updatedStates);
-
-            await Promise.all(
-                updatedStates.map(async (state) => {
-                    await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { newMeter: state.newMeter });
-                })
-            );
+    
+            for (const state of updatedStates) {
+                await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { newMeter: state.newMeter });
+            }
             alert('Unesene vrednosti su uspešno sačuvane.');
         } catch (error) {
             console.error('Došlo je do greške prilikom čuvanja novog stanja:', error);
             alert('Došlo je do greške prilikom čuvanja novog stanja.');
         }
     };
+    
 
     const handleInputChange = async (e, rowIndex) => {
 
@@ -214,18 +213,20 @@ function InputMeterStateAdmin() {
                 return state;
             });
             setStates(updatedStates);
-
-            await Promise.all(
-                updatedStates.map(async (state) => {
-                    await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { comment: state.comment });
-                })
-            );
-            alert('Komentar je uspešno sačuvan!');
+    
+            for (const state of updatedStates) {
+                await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { comment: state.comment });
+            }
         } catch (error) {
             console.error('Došlo je do greške prilikom čuvanja komentara:', error);
             alert('Došlo je do greške prilikom čuvanja komentara.');
         }
+        alert('Komentar je uspešno sačuvan!');
+
     };
+    
+    
+    
     //unos i čuvanje komentara kraj
 
     //izvoz ocitanih kolicina za uvoz...
