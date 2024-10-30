@@ -87,7 +87,7 @@ function InputMeterStateAdmin() {
 
     };
     //unos i čuvanje novog stanja
-    const handleSave = async () => {
+ /*    const handleSave = async () => {
         try {
             const updatedStates = states.map((state, index) => ({
                 ...state,
@@ -103,7 +103,7 @@ function InputMeterStateAdmin() {
             console.error('Došlo je do greške prilikom čuvanja novog stanja:', error);
             alert('Došlo je do greške prilikom čuvanja novog stanja.');
         }
-    };
+    }; */
     
 
     const handleInputChange = async (e, rowIndex) => {

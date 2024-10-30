@@ -184,7 +184,7 @@ function InputMeterState() {
         }
     };
     //kraj unosa i čuvanja novog stanja
-    const saveComment = async (stateId, comment) => {
+   /*  const saveComment = async (stateId, comment) => {
         try {
             const updatedStates = states.map((state) => {
                 if (state.id === stateId) {
@@ -204,7 +204,28 @@ function InputMeterState() {
         alert('Komentar je uspešno sačuvan!');
 
     };
-
+ */
+    const saveComment = async (stateId, comment) => {
+        try {
+            const updatedStates = states.map((state) => {
+                if (state.id === stateId) {
+                    return { ...state, comment }; // Ažuriraj samo lokalno
+                }
+                return state;
+            });
+            setStates(updatedStates);
+    
+            // Umesto da ažurirate sve, šaljite samo za trenutni state
+            const stateToUpdate = updatedStates.find(state => state.id === stateId);
+            await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/${stateId}/comment`, { comment: stateToUpdate.comment });
+            
+            alert('Komentar je uspešno sačuvan!');
+        } catch (error) {
+            console.error('Došlo je do greške prilikom čuvanja komentara:', error);
+            alert('Došlo je do greške prilikom čuvanja komentara.');
+        }
+    };
+    
     const handleCommentClick = (stateId) => {
         const comment = prompt("Unesite komentar:");
         if (comment) {
