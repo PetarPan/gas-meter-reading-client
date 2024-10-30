@@ -217,7 +217,7 @@ function InputMeterState() {
     
             // Umesto da ažurirate sve, šaljite samo za trenutni state
             const stateToUpdate = updatedStates.find(state => state.id === stateId);
-            await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/unos/trasa/${stateId}/comment`, { comment: stateToUpdate.comment });
+            await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${stateId}/comment`, { comment: stateToUpdate.comment });
             
             alert('Komentar je uspešno sačuvan!');
         } catch (error) {
