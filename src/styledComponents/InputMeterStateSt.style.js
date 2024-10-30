@@ -175,7 +175,7 @@ ${'' /* mobilna verzija */}
     }
 
     input {
-        width: 100%;
+        width: 40%;
         padding: 10px;
         margin-bottom: 10px;
         font-size: 3vw;
@@ -198,7 +198,8 @@ ${'' /*         margin-top: 5px;
 
     .buttons {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+        padding: 0 5px 0 5px;
         width: 100%;
 ${'' /*         margin-top: 5px;
  */}    }

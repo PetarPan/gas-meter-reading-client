@@ -430,7 +430,7 @@ function InputMeterState() {
 
             
                 {loading ? (
-    <p>Loading data...</p> 
+    <p>Učitavanje trase, molimo sačekajte...</p> 
 ) : (
     isMobile ? (
         <div className="mobile-view">
@@ -578,8 +578,6 @@ function InputMeterState() {
         </div>
     )
 )}
-
-
                 </InputMeterStateSt>
             </HelmetProvider>
         </>
