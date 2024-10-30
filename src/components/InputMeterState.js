@@ -16,6 +16,7 @@ function InputMeterState() {
     const { authState } = useContext(AuthContext);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentCustomer, setCurrentCustomer] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
     const { id } = useParams();
@@ -46,6 +47,7 @@ function InputMeterState() {
     }, [authState, navigate]);
     /* useEffect za komunikaciju */
     useEffect(() => {
+        setLoading(true);
         if (id) {
             axios.get(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/${id}`)
                 .then(response => {
@@ -55,9 +57,11 @@ function InputMeterState() {
                     if (response.data.length > 0) {
                         setCurrentCustomer(response.data[0]);  // Postavljamo prvog kupca
                     }
+                    setLoading(false);
                 })
                 .catch(error => {
                     console.error('Došlo je do greške!', error);
+                    setLoading(false);
                 });
         }
     }, [id]);
@@ -76,23 +80,7 @@ function InputMeterState() {
         }
     };
 
-    /* const handleSave = async () => {
-        try {
-            const updatedStates = states.map((state, index) => ({
-                ...state,
-                newMeter: newMeterValues[index] || state.newMeter,
-            }));
-            setStates(updatedStates);
-    
-            for (const state of updatedStates) {
-                await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { newMeter: state.newMeter });
-            }
-            alert('Unesene vrednosti su uspešno sačuvane.');
-        } catch (error) {
-            console.error('Došlo je do greške prilikom čuvanja novog stanja:', error);
-            alert('Došlo je do greške prilikom čuvanja novog stanja.');
-        }
-    }; */
+   
     const handleSave = async () => {
         try {
             // Filtriramo samo stanja koja su promenjena
@@ -440,174 +428,157 @@ function InputMeterState() {
                 </Helmet>
                 <InputMeterStateSt>
 
-                    {isMobile ? (
-
-                        <div className="mobile-view">
-                            {/* Prikaz za mobilne uređaje */}
-                            {/* prikaz ocitanih, neocitanih i ukupnog broja MI */}
-
-                            {currentCustomer && (
-
-                                <section>
-                                    <div>
-                                        <h3 className="title">Unos stanja za trasu ID: {id}</h3>
-
-                                        <button className="info-btn" onClick={() => { alert(readInformation) }}>Info</button>
-                                    </div>
-                                    <div className="user-info-input">
-                                        <div className="ugovor">
-                                            Redni broj u trasi: {currentCustomer.id} <br></br>
-                                            Broj Ugovora: {currentCustomer.contructNumber}
-                                        </div>
-                                        <div className="ime">
-                                            Ime i prezime: {currentCustomer.name}
-                                        </div>
-                                        <div className="adresa">
-                                            Adresa: {currentCustomer.address}
-                                        </div>
-                                    </div>
-                                    <div className="search">
-                                        <label>Pronađi po broju merila: </label>
+            
+                {loading ? (
+    <p>Loading data...</p> 
+) : (
+    isMobile ? (
+        <div className="mobile-view">
+            {/* Prikaz za mobilne uređaje */}
+            {currentCustomer && (
+                <section>
+                    <div>
+                        <h3 className="title">Unos stanja za trasu ID: {id}</h3>
+                        <button className="info-btn" onClick={() => alert(readInformation)}>Info</button>
+                    </div>
+                    <div className="user-info-input">
+                        <div className="ugovor">
+                            Redni broj u trasi: {currentCustomer.id} <br />
+                            Broj Ugovora: {currentCustomer.contructNumber}
+                        </div>
+                        <div className="ime">
+                            Ime i prezime: {currentCustomer.name}
+                        </div>
+                        <div className="adresa">
+                            Adresa: {currentCustomer.address}
+                        </div>
+                    </div>
+                    <div className="search">
+                        <label>Pronađi po broju merila: </label>
+                        <input
+                            placeholder="pretraga po broju merila"
+                            value={searchTerm}
+                            onChange={(e) => handleSearchChange(e)}
+                        />
+                        <button onClick={handleSearchClick}>Pronađi</button>
+                    </div>
+                    <div className="input-style">
+                        <div className="merilo">
+                            Broj merila: {currentCustomer.meterId}
+                        </div>
+                        <div className="oldMeter">
+                            Staro stanje: {currentCustomer.oldMeter}
+                        </div>
+                        <div className="newMeter">
+                            Novo uneseno stanje: {currentCustomer.newMeter || "Neočitano"}
+                        </div>
+                        <div className={`consumption ${currentCustomer.newMeter - currentCustomer.oldMeter < 0 ? 'orange'
+                            : currentCustomer.newMeter - currentCustomer.oldMeter > 1500 ? 'red'
+                            : 'green'}`}>
+                            Potrošnja: {currentCustomer.newMeter - currentCustomer.oldMeter}
+                        </div>
+                        Očitano: {currentCustomer.newMeter ? 'Da' : 'Ne'} |
+                        <label>Unesi novo stanje merila: </label>
+                        <input
+                            ref={inputRef}
+                            type="number"
+                            placeholder="unesite novo stanje merila"
+                            min="0"
+                            step="1"
+                            inputMode="numeric"
+                            pattern="\d"
+                            value={currentCustomer.newMeter || ''}
+                            onChange={(e) => handleInputChangeMob(e)}
+                            onKeyDown={handleKeyDown}
+                        />
+                    </div>
+                    <div className="buttons">
+                        <button onClick={() => handleNavigation('prev')}>Prethodni</button>
+                        <button className="state-btn" onClick={handleState}>Unesi stanje</button>
+                        <button onClick={() => handleNavigation('next')}>Sledeći</button>
+                        <br />
+                    </div>
+                    <button onClick={() => handleCommentClick(currentCustomer.id)}>Unesi komentar</button>
+                </section>
+            )}
+        </div>
+    ) : (
+        <div className="desktop-view">
+            <div className="main-title">
+                {readInformation}
+                <h2 className="title">Unos stanja za trasu ID: {id}</h2>
+                <button className="save" onClick={handleSave}>Sačuvaj</button><br />
+            </div>
+            {states && states.length > 0 ? (
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID Trase</th>
+                            <th>Ugovor</th>
+                            <th>Ime</th>
+                            <th>Adresa</th>
+                            <th>Merilo</th>
+                            <th>Staro stanje</th>
+                            <th>Novo stanje</th>
+                            <th>Potrošnja</th>
+                            <th>Komentar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {states
+                            .slice()
+                            .sort((a, b) => a.id - b.id)
+                            .map((state, index) => (
+                                <tr key={index} onKeyDown={(e) => handleKeyDown(e, index)}>
+                                    <td>{state.trasaId}</td>
+                                    <td>{state.contructNumber}</td>
+                                    <td>{state.name}</td>
+                                    <td>{state.address}</td>
+                                    <td>{state.meterId}</td>
+                                    <td>{state.oldMeter}</td>
+                                    <td>
                                         <input
-                                            placeholder="pretraga po broju merila"
-                                            value={searchTerm}
-                                            onChange={(e) => handleSearchChange(e)} // Ažurira searchTerm prilikom unosa
-                                        />
-                                        <button onClick={handleSearchClick}>Pronađi</button>
-                                    </div>
-                                    <div className="input-style">
-                                        <div className="merilo">
-                                            Broj merila: {currentCustomer.meterId}
-                                        </div>
-                                        <div className="oldMeter">
-                                            Staro stanje: {currentCustomer.oldMeter}
-                                        </div>
-                                        {/* Ukoliko je MI neočitano info neočitano : novo stanje */}
-                                        <div className="newMeter">
-                                            Novo uneseno stanje:   {currentCustomer.newMeter ? currentCustomer.newMeter : "Neočitano"}
-                                        </div>
-                                        {/*  <div className="consumption">
-                                        Potrošnja: {currentCustomer.newMeter - currentCustomer.oldMeter}
-                                    </div> */}
-                                        <div className={`consumption ${currentCustomer.newMeter - currentCustomer.oldMeter < 0 ? 'orange'
-                                            : currentCustomer.newMeter - currentCustomer.oldMeter > 1500 ? 'red'
-                                                : 'green'}`}>
-                                            Potrošnja: {currentCustomer.newMeter - currentCustomer.oldMeter}
-                                        </div>
-                                        Očitano: {currentCustomer.newMeter ? 'Da | ' : 'Ne | '} <label>Unesi novo stanje merila: </label>
-                                        <input
-                                            ref={inputRef}
+                                            ref={(el) => (inputRefs.current[index] = el)}
                                             type="number"
-                                            placeholder="unesite novo stanje merila"
-                                            min='0'
-                                            step='1'
+                                            placeholder="Unesite novo stanje"
+                                            value={newMeterValues[index] || state.newMeter}
+                                            onFocus={(e) => e.target.select()}
+                                            onChange={(e) => handleInputChange(e, index)}
+                                            onBlur={() => handleInputBlur(index)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                                                    e.preventDefault();
+                                                }
+                                                handleKeyDown(e, index);
+                                            }}
+                                            min="0"
+                                            step="1"
                                             inputMode="numeric"
                                             pattern="\d"
-                                            value={currentCustomer.newMeter || ''}
-                                            onChange={(e) => handleInputChangeMob(e)}
-                                            onKeyDown={handleKeyDown}
                                         />
-                                    </div>
-                                    <div className="buttons">
-                                        <button onClick={() => handleNavigation('prev')}>Prethodni</button>
-                                        {/*                                         <button className="nav-btn" onClick={handlePrevious}>Prethodni kupac</button>
- */}                                        <button className="state-btn" onClick={handleState}>Unesi stanje</button>
-                                        {/*                                         <button className="nav-btn" onClick={handleNext}>Sledeći kupac</button>
- */}
+                                    </td>
+                                    <td className={
+                                        (state.newMeter - state.oldMeter) > 1500
+                                            ? 'red'
+                                            : (state.newMeter - state.oldMeter) <= 1500 && (state.newMeter - state.oldMeter) >= 0
+                                            ? 'green' : (state.newMeter - state.oldMeter) < 0 ? 'orange' : 'white'
+                                    }>
+                                        {state.newMeter - state.oldMeter}
+                                    </td>
+                                    <td>
+                                        <button onClick={() => handleCommentClick(state.id)}>Unesi komentar</button>
+                                    </td>
+                                </tr>
+                            ))}
+                    </tbody>
+                </table>
+            ) : (
+                <p>Podaci nisu dostupni.</p>
+            )}
+        </div>
+    )
+)}
 
-                                        <button onClick={() => handleNavigation('next')}>Sledeći</button>
-                                        <br />
-                                    </div>
-                                    {/* dugme za prompt unos komentara */}
-
-                                    <button onClick={() => handleCommentClick(currentCustomer.id)}>Unesi komentar</button>
-                                </section>
-                            )}
-                        </div>
-                    ) : (
-                        <div className="desktop-view">
-                            {/* Prikaz za desktop */}
-                            <div className='main-title'>
-                                {/* prikaz ukupnog broja MI, očitanih/neočitanih */}
-                                {readInformation}
-                                <h2 className="title">Unos stanja za trasu ID: {id}</h2>
-
-                                {/* dugme za čuvanje unesenih vrednosti u kolonu Novo stanje */}
-                                <button className='save' onClick={handleSave}>Sačuvaj</button> <br />
-                            </div>
-
-                            {states && states.length > 0 ? (
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>ID Trase</th>
-                                            <th>Ugovor</th>
-                                            <th>Ime</th>
-                                            <th>Adresa</th>
-                                            <th>Merilo</th>
-                                            <th>Staro stanje</th>
-                                            <th>Novo stanje</th>
-                                            <th>Potrošnja</th>
-                                            <th>Komentar</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {states
-                                            .slice()
-                                            .sort((a, b) => a.id - b.id)
-                                            .map((state, index) => (
-                                                <tr key={index} onKeyDown={(e) => handleKeyDown(e, index)}>
-                                                    <td>{state.trasaId}</td>
-                                                    <td>{state.contructNumber}</td>
-                                                    <td>{state.name}</td>
-                                                    <td>{state.address}</td>
-                                                    <td>{state.meterId}</td>
-                                                    <td>{state.oldMeter}</td>
-                                                    {/* <td>{state.newMeter}</td> */}
-
-                                                    <td>
-                                                        <input
-                                                            ref={(el) => (inputRefs.current[index] = el)}
-                                                            type="number"
-                                                            placeholder="Unesite novo stanje"
-                                                            value={newMeterValues[index] || state.newMeter}
-                                                            onFocus={(e) => e.target.select()}
-                                                            onChange={(e) => handleInputChange(e, index)}
-                                                            onBlur={(e) => { handleInputBlur(index) }}
-                                                            onKeyDown={(e) => {
-                                                                if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-                                                                    e.preventDefault(); // Sprečava promenu vrednosti
-                                                                }
-                                                                handleKeyDown(e, index); // Poziva funkciju za navigaciju
-                                                            }}
-                                                            min='0'
-                                                            step='1'
-                                                            inputMode="numeric"
-                                                            pattern="\d"
-                                                        />
-                                                    </td>
-                                                    <td className={
-                                                        (state.newMeter - state.oldMeter) > 1500
-                                                            ? 'red'
-                                                            : (state.newMeter - state.oldMeter) <= 1500 && (state.newMeter - state.oldMeter) >= 0
-                                                                ? 'green' : (state.newMeter - state.oldMeter) < 0 ? 'orange' :
-                                                                    (state.newMeter) ? 'white'
-                                                                        : 'white'
-                                                    }>{state.newMeter - state.oldMeter}</td>
-                                                   
-                                                    <td>
-                                                        <button onClick={() => handleCommentClick(state.id)}>Unesi komentar</button>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                    </tbody>
-                                </table>
-                            ) : (
-                                <p>Podaci nisu dostupni.</p>
-                            )}
-                        </div>
-                    )}
 
                 </InputMeterStateSt>
             </HelmetProvider>

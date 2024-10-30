@@ -73,7 +73,7 @@ function InputMeterStateAdmin() {
     //funkcija za navigaciju strelicama
     const handleKeyDown = (e, rowIndex) => {
 
-        if (e.key === 'ArrowDown') {
+        if (e.key === 'ArrowDown' || e.key === 'Enter') {
             if (rowIndex < states.length - 1) {
                 setSelectedRow(rowIndex + 1);
                 inputRefs.current[rowIndex + 1].focus();
@@ -89,15 +89,29 @@ function InputMeterStateAdmin() {
     //unos i čuvanje novog stanja
     const handleSave = async () => {
         try {
+            // Filtriramo samo stanja koja su promenjena
             const updatedStates = states.map((state, index) => ({
                 ...state,
                 newMeter: newMeterValues[index] || state.newMeter,
             }));
-            setStates(updatedStates);
+            
+            const statesToSave = updatedStates.filter((state, index) => 
+                newMeterValues[index] && newMeterValues[index] !== state.newMeter
+            );
     
-            for (const state of updatedStates) {
-                await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { newMeter: state.newMeter });
+            if (statesToSave.length === 0) {
+                alert('Nema novih promena za čuvanje.');
+                return;
             }
+    
+            // Snimamo samo promenjena stanja
+            await Promise.all(
+                statesToSave.map(async (state) => {
+                    await axios.put(`http://localhost:3001/trasa/unos/${state.id}`, { newMeter: state.newMeter });
+                })
+            );
+    
+            setStates(updatedStates);
             alert('Unesene vrednosti su uspešno sačuvane.');
         } catch (error) {
             console.error('Došlo je do greške prilikom čuvanja novog stanja:', error);
