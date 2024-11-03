@@ -310,7 +310,7 @@ function InputMeterStateAdmin() {
 
             <InputMeterStateSt>
                 {loading ? (
-                    <p>Učitavanje trase, molimo sačekajte...</p>
+                    <p>Učitavanje podataka, molimo sačekajte...</p>
                 ) : (
                     <>
                         <div className='main-title'>

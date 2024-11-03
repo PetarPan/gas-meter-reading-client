@@ -7,14 +7,16 @@ const FormSt = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 500px;
+    width: 450px;
     height: auto;
     padding: 20px;
     border: 5px solid dodgerblue;
     border-radius: 5px;
     position: relative;
-    top: 20px;
-    margin: auto
+    top: 5px;
+    margin: auto;
+    text-align: center;
+
   }
 
 .container {
@@ -24,7 +26,7 @@ const FormSt = styled.div`
 }
 
   .formContainer .inputCreatePost {
-    height: 50px;
+    height: 40px;
     width: 250px;
     margin: auto;
     margin-top: 10px;
@@ -39,7 +41,7 @@ const FormSt = styled.div`
     display: block;
     margin: 0 auto;
     margin-top: 15px;
-    height: 40px;
+    height: 35px;
     width: 100px;
     border: none;
     background-color: lightskyblue;
@@ -59,11 +61,19 @@ const FormSt = styled.div`
   .title {
     font-size: 3em;
     text-align: center;
-    padding: 15px
+    padding: 10px
   }
 
   .label {
-    font-size: 1.5em;
+    font-size: 1.4em;
+}
+.icon {
+  font-size: 210px;
+  text-align: center;
+  color: dodgerblue;
+  margin-top: 25px;
+  margin: 0 auto;
+  width:20%;
 }
 
 /* Media Query for Mobile Devices */

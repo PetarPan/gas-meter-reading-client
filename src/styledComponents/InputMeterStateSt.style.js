@@ -95,7 +95,7 @@ const InputMeterStateSt = styled.div`
   }
   .main-title {
     position: sticky;
-    top: 75px;           /* Udaljenost od vrha prozora */
+    top: 60px;           /* Udaljenost od vrha prozora */
     z-index: 100; 
     background: white;
     padding-bottom: 10px;

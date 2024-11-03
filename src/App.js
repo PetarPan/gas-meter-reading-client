@@ -24,6 +24,8 @@ import NavBar from "./components/NavBar";
 import InputMeterStateAdmin from "./components/InputMeterStateAdmin";
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import AdminStuff from "./components/AdminStuff";
+import FAQs from "./components/FAQs";
+import Page404 from "./components/Page404";
 
 
 //portal distribucije, linkovi ka aplikaciji za konverziju količina u kWh, aplikacija za računanje havarijskih curenja, aplikacija za prijemi obradu reklamacija, aplikacija za očitavanje potrošnje => pSion
@@ -135,6 +137,10 @@ function App() {
           {/* posebna aplikacija */}
           <Route path="/kalkulator" exact element={<Kalkulator />} />
           <Route path="/havarije" exact element={<Havarije />} />
+          {/* faq */}
+          <Route path="/faq" exact element={<FAQs />} />
+          {/* 404 page */}
+          <Route path="*" exact element={<Page404 />} />
         </Routes>
       </Router>
     </AuthContext.Provider>

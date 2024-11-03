@@ -6,6 +6,8 @@ import FormSt from '../styledComponents/FormSt.style';
 import axios from 'axios';
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { AuthContext } from '../helpers/AuthContext';
+import { MdGasMeter } from 'react-icons/md';
+
 function Login() {
 
     const initialValues = {
@@ -98,6 +100,10 @@ function Login() {
 
                     </div>
                 </Formik>
+            <div className='icon'>
+            <MdGasMeter/>
+
+            </div>
             </FormSt>
         </HelmetProvider>
     )
