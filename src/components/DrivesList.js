@@ -1,5 +1,7 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import Table from '../styledComponents/Table.style';
+
 
 function DrivesList() {
     const [listOfDrives, setListOfDrives] = useState([]);
@@ -10,33 +12,41 @@ function DrivesList() {
         }).catch((err) => {
             console.error(err)
         })
-    },[]);
+    }, []);
 
     return (
-        <div>
-            <h2>Prikaz unesenih vožnji</h2>
+        <Table>
+            <div>
+                <h2>Prikaz unesenih vožnji</h2>
 
-            <table>
-                <thead>
-                    <th>Redni broj</th>
-                    <th>Cena vožnje</th>
-                    <th>Napojnica</th>
-                    <th>Poziv</th>
-                    <th>Vreme vožnje</th>
-                </thead>
-                <tbody>
-                    {listOfDrives.map((drive) => {
-                        <tr key={drive.driveId}>
-                            <td>{drive.drivePrice}</td>
-                            <td>{drive.driveTip}</td>
-                            <td>{drive.drivePayment}</td>
-                            <td>{drive.driveCall}</td>
-                            <td>{drive.driveDateTime}</td>
-                        </tr>
-                    })}
-                </tbody>
-            </table>
-        </div>
+                <table>
+                    <thead>
+                        <th>Redni broj</th>
+                        <th>Cena vožnje</th>
+                        <th>Napojnica</th>
+                        <th>Poziv</th>
+                        <th>Vreme vožnje</th>
+                    </thead>
+                    <tbody>
+                        {listOfDrives.length > 0 ? (
+                            listOfDrives.map((drive) => (
+                                <tr key={drive.id}>
+                                    <td>{drive.drivePrice}</td>
+                                    <td>{drive.driveTip}</td>
+                                    <td>{drive.drivePayment}</td>
+                                    <td>{drive.driveCall}</td>
+                                    <td>{drive.driveDateTime}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="6">Nema vožnji za prikaz</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        </Table>
     )
 }
 
