@@ -19,11 +19,12 @@ function DrivesList() {
             <div>
                 <h2>Prikaz unesenih vožnji</h2>
 
+        <a href='/drives-form'>Pređi na formu za unos novih vožnji</a>
                 <table>
                     <thead>
-                        <th>Redni broj</th>
                         <th>Cena vožnje</th>
                         <th>Napojnica</th>
+                        <th>Način plaćanja</th>
                         <th>Poziv</th>
                         <th>Vreme vožnje</th>
                     </thead>

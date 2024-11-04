@@ -39,6 +39,7 @@ function DrivesForm() {
 
       <FormSt>
         <h1 className='title'>Dodavanje nove vožnje</h1>
+        <a href='/drives-list'>Pređi na pregled svih vožnji</a>
 
         <Formik initialValues={initialValues} onSubmit={addDrive}>
           <Form className='formContainer'>
