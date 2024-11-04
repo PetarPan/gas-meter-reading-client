@@ -26,6 +26,9 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import AdminStuff from "./components/AdminStuff";
 import FAQs from "./components/FAQs";
 import Page404 from "./components/Page404";
+import DrivesList from "./components/DrivesList";
+import DrivesForm from "./components/DrivesForm";
+
 
 
 //portal distribucije, linkovi ka aplikaciji za konverziju količina u kWh, aplikacija za računanje havarijskih curenja, aplikacija za prijemi obradu reklamacija, aplikacija za očitavanje potrošnje => pSion
@@ -141,6 +144,9 @@ function App() {
           <Route path="/faq" exact element={<FAQs />} />
           {/* 404 page */}
           <Route path="*" exact element={<Page404 />} />
+          {/* drivesList & form */}
+          <Route path="/drives-list" exact element={<DrivesList />} />
+          <Route path="/drives-form" exact element={<DrivesForm />} />
         </Routes>
       </Router>
     </AuthContext.Provider>
