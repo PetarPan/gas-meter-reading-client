@@ -1,6 +1,6 @@
 //update samo informacije o trasi
 import React,
- { useState, useEffect } from 'react';
+{ useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -13,7 +13,7 @@ const TrasaID = () => {
 
     useEffect(() => {
         axios.get(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/byId/${id}`).then((response) => {
-        setTrase(response.data);
+            setTrase(response.data);
         });
 
     }, [id]);
@@ -61,7 +61,20 @@ const TrasaID = () => {
                     setTrase({ ...trase, trasaName: newValue });
                 });
                 break;
-                case "readerId":
+            case "trasaName2":
+                newValue = prompt(`Enter new ${option}: `);
+                axios.put(
+                    `http://localhost:3001/trase/trasaName2`,
+                    {
+                        newTrasaName2: newValue,
+                        id: id,
+                    },
+                    { headers: { accessToken: localStorage.getItem("accessToken") } }
+                ).then(() => {
+                    setTrase({ ...trase, trasaName2: newValue });
+                });
+                break;
+            case "readerId":
                 newValue = prompt(`Enter new ${option}: `);
                 axios.put(
                     `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/readerId`,
@@ -74,7 +87,7 @@ const TrasaID = () => {
                     setTrase({ ...trase, readerId: newValue });
                 });
                 break;
-                case "RJ":
+            case "RJ":
                 newValue = prompt(`Enter new ${option}: `);
                 axios.put(
                     `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/RJ`,
@@ -99,10 +112,10 @@ const TrasaID = () => {
                 <title>Izmena parametara trase</title>
             </Helmet>
             <div style={{ width: '100%', height: window.innerHeight, padding: '20px', textAlign: 'center' }}>
-            <br></br>
-            <h2>IZMENA PARAMETARA TRASE</h2>
-            <Table style={{ margin: 'auto', border: '3px solid', padding: '15px', fontSize: '3vw' }}>
-            <tbody>
+                <br></br>
+                <h2>IZMENA PARAMETARA TRASE</h2>
+                <Table style={{ margin: 'auto', border: '3px solid', padding: '15px', fontSize: '3vw' }}>
+                    <tbody>
                         <tr>
                             <td style={{ background: 'grey' }}>ID trase: </td>
 
@@ -113,6 +126,10 @@ const TrasaID = () => {
                             <td onClick={() => editPost("trasaName")}>{trase.trasaName}</td>
                         </tr>
                         <tr>
+                            <td style={{ background: 'grey' }}>Naziv 2: </td>
+                            <td onClick={() => editPost("trasaName2")}>{trase.trasaName2}</td>
+                        </tr>
+                        <tr>
                             <td style={{ background: 'grey' }}>ID povezanog čitača</td>
                             <td onClick={() => editPost("readerId")}>{trase.readerId}</td>
                         </tr>
@@ -120,7 +137,7 @@ const TrasaID = () => {
                             <td style={{ background: 'grey' }}>RJ trase</td>
                             <td onClick={() => editPost("RJ")}>{trase.RJ}</td>
                         </tr>
-                       
+
                     </tbody>
                 </Table>
                 {/* Dugme za brisanje*/}

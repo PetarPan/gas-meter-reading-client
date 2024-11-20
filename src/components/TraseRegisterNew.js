@@ -23,7 +23,7 @@ const TraseRegisterNew = () => {
         trasaId: Yup.string().required('Required'),
         trasaName: Yup.string().required('Required'),
         trasaName2: Yup.string().required('Required'),
-        readerId: Yup.string().required('Required'),
+        readerId: Yup.string().required('Required').min(7, "ID čitača najmanje sedam karaktera").max(7, "ID čitača može da sadrži najviše sedam karaktera"),
         RJ: Yup.string()
     });
 

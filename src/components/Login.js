@@ -44,7 +44,7 @@ function Login() {
                 alert(response.data.error);
             } else {
                 localStorage.setItem("accessToken", response.data.token);
-                setAuthState({ userName: response.data.userName, id: response.data.id, userSurName: response.data.userSurName, userRole: response.data.userRole, userRJ: response.data.userRJ, status: true, userStatus: response.data.userStatus });
+                setAuthState({ userId: response.data.userId, userName: response.data.userName, id: response.data.id, userSurName: response.data.userSurName, userRealName: response.data.userRealName, userRole: response.data.userRole, userRJ: response.data.userRJ, status: true, userStatus: response.data.userStatus });
                 history("/");
                 //window.location.reload();
             }

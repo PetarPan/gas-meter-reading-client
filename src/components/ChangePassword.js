@@ -20,12 +20,13 @@ const validationSchema = Yup.object().shape({
   oldPassword: Yup.string().required("Polje za staru lozinku je obavezno"),
   newPassword: Yup.string()
     .min(6, "Lozinka mora imati najmanje 6 karaktera")
-    .matches(/[A-Z]/, "Lozinka mora sadržati barem jedno veliko slovo")
-    .matches(/\d/, "Lozinka mora sadržati barem jedan broj")
+    .matches(/[a-z]/, "Lozinka mora da sadrži najmanje jedno malo slovo")
+    .matches(/[A-Z]/, "Lozinka mora da sadrži najmanje jedno veliko slovo")
+    .matches(/[0-9]/, "Lozinka mora da sadrži najmanje jedan broj")
+    .matches(/[!@#$%^&*(),.?":{}|<>]/, "Lozinka mora da sadrži najmanje jedan specijalni karakter")
     .required("Polje za novu lozinku je obavezno")
 });
 
-  
   const changePassword = (values) => {   
     axios
       .put(

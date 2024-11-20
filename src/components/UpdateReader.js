@@ -31,66 +31,86 @@ function UpdateReader() {
   };
 
   /* Funkcija za update atributa usera */
-  const editPost = (option) => {
+  const editPost = async (option) => {
     let newValue;
-
-    switch (option) {
-      case "userName":
-        newValue = prompt(`Enter new ${option}: `);
-        axios.put(
-          `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userName`,
-          {
-            newUserName: newValue,
-            id: id,
-          },
-          { headers: { accessToken: localStorage.getItem("accessToken") } }
-        ).then(() => {
+  
+    try {
+      switch (option) {
+        case "userId":
+          newValue = prompt(`Enter new ${option}: `);
+  
+          // Sačekajte da server završi pre nego što ažurirate stanje
+          await axios.put(
+            `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userId`,
+            {
+              newUserId: newValue,
+              id: id,
+            },
+            { headers: { accessToken: localStorage.getItem("accessToken") } }
+          );
+          
+          // Ako je uspešno ažurirano, ažurirajte korisnički objekat
+          setUserObject({ ...userObject, userId: newValue });
+          break;
+          
+        case "userName":
+          newValue = prompt(`Enter new ${option}: `);
+  
+          // Sačekajte da server završi pre nego što ažurirate stanje
+          await axios.put(
+            `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userName`,
+            {
+              newUserName: newValue,
+              id: id,
+            },
+            { headers: { accessToken: localStorage.getItem("accessToken") } }
+          );
+          
+          // Ako je uspešno ažurirano, ažurirajte korisnički objekat
           setUserObject({ ...userObject, userName: newValue });
-        });
-        break;
-      case "userRealName":
-        newValue = prompt(`Enter new ${option}: `);
-        axios.put(
-          `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userRealName`,
-          {
-            newUserRealName: newValue,
-            id: id,
-          },
-          { headers: { accessToken: localStorage.getItem("accessToken") } }
-        ).then(() => {
+          break;
+  
+        case "userRealName":
+          newValue = prompt(`Enter new ${option}: `);
+          await axios.put(
+            `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userRealName`,
+            { newUserRealName: newValue, id: id },
+            { headers: { accessToken: localStorage.getItem("accessToken") } }
+          );
           setUserObject({ ...userObject, userRealName: newValue });
-        });
-        break;
-      case "userSurName":
-        newValue = prompt(`Enter new ${option}: `);
-        axios.put(
-          `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userSurName`,
-          {
-            newUserSurName: newValue,
-            id: id,
-          },
-          { headers: { accessToken: localStorage.getItem("accessToken") } }
-        ).then(() => {
+          break;
+  
+        case "userSurName":
+          newValue = prompt(`Enter new ${option}: `);
+          await axios.put(
+            `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userSurName`,
+            { newUserSurName: newValue, id: id },
+            { headers: { accessToken: localStorage.getItem("accessToken") } }
+          );
           setUserObject({ ...userObject, userSurName: newValue });
-        });
-        break;
-      case "userRJ":
-        newValue = prompt(`Enter new ${option}: `);
-        axios.put(
-          `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userRJ`,
-          {
-            newUserRJ: newValue,
-            id: id,
-          },
-          { headers: { accessToken: localStorage.getItem("accessToken") } }
-        ).then(() => {
+          break;
+  
+        case "userRJ":
+          newValue = prompt(`Enter new ${option}: `);
+          await axios.put(
+            `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userRJ`,
+            { newUserRJ: newValue, id: id },
+            { headers: { accessToken: localStorage.getItem("accessToken") } }
+          );
           setUserObject({ ...userObject, userRJ: newValue });
-        });
-      default:
-        return 0;
+          break;
+          
+        default:
+          break;
+      }
+    } catch (error) {
+      console.error("Error updating:", error);
+      // Ako dođe do greške, prikažite odgovarajuću poruku
+      alert(error.response?.data?.error || "Došlo je do greške prilikom ažuriranja.");
+      return 0;
     }
   };
-
+  
   return (
     <HelmetProvider>
       <Helmet>
@@ -99,9 +119,13 @@ function UpdateReader() {
 
 
       <div style={{ width: '100%', height: window.innerHeight, padding: '20px', textAlign: 'center' }}>
-      <h2>IZMENA PARAMETARA ČITAČA</h2>
+        <h2>IZMENA PARAMETARA ČITAČA</h2>
         <Table style={{ margin: 'auto', border: '3px solid', padding: '15px', fontSize: '3vw' }}>
           <tbody>
+          <tr >
+              <td style={{ background: 'grey' }}>ID čitača: </td>
+              <td onClick={() => editPost("userId")}>{userObject.userId}</td>
+            </tr>
             <tr >
               <td style={{ background: 'grey' }}>Korisničko ime čitača: </td>
               <td onClick={() => editPost("userName")}>{userObject.userName}</td>

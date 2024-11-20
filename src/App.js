@@ -36,12 +36,14 @@ import DrivesForm from "./components/DrivesForm";
 function App() {
 
   const [authState, setAuthState] = useState({
+    userid: "",
     username: "",
     id: 0,
     userRealname: "",
     userSurName: "",
     userRole: "",
     userRJ: "",
+    userSatus: "",
     status: false
   });
 
@@ -81,33 +83,34 @@ function App() {
     };
 }, []); */
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      axios.get('http://localhost:3001/auth/auth', {
-        headers: {
-          accessToken: accessToken,
-        },
-      }).then((response) => {
-        if (response.data.error) {
-          setAuthState({ ...authState, status: false });
-        } else {
-          setAuthState({
-            userName: response.data.userName,
-            id: response.data.id,
-            userRealname: response.data.userRealname,
-            userSurName: response.data.userSurName,
-            userRole: response.data.userRole,
-            userRJ: response.data.userRJ,
-            userStatus: response.data.userStatus,
-            status: true,
-          });
-        }
-      });
-    } else {
-      setAuthState({ ...authState, status: false });
-    }
-  }, []);
+useEffect(() => {
+  const accessToken = localStorage.getItem("accessToken");
+  if (accessToken) {
+    axios.get('http://localhost:3001/auth/auth', {
+      headers: {
+        accessToken: accessToken,
+      },
+    }).then((response) => {
+      if (response.data.error) {
+        setAuthState({ ...authState, status: false });
+      } else {
+        setAuthState({
+          userId: response.data.userId,
+          userName: response.data.userName,
+          id: response.data.id,
+          userRealname: response.data.userRealname,
+          userSurName: response.data.userSurName,
+          userRole: response.data.userRole,
+          userRJ: response.data.userRJ,
+          userStatus: response.data.userStatus,
+          status: true,
+        });
+      }
+    });
+  } else {
+    setAuthState({ ...authState, status: false });
+  }
+}, []);
   
   return (
     <AuthContext.Provider value={{ authState, setAuthState }} >

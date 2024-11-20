@@ -35,12 +35,12 @@ function TraseForReader() {
 
                 // Dobavi RJ za svaku jedinstvenu trasu
                 const uniqueTrasesWithRJ = Array.from(uniqueTrasesMap.values());
-                setUniqueTrases(uniqueTrasesWithRJ.filter(trase => trase.readerId === authState.id));
+                setUniqueTrases(uniqueTrasesWithRJ.filter(trase => trase.readerId === authState.userId));
             })
             .catch(error => {
                 console.error('There was an error fetching trase:', error);
             });
-    }, [authState.id]);
+    }, [authState.userId]);
 
     const handleTrasaClick = (selectedTrasaId) => {
         navigate(`/unos-stanja/${selectedTrasaId}`);

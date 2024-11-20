@@ -17,6 +17,7 @@ function Registration() {
     } */
     //postavka inicijalnih vrednosti iz baze
     const initialValues = {
+        userId: "",
         userName: "",
         userRealname: "",
         userSurName: "",
@@ -26,11 +27,19 @@ function Registration() {
     };
     //validacija input polja
     const validationSchema = Yup.object().shape({
+        userId: Yup.string().min(7, "ID čitača najmanje sedam karaktera").max(7, "ID čitača može da sadrži najviše sedam karaktera").required("Polje ID čitača je obavezno"),
         userName: Yup.string().min(3, "Ime mora da sadrži najmanje tri karaktera").max(15, "Ime može da sadrži najviše petnaest karaktera").required("Polje ime je obavezno"),
         userSurName: Yup.string().min(3, "Prezime mora da sadrži najmanje tri karaktera").max(25, "Prezime može da sadrži najviše dvadeset i pet karaktera").required("Polje Prezime je obavezno"),
         userRole: Yup.number().required("Odabrati ulogu korisnika"),
         userRJ: Yup.string().required("Odabrati radnu jedinicu"),
-        userPassword: Yup.string().min(4, "Šifra mora da sadrži najmanje četiri karaktera").max(20, "Šifra može da sadrži najviše do dvadeset karaktera").required("Polje Šifra je obavezno")
+        userPassword: Yup.string()
+            .min(4, "Šifra mora da sadrži najmanje četiri karaktera")
+            .max(20, "Šifra može da sadrži najviše do dvadeset karaktera")
+            .matches(/[a-z]/, "Šifra mora da sadrži najmanje jedno malo slovo")
+            .matches(/[A-Z]/, "Šifra mora da sadrži najmanje jedno veliko slovo")
+            .matches(/[0-9]/, "Šifra mora da sadrži najmanje jedan broj")
+            .matches(/[!@#$%^&*(),.?":{}|<>]/, "Lozinka mora da sadrži najmanje jedan specijalni karakter")
+            .required("Polje Šifra je obavezno"),
     });
     //funkcija za kreiranje novog čitača
     const register = (data, { resetForm }) => {
@@ -49,7 +58,7 @@ function Registration() {
                 }
             });
 
-              };
+    };
     return (
         <>
             {authState.userRole === "1" || authState.userRole === "2" ? (
@@ -71,6 +80,13 @@ function Registration() {
 
                                 <Form>
                                     <div className='formContainer'>
+                                    <label>ID Čitača: </label>
+                                        <ErrorMessage name='userId' component='span' />
+                                        <Field
+                                            className='inputCreatePost'
+                                            name='userId'
+                                            placeholder='(Ex. josh123)'
+                                        />
                                         <label>Korisničko ime: </label>
                                         <ErrorMessage name='userName' component='span' />
                                         <Field

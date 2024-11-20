@@ -90,7 +90,8 @@ function Home() {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>ID čitača</th>
+                                    <th>Korisničko ime</th>
                                     <th>Ime</th>
                                     <th>Prezime</th>
                                     <th>RJ</th>
@@ -101,8 +102,9 @@ function Home() {
                                 {filteredUsers.length > 0 ? (
                                     filteredUsers.map((user) => (
                                         <tr key={user.id} onClick={() => handleRowClick(user.id)}>
-                                            <td>{user.id}</td>
+                                            <td>{user.userId}</td>
                                             <td>{user.userName}</td>
+                                            <td>{user.userRealName}</td>
                                             <td>{user.userSurName}</td>
                                             <td>{user.userRJ}</td>
                                             <td>{user.userStatus}</td>
