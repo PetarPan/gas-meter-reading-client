@@ -35,7 +35,7 @@ function TraseForReader() {
 
                 // Dobavi RJ za svaku jedinstvenu trasu
                 const uniqueTrasesWithRJ = Array.from(uniqueTrasesMap.values());
-                setUniqueTrases(uniqueTrasesWithRJ.filter(trase => trase.readerId === authState.userId));
+                setUniqueTrases(uniqueTrasesWithRJ.filter(trase => trase.readerId === Number(authState.userId)));
             })
             .catch(error => {
                 console.error('There was an error fetching trase:', error);
