@@ -566,7 +566,7 @@ function InputMeterState() {
                                         {state.newMeter - state.oldMeter}
                                     </td>
                                     <td>
-                                        <button onClick={() => handleCommentClick(state.id)}>Unesi komentar</button>
+                                        <button className="comment" onClick={() => handleCommentClick(state.id)}>Unesi komentar</button>
                                     </td>
                                 </tr>
                             ))}

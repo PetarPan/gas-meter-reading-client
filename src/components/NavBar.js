@@ -70,6 +70,7 @@ function NavBar() {
                                     <Nav.Link as={Link} to="/">Pregled trasa</Nav.Link>
                                     <Nav.Link as={Link} to="/changepassword">Promena lozinke</Nav.Link>
                                     <Nav.Link href="/readerManual.pdf" target="_blank">Uputstvo</Nav.Link>
+                                    <Nav.Link as={Link} to="/faq">FAQ</Nav.Link>
                                 </>
                             )}
                             <Button variant="outline-danger" className='logout' onClick={logout}>Logout</Button>

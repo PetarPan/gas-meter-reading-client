@@ -14,7 +14,7 @@ const TraseList = () => {
     const { authState } = useContext(AuthContext);
 
     useEffect(() => {
-        axios.get("http://localhost:3001/trase")
+        axios.get("https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase")
             .then(response => {
                 // Sortiraj trase uzlazno prema readerId
                 const sortedTrase = response.data.sort((a, b) => a.readerId - b.readerId);

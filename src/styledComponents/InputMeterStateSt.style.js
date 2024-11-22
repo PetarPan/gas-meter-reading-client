@@ -38,6 +38,7 @@ const InputMeterStateSt = styled.div`
         width: 80px;
         height: 35px;
         border: black 1.5px solid;
+        cursor: pointer;
     }
     .info {
         position: absolute;
@@ -120,6 +121,7 @@ const InputMeterStateSt = styled.div`
 .verification-st {
     padding: 10px 0 10px 0;
     font-size: 17px;
+    cursor: pointer;
 }
 .ver-btn {
     background: dodgerblue;
@@ -127,6 +129,9 @@ const InputMeterStateSt = styled.div`
     width: 75px;
     height: 40px;
     border-radius: 10px;
+}
+.comment {
+    cursor: pointer;
 }
 
 ${'' /* mobilna verzija */}

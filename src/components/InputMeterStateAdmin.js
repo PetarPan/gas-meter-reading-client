@@ -334,8 +334,13 @@ function InputMeterStateAdmin() {
 
                                 <button className='export-csv'>
                                     <CSVLink
-                                        data={states.filter(state => state.newMeter && state.newMeter.length > 0)} // Provera da li newMeter postoji i da li je prazan
-                                        //data={states}
+                                        data={states.filter(
+                                            (state) =>
+                                                state.newMeter && // Proverava da li `newMeter` postoji
+                                                state.newMeter.length > 0 && // Proverava da li `newMeter` nije prazan
+                                                state.RJ.toLowerCase() === authState.userRJ.toLowerCase() // Proverava da li `state.RJ` odgovara `authState.userRJ`
+                                        )}
+
                                         headers={headersQuantities}
                                         filename={"očitavanja.csv"}
                                         target="_blank"
@@ -449,7 +454,7 @@ function InputMeterStateAdmin() {
                                                                 : 'white'
                                             }>{state.newMeter - state.oldMeter}</td>
                                             <td>
-                                                <button onClick={() => handleCommentClick(state.id)}>Unesi komentar</button>
+                                                <button className='comment' onClick={() => handleCommentClick(state.id)}>Unesi komentar</button>
                                             </td>
                                             <td>{state.lessState}</td>
                                             <td>{state.newMeterOfficial}</td>
