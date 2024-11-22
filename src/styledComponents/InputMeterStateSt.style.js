@@ -253,7 +253,16 @@ ${'' /*         margin-top: 5px;
     font-size: 15px;
 }
 
-
+.info-message {
+    color: #333333; /* Tamno siva za tekst */
+    background-color: #f5f5f5; /* Svetlo siva pozadina */
+    border: 1px solid #cccccc; /* Neutralna ivica */
+    border-radius: 5px; /* Zaobljeni uglovi */
+    padding: 10px; /* Prostor unutar */
+    margin-top: 10px; /* Razmak od elemenata iznad */
+    font-size: 14px;
+    text-align: center;
+}
 
 `;
 

@@ -17,6 +17,7 @@ function InputMeterState() {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentCustomer, setCurrentCustomer] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [firstLastRowMessage, setFirstLastRowMessage] = useState('');
 
     const navigate = useNavigate();
     const { id } = useParams();
@@ -282,17 +283,27 @@ function InputMeterState() {
 
 
     const handleNavigation = (direction) => {
-        if (direction === 'next' && currentCustomerIndex < states.length - 1) {
-            setCurrentCustomerIndex(prevIndex => prevIndex + 1);
-            setCurrentCustomer(states[currentCustomerIndex + 1]);
-            if (inputRef.current) {
-                //inputRef.current.focus(); // Fokusira input polje
+        if (direction === 'next') {
+            if (currentCustomerIndex < states.length - 1) {
+                setCurrentCustomerIndex(prevIndex => prevIndex + 1);
+                setCurrentCustomer(states[currentCustomerIndex + 1]);
+                setFirstLastRowMessage(''); //brisanje poruke u slučaju != prvi/poslednji
+                if (inputRef.current) {
+                    // inputRef.current.focus(); // Fokusira input polje
+                }
+            } else {
+                setFirstLastRowMessage("Ovo je poslednji kupac u tabeli.");
             }
-        } else if (direction === 'prev' && currentCustomerIndex > 0) {
-            setCurrentCustomerIndex(prevIndex => prevIndex - 1);
-            setCurrentCustomer(states[currentCustomerIndex - 1]);
-            if (inputRef.current) {
-                //inputRef.current.focus();
+        } else if (direction === 'prev') {
+            if (currentCustomerIndex > 0) {
+                setCurrentCustomerIndex(prevIndex => prevIndex - 1);
+                setCurrentCustomer(states[currentCustomerIndex - 1]);
+                setFirstLastRowMessage(''); //brisanje poruke u slučaju != prvi/poslednji
+                if (inputRef.current) {
+                    // inputRef.current.focus();
+                }
+            } else {
+                setFirstLastRowMessage("Ovo je prvi kupac u tabeli.");
             }
         }
     };
@@ -498,6 +509,7 @@ function InputMeterState() {
                                             <button onClick={() => handleNavigation('next')}>Sledeći</button>
                                             <br />
                                         </div>
+                                        {firstLastRowMessage && <p className="info-message">{firstLastRowMessage}</p>}
                                         <button onClick={() => handleCommentClick(currentCustomer.id)}>Unesi komentar</button>
                                     </section>
                                 )}
