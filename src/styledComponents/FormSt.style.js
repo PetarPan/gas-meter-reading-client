@@ -106,6 +106,15 @@ const FormSt = styled.div`
     .label {
         font-size: 1.2em; /* Smanjenje veličine fonta za oznake */
     }
+    .icon {
+    font-size: 210px;
+    text-align: center; /* Ovo je za tekstualni sadržaj */
+    width: 100%; /* Omogućava da zauzme ceo red */
+    display: flex; /* Aktivira fleksibilno poravnanje */
+    justify-content: center; /* Horizontalno centriranje */
+    align-items: center; /* Vertikalno centriranje */
+    margin: 0 auto; /* Centriranje unutar roditeljskog elementa */
+  }
 }
 
 `

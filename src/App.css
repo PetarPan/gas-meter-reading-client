@@ -14,6 +14,12 @@
   z-index: 1500;
   background-color: dodgerblue;
   height: 100%;
+  display: flex;
+  justify-content: space-between; /* Raspoređuje elemente sa prostorom između */
+  align-items: center; /* Poravnava logo i burger meni vertikalno */
+  color: white;
+  padding: 10px 20px; /* Povećanje unutrašnje margine */
+
 }
 
 .navbar .nav-link {
@@ -42,7 +48,18 @@
   justify-content: center;
   cursor: pointer;
 }
-
+.burger-menu {
+  display: none;
+  font-size: 30px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: fixed;  /* Obezbeđuje da meni bude uvek na istoj poziciji */
+  right: 20px;  /* 20px od desne ivice */
+  top: 5px;  /* 5px od gornje ivice */
+  z-index: 1600; /* Uverite se da je burger meni iznad drugih elemenata */
+}
 .logout:hover {
   background-color: #c82333;
 }
@@ -54,15 +71,40 @@
 }
 
 @media (max-width: 700px) {
-  .navbar-collapse {
-      text-align: center;
+  
+
+  .burger-menu {
+      display: block;
+      width: 40px;
   }
+
+  .navbar-collapse {
+    text-align: center;
+    display: none; /* Menjamo na display: none kad je meni zatvoren */
+    width: 100%;
+    height: 0; /* Početna visina na 0 kad je zatvoreno */
+    overflow: hidden; /* Skriva sadržaj kad je zatvoreno */
+    opacity: 0; /* Početna opacnost na 0 */
+    transition: height 0.3s ease, opacity 0.3s ease; /* Dodavanje transition efekta */
+  }
+
+  .navbar-collapse.open {
+    display: block; /* Menjamo na display: block kad je meni otvoren */
+    height: auto; /* Automatski visina kad se otvori */
+    opacity: 1; /* Opacnost 1 kad se otvori */  }
+
+  .navbar .nav-link {
+      display: block;
+      padding: 10px;
+  }
+
   .navbar .nav-link .user-info {
-    font-size: 15px;
- }
- .logout {
-   font-size: 15px;
-   width: 75px;
- }
+      font-size: 15px;
+  }
+
+  .logout {
+      font-size: 15px;
+      width: 75px;
+  }
 }
 
