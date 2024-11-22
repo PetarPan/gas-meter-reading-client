@@ -52,7 +52,7 @@
   display: none;
   font-size: 30px;
   color: white;
-  background: none;
+  background-color: dodgerblue;
   border: none;
   cursor: pointer;
   position: fixed;  /* Obezbeđuje da meni bude uvek na istoj poziciji */
