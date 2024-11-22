@@ -350,7 +350,11 @@ function InputMeterStateAdmin() {
                                 {/* dugme za preuzimanje neočitanih MI */}
                                 <button className='export-csv'>
                                     <CSVLink
-                                        data={states.filter(state => (state.newMeter) == "")} //Provera polja bez unesenih količina
+                                        data={states.filter(
+                                            (state) =>
+                                                state.newMeter == "" && //provera polja bez unesenihi kolicina
+                                                state.RJ.toLowerCase() === authState.userRJ.toLowerCase() // Proverava da li `state.RJ` odgovara `authState.userRJ`                                               
+                                        )}
                                         headers={headersUnread}
                                         filename={"neočitana-MI.csv"}
                                         target="_blank"
@@ -362,7 +366,11 @@ function InputMeterStateAdmin() {
 
                                 <button className='export-csv'>
                                     <CSVLink
-                                        data={states.filter(state => (state.lessState) > 0)} //Provera i eksport manjih stanja
+                                        data={states.filter(
+                                            (state) =>
+                                                state.lessState > 0 && //Provera i eksport manjih stanja
+                                                state.RJ.toLowerCase() === authState.userRJ.toLowerCase() // Proverava da li `state.RJ` odgovara `authState.userRJ`
+                                        )}
                                         headers={headersLessState}
                                         filename={"manja-stanja-MI.csv"}
                                         target="_blank"
@@ -372,7 +380,11 @@ function InputMeterStateAdmin() {
                                 </button>
                                 <button className='export-csv'>
                                     <CSVLink
-                                        data={states.filter(state => (state.comment))}
+                                        data={states.filter(
+                                            (state) =>
+                                                state.comment && //provera da li postoji komentar u polju 
+                                                state.RJ.toLowerCase() === authState.userRJ.toLowerCase() // Proverava da li `state.RJ` odgovara `authState.userRJ`
+                                        )}
                                         headers={headersComment}
                                         filename={"komentari.csv"}
                                         target="_blank"
