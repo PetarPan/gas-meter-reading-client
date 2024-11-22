@@ -57,7 +57,6 @@
   cursor: pointer;
   position: fixed;  /* Obezbeđuje da meni bude uvek na istoj poziciji */
   right: 20px;  /* 20px od desne ivice */
-  top: 5px;  /* 5px od gornje ivice */
   z-index: 1600; /* Uverite se da je burger meni iznad drugih elemenata */
 }
 .logout:hover {
