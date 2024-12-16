@@ -28,6 +28,10 @@ import FAQs from "./components/FAQs";
 import Page404 from "./components/Page404";
 import DrivesList from "./components/DrivesList";
 import DrivesForm from "./components/DrivesForm";
+import FAQCreate from "./components/FAQCreate";
+import NewsCreate from "./components/NewsCreate";
+import NewsView from "./components/NewsView";
+import OneNewsID from "./components/OneNewsID";
 
 
 
