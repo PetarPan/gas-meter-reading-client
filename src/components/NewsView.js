@@ -9,7 +9,7 @@ function NewsView() {
     useEffect(() => {
         axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news')
             .then((response) => {
-                const sortedNews = response.data.sort((a, b) => b.updatedAt - a.updatedAt);
+                const sortedNews = response.data.sort((a, b) => b.id - a.id);
                 setNews(sortedNews);
             })
             .catch((error) => {
