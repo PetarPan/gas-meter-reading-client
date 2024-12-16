@@ -9,7 +9,8 @@ function NewsView() {
     useEffect(() => {
         axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news')
             .then((response) => {
-                setNews(response.data);
+                const sortedNews = response.data.sort((a, b) => b.updatedAt - a.updatedAt);
+                setNews(sortedNews);
             })
             .catch((error) => {
                 console.error('Greška prilikom prikaza vesti:', error);
