@@ -18,6 +18,9 @@ function InputMeterState() {
     const [currentCustomer, setCurrentCustomer] = useState(null);
     const [loading, setLoading] = useState(true);
     const [firstLastRowMessage, setFirstLastRowMessage] = useState('');
+    const [status, setStatus] = useState(null); //prikaz statusa očitavanja za visible:hidden kolone
+    const [showUnread, setShowUnread] = useState(false); //prikaz neočitanih MI
+
 
     const navigate = useNavigate();
     const { id } = useParams();
@@ -67,6 +70,18 @@ function InputMeterState() {
         }
     }, [id]);
 
+    //useeffect za prikaz trenutnog statusa očitavanja
+    useEffect(() => {
+        axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/status')
+            .then(response => {
+                console.log("Server Response:", response.data); // Proveri šta vraća server
+                setStatus(response.data.status); // Postavlja status sa servera
+            })
+            .catch((error) => {
+                console.error('Greška pri učitavanju statusa:', error);
+            });
+    }, []);
+
     const handleKeyDown = (e, rowIndex) => {
         if (e.key === 'ArrowDown' || e.key === 'Enter') {
             if (rowIndex < states.length - 1) {
@@ -102,7 +117,7 @@ function InputMeterState() {
             // Snimamo samo promenjena stanja
             await Promise.all(
                 statesToSave.map(async (state) => {
-                    await axios.put(`http://localhost:3001/trasa/unos/${state.id}`, { newMeter: state.newMeter });
+                    await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { newMeter: state.newMeter });
                 })
             );
 
@@ -276,6 +291,17 @@ function InputMeterState() {
             }
         }
     };
+    /* funkcija za postavljanje prikaza na odabrano neocitano MI */
+    const handleSelectUnreadUser = (userId) => {
+        const foundIndex = states.findIndex((state) => state.id === userId); // Pronalazimo indeks korisnika
+        if (foundIndex !== -1) {
+            setCurrentCustomer(states[foundIndex]); // Postavljamo trenutnog korisnika
+            setCurrentCustomerIndex(foundIndex);   // Ažuriramo indeks
+            setShowUnread(false);                  // Zatvaramo prikaz "Neočitani korisnici"
+        } else {
+            alert("Neočitani korisnik nije pronađen.");
+        }
+    };
 
     //kraj pretrage po merilu za mobilnu verziju
 
@@ -307,6 +333,7 @@ function InputMeterState() {
             }
         }
     };
+
     //kraj navigacije za mobilnu verziju
 
     //kontrolisanje unosa u input polje mobilna verzija
@@ -427,7 +454,6 @@ function InputMeterState() {
         `
     );
     //kraj broj MI, očitani/neočitani
-
     return (
         <>
 
@@ -446,12 +472,40 @@ function InputMeterState() {
                                 {/* Prikaz za mobilne uređaje */}
                                 {currentCustomer && (
                                     <section>
-                                        <div>
+                                        <div className="info-bar">
                                             <h3 className="title">Unos stanja za trasu ID: {id}</h3>
-                                            <button className="info-btn" onClick={() => alert(readInformation)}>Info</button>
+                                            <div className="button-container">
+                                                <button className="info-btn" onClick={() => alert(readInformation)}>Info</button>
+                                                <button className="unread-btn" onClick={() => setShowUnread(!showUnread)}>Neočitani</button>
+                                            </div>
                                         </div>
+                                        {/* kontejner za prikaz neočitanih MI */}
+                                        {showUnread && (
+                                            <div className="unread-MI">
+                                                <h4>Neočitani korisnici:</h4>
+                                                {states
+                                                    .filter((state) => !state.newMeter) // Filtriraj neočitane
+                                                    .map((state) => (
+                                                        <div
+                                                            key={state.id}
+                                                            className="unread-item"
+                                                            onClick={() => handleSelectUnreadUser(state.id)} // Klik za selektovanje korisnika
+                                                            style={{ cursor: "pointer" }} // Stil za vizualni feedback
+                                                        >
+                                                            <p>Ime i prezime: {state.name}</p>
+                                                            <p>Adresa: {state.address}</p>
+                                                            <p>Broj merila: {state.meterId}</p>
+                                                        </div>
+                                                    ))}
+                                                {states.filter((state) => !state.newMeter).length === 0 && (
+                                                    <p>Nema neočitanih korisnika.</p>
+                                                )}
+                                            </div>
+                                        )}
+
                                         <div className="user-info-input">
                                             <div className="ugovor">
+                                                {/*   {currentCustomer.id} <br /> */}
                                                 Redni broj u trasi:
                                                 {states.findIndex((state) => state.id === currentCustomer?.id) + 1}
                                                 <br />
@@ -491,6 +545,7 @@ function InputMeterState() {
                                             Očitano: {currentCustomer.newMeter ? 'Da' : 'Ne'} |
                                             <label>Unesi novo stanje merila: </label>
                                             <input
+                                                className={`${status ? 'visible' : 'hidden'} input-mob-ver`}
                                                 ref={inputRef}
                                                 type="number"
                                                 placeholder="unesite novo stanje merila"
@@ -520,6 +575,7 @@ function InputMeterState() {
                                     {readInformation}
                                     <h2 className="title">Unos stanja za trasu ID: {id}</h2>
                                     <button className="save" onClick={handleSave}>Sačuvaj</button><br />
+                                    
                                 </div>
                                 {states && states.length > 0 ? (
                                     <table>
@@ -531,7 +587,7 @@ function InputMeterState() {
                                                 <th>Adresa</th>
                                                 <th>Merilo</th>
                                                 <th>Staro stanje</th>
-                                                <th>Novo stanje</th>
+                                                <th className={status ? 'visible' : 'hidden'}>Novo stanje</th>
                                                 <th>Potrošnja</th>
                                                 <th>Komentar</th>
                                             </tr>
@@ -548,7 +604,7 @@ function InputMeterState() {
                                                         <td>{state.address}</td>
                                                         <td>{state.meterId}</td>
                                                         <td>{state.oldMeter}</td>
-                                                        <td>
+                                                        <td className={status ? 'visible' : 'hidden'}>
                                                             <input
                                                                 ref={(el) => (inputRefs.current[index] = el)}
                                                                 type="number"

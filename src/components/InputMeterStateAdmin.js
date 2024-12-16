@@ -247,13 +247,13 @@ function InputMeterStateAdmin() {
 
     //unos i čuvanje komentara kraj
 
-    //izvoz ocitanih kolicina za uvoz...
+    //izvoz ocitanih kolicina za uvoz... //i z m e n i  u s k l a d u  s a  o r a k l o m
     const headersQuantities = [
-        { label: "ID Trase", key: "trasaId" },
-        { label: "Ugovor", key: "contructNumber" },
-        { label: "Merilo", key: "meterId" },
-        { label: "Staro Stanje", key: "oldMeter" },
-        { label: "Novo Stanje", key: "newMeter" }
+        { label: "TRASE_ID", key: "trasaId" },
+        { label: "SIFRA", key: "contructNumber" },
+        { label: "MERAC_SER_BROJ", key: "meterId" },
+        { label: "STARO_STANJE", key: "oldMeter" },
+        { label: "NOVO_STANJE", key: "newMeter" }
     ]
     //izvoz MI sa manjim stanjima 
     const headersLessState = [
@@ -336,8 +336,8 @@ function InputMeterStateAdmin() {
                                     <CSVLink
                                         data={states.filter(
                                             (state) =>
-                                                state.newMeter && // Proverava da li `newMeter` postoji
-                                                state.newMeter.length > 0 && // Proverava da li `newMeter` nije prazan
+                                                state.newMeterOfficial && // Proverava da li `newMeterOfficial` postoji
+                                                state.newMeterOfficial.length > 0 && // Proverava da li `newMeter` nije prazan
                                                 state.RJ.toLowerCase() === authState.userRJ.toLowerCase() // Proverava da li `state.RJ` odgovara `authState.userRJ`
                                         )}
 
@@ -356,7 +356,7 @@ function InputMeterStateAdmin() {
                                                 state.RJ.toLowerCase() === authState.userRJ.toLowerCase() // Proverava da li `state.RJ` odgovara `authState.userRJ`                                               
                                         )}
                                         headers={headersUnread}
-                                        filename={"neočitana-MI.csv"}
+                                        filename={"Neočitana-MI.csv"}
                                         target="_blank"
                                     >
                                         Neočitana MI
@@ -372,7 +372,7 @@ function InputMeterStateAdmin() {
                                                 state.RJ.toLowerCase() === authState.userRJ.toLowerCase() // Proverava da li `state.RJ` odgovara `authState.userRJ`
                                         )}
                                         headers={headersLessState}
-                                        filename={"manja-stanja-MI.csv"}
+                                        filename={"Manja-stanja-MI.csv"}
                                         target="_blank"
                                     >
                                         Preuzmi MI sa manjim stanjima
@@ -391,6 +391,7 @@ function InputMeterStateAdmin() {
                                     >
                                         Preuzmi komentare
                                     </CSVLink>
+                                    {/* napravi eksport cele baze sa datumima i vremenima update stanja */}
                                 </button>
                                 {/* dugme za čuvanje unesenih vrednosti u kolonu Novo stanje */}
                                 <button className='save' onClick={handleSave}>Sačuvaj</button> <br />

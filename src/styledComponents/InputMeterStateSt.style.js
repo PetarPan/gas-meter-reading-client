@@ -133,6 +133,13 @@ const InputMeterStateSt = styled.div`
 .comment {
     cursor: pointer;
 }
+.visible {
+  display: block;  /* ili inline, u zavisnosti od želje */
+}
+
+.hidden {
+  display: none;
+}
 
 ${'' /* mobilna verzija */}
 
@@ -153,7 +160,7 @@ ${'' /* mobilna verzija */}
         overflow: hidden; 
     }
 
-    .user-info-input, .search, .input-style, .buttons {
+    .user-info-input, .search, .input-style, .buttons, .input-mob-ver {
         margin: 0 auto;
         width: 85%;
         padding: 15px;
@@ -247,6 +254,27 @@ ${'' /*         margin-top: 5px;
         margin-left: 45%;
         width: 50px;
     }
+    .unread-btn {
+        width: max-content;
+    }
+    .unread-MI {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+
+  /* Ograničava visinu kontejnera i omogućava skrolovanje */
+        max-height: 350px; /* Ograniči visinu prema potrebi */
+        overflow-y: auto; /* vertikalno skrolovanje */
+}
+
+    .unread-item {
+        margin-bottom: 10px;
+        border-bottom: 1px dashed #c1c1c1;
+        padding-bottom: 5px;
+}
+
 }
 
 .verification-st {

@@ -58,7 +58,7 @@ function NavBar() {
                     </>
                 ) : (
                     <>
-                        <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                        <Nav.Link as={Link} to="/login">Login čitača</Nav.Link>
                         <Nav.Link as={Link} to="/kalkulator">Kalkulator</Nav.Link>
                         <Nav.Link as={Link} to="/havarije">Havarije</Nav.Link>
                         <Nav.Link as={Link} to="/faq">FAQ</Nav.Link>

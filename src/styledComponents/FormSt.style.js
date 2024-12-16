@@ -76,6 +76,12 @@ const FormSt = styled.div`
   width:20%;
 }
 
+.textarea {
+  width: 100%;
+  height: 200px;
+}
+
+
 /* Media Query for Mobile Devices */
 @media (max-width: 600px) {
     .formContainer {

@@ -52,11 +52,12 @@
   display: none;
   font-size: 30px;
   color: white;
-  background-color: dodgerblue;
+  background: none;
   border: none;
   cursor: pointer;
   position: fixed;  /* Obezbeđuje da meni bude uvek na istoj poziciji */
   right: 20px;  /* 20px od desne ivice */
+  top: 5px;  /* 5px od gornje ivice */
   z-index: 1600; /* Uverite se da je burger meni iznad drugih elemenata */
 }
 .logout:hover {
@@ -69,6 +70,10 @@
   margin-left: 20px;
 }
 
+.news {
+  text-align: center;
+}
+
 @media (max-width: 700px) {
   
 
@@ -76,6 +81,9 @@
       display: block;
       width: 40px;
   }
+.navbar {
+  min-height: 30px;
+}
 
   .navbar-collapse {
     text-align: center;

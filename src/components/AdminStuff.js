@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import ReadStatus from './ReadStatus';
 
 function AdminStuff() {
     const [loading, setLoading] = useState(false);
@@ -23,6 +24,8 @@ function AdminStuff() {
         }
     };
 
+    //funkcija za reset statusa očitavanja
+
     return (
         <HelmetProvider>
          <Helmet>
@@ -35,6 +38,12 @@ function AdminStuff() {
             </button>
             {message && <p>{message}</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
+        </div>
+        <div>
+            Promena statusa očitavanja:
+            <div>
+                <ReadStatus />
+            </div>
         </div>
         </HelmetProvider>
     );
