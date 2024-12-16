@@ -21,9 +21,14 @@ function NavBar() {
     return (
         
         <Navbar expand="lg" className="navbar">
-        <Navbar.Text className="ml-auto user-info">
-                            Korisnik: {authState.userName} | RJ: {authState.userRJ}
-                        </Navbar.Text>
+       <Navbar.Text className="ml-auto user-info">
+    {authState.userRole && (
+        <>
+            Korisnik: {authState.userName} | RJ: {authState.userRJ}
+        </>
+    )}
+</Navbar.Text>
+
         {/* Burger meni dugme */}
         <button className="burger-menu" onClick={toggleMenu}>
             &#9776; {/* Hamburger icon */}
@@ -33,7 +38,20 @@ function NavBar() {
             <Nav className="me-auto">
                 {authState.status ? (
                     <>
-                        {(authState.userRole === "1" || authState.userRole === "2") && (
+                        {(authState.userRole === "1") && (
+                            <>
+                                <Nav.Link as={Link} to="/">Pregled čitača</Nav.Link>
+                                <Nav.Link as={Link} to="/trase">Pregled trasa</Nav.Link>
+                                <Nav.Link as={Link} to="/changepassword">Promena lozinke</Nav.Link>
+                                <Nav.Link as={Link} to="/registration">Registracija čitača</Nav.Link>
+                                <Nav.Link as={Link} to="/registracija-trase">Registracija trase</Nav.Link>
+                                <Nav.Link as={Link} to="/news-create">Vesti</Nav.Link>
+                                <Nav.Link as={Link} to="/faq-create">FAQs</Nav.Link>
+                                <Nav.Link as={Link} to="/admin-stuff">Admin Stuff</Nav.Link>
+                                <Nav.Link href="/adminManual.pdf" target="_blank">Uputstvo</Nav.Link>
+                            </>
+                        )}
+                        {(authState.userRole === "2") && (
                             <>
                                 <Nav.Link as={Link} to="/">Pregled čitača</Nav.Link>
                                 <Nav.Link as={Link} to="/trase">Pregled trasa</Nav.Link>
@@ -41,7 +59,6 @@ function NavBar() {
                                 <Nav.Link as={Link} to="/registration">Registracija čitača</Nav.Link>
                                 <Nav.Link as={Link} to="/registracija-trase">Registracija trase</Nav.Link>
                                 <Nav.Link as={Link} to="/unos-stanja">Pregled količina</Nav.Link>
-                                <Nav.Link as={Link} to="/admin-stuff">Admin Stuff</Nav.Link>
                                 <Nav.Link href="/adminManual.pdf" target="_blank">Uputstvo</Nav.Link>
                             </>
                         )}
@@ -58,7 +75,8 @@ function NavBar() {
                     </>
                 ) : (
                     <>
-                        <Nav.Link as={Link} to="/login">Login čitača</Nav.Link>
+                        <Nav.Link as={Link} to="/">Početna</Nav.Link>
+                        <Nav.Link as={Link} to="/login">Login</Nav.Link>
                         <Nav.Link as={Link} to="/kalkulator">Kalkulator</Nav.Link>
                         <Nav.Link as={Link} to="/havarije">Havarije</Nav.Link>
                         <Nav.Link as={Link} to="/faq">FAQ</Nav.Link>
