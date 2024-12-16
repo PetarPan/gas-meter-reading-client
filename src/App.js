@@ -145,6 +145,11 @@ useEffect(() => {
           <Route path="/havarije" exact element={<Havarije />} />
           {/* faq */}
           <Route path="/faq" exact element={<FAQs />} />
+          <Route path="/faq-create" exact element={<FAQCreate />} />
+          {/* news */}
+          <Route path="/news-create" exact element={<NewsCreate />} />
+          <Route path="/news-view" exact element={<NewsView />} />
+          <Route path="/news/:id" element={<OneNewsID />} />
           {/* 404 page */}
           <Route path="*" exact element={<Page404 />} />
           {/* drivesList & form */}
