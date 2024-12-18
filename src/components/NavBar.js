@@ -75,7 +75,7 @@ function NavBar() {
         ) : (
             <>
                 <Nav.Link as={Link} to="/" onClick={() => setMenuOpen(false)}>Početna</Nav.Link>
-                <Nav.Link as={Link} to="/login" onClick={() => setMenuOpen(false)}>Login</Nav.Link>
+                <Nav.Link as={Link} to="/login" onClick={() => setMenuOpen(false)}>Login čitača</Nav.Link>
                 <Nav.Link as={Link} to="/kalkulator" onClick={() => setMenuOpen(false)}>Kalkulator</Nav.Link>
                 <Nav.Link as={Link} to="/havarije" onClick={() => setMenuOpen(false)}>Havarije</Nav.Link>
                 <Nav.Link as={Link} to="/faq" onClick={() => setMenuOpen(false)}>FAQ</Nav.Link>
