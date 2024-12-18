@@ -18,7 +18,7 @@ function ProfilePage() {
             ) : (
                 <>
                     <div className='news'>
-                        <h1>Vesti:</h1>
+                        <h1>Novosti:</h1>
                      
                     </div>
                     <NewsView />

@@ -35,55 +35,55 @@ function NavBar() {
         </button>
 
         <Navbar.Collapse id="basic-navbar-nav" className={isMenuOpen ? 'open' : ''}>
-            <Nav className="me-auto">
-                {authState.status ? (
+    <Nav className="me-auto">
+        {authState.status ? (
+            <>
+                {(authState.userRole === "1") && (
                     <>
-                        {(authState.userRole === "1") && (
-                            <>
-                                <Nav.Link as={Link} to="/">Pregled čitača</Nav.Link>
-                                <Nav.Link as={Link} to="/trase">Pregled trasa</Nav.Link>
-                                <Nav.Link as={Link} to="/changepassword">Promena lozinke</Nav.Link>
-                                <Nav.Link as={Link} to="/registration">Registracija čitača</Nav.Link>
-                                <Nav.Link as={Link} to="/registracija-trase">Registracija trase</Nav.Link>
-                                <Nav.Link as={Link} to="/news-create">Vesti</Nav.Link>
-                                <Nav.Link as={Link} to="/faq-create">FAQs</Nav.Link>
-                                <Nav.Link as={Link} to="/admin-stuff">Admin Stuff</Nav.Link>
-                                <Nav.Link href="/adminManual.pdf" target="_blank">Uputstvo</Nav.Link>
-                            </>
-                        )}
-                        {(authState.userRole === "2") && (
-                            <>
-                                <Nav.Link as={Link} to="/">Pregled čitača</Nav.Link>
-                                <Nav.Link as={Link} to="/trase">Pregled trasa</Nav.Link>
-                                <Nav.Link as={Link} to="/changepassword">Promena lozinke</Nav.Link>
-                                <Nav.Link as={Link} to="/registration">Registracija čitača</Nav.Link>
-                                <Nav.Link as={Link} to="/registracija-trase">Registracija trase</Nav.Link>
-                                <Nav.Link as={Link} to="/unos-stanja">Pregled količina</Nav.Link>
-                                <Nav.Link href="/adminManual.pdf" target="_blank">Uputstvo</Nav.Link>
-                            </>
-                        )}
-                        {authState.userRole === "3" && (
-                            <>
-                                <Nav.Link as={Link} to="/">Pregled trasa</Nav.Link>
-                                <Nav.Link as={Link} to="/changepassword">Promena lozinke</Nav.Link>
-                                <Nav.Link href="/readerManual.pdf" target="_blank">Uputstvo</Nav.Link>
-                                <Nav.Link as={Link} to="/faq">FAQ</Nav.Link>
-                            </>
-                        )}
-                        <Button variant="outline-danger" className='logout' onClick={logout}>Logout</Button>
-                        
-                    </>
-                ) : (
-                    <>
-                        <Nav.Link as={Link} to="/">Početna</Nav.Link>
-                        <Nav.Link as={Link} to="/login">Login</Nav.Link>
-                        <Nav.Link as={Link} to="/kalkulator">Kalkulator</Nav.Link>
-                        <Nav.Link as={Link} to="/havarije">Havarije</Nav.Link>
-                        <Nav.Link as={Link} to="/faq">FAQ</Nav.Link>
+                        <Nav.Link as={Link} to="/" onClick={() => setMenuOpen(false)}>Pregled čitača</Nav.Link>
+                        <Nav.Link as={Link} to="/trase" onClick={() => setMenuOpen(false)}>Pregled trasa</Nav.Link>
+                        <Nav.Link as={Link} to="/changepassword" onClick={() => setMenuOpen(false)}>Promena lozinke</Nav.Link>
+                        <Nav.Link as={Link} to="/registration" onClick={() => setMenuOpen(false)}>Registracija čitača</Nav.Link>
+                        <Nav.Link as={Link} to="/registracija-trase" onClick={() => setMenuOpen(false)}>Registracija trase</Nav.Link>
+                        <Nav.Link as={Link} to="/news-create" onClick={() => setMenuOpen(false)}>Vesti</Nav.Link>
+                        <Nav.Link as={Link} to="/faq-create" onClick={() => setMenuOpen(false)}>FAQs</Nav.Link>
+                        <Nav.Link as={Link} to="/admin-stuff" onClick={() => setMenuOpen(false)}>Admin Stuff</Nav.Link>
+                        <Nav.Link href="/adminManual.pdf" target="_blank" onClick={() => setMenuOpen(false)}>Uputstvo</Nav.Link>
                     </>
                 )}
-            </Nav>
-        </Navbar.Collapse>
+                {(authState.userRole === "2") && (
+                    <>
+                        <Nav.Link as={Link} to="/" onClick={() => setMenuOpen(false)}>Pregled čitača</Nav.Link>
+                        <Nav.Link as={Link} to="/trase" onClick={() => setMenuOpen(false)}>Pregled trasa</Nav.Link>
+                        <Nav.Link as={Link} to="/changepassword" onClick={() => setMenuOpen(false)}>Promena lozinke</Nav.Link>
+                        <Nav.Link as={Link} to="/registration" onClick={() => setMenuOpen(false)}>Registracija čitača</Nav.Link>
+                        <Nav.Link as={Link} to="/registracija-trase" onClick={() => setMenuOpen(false)}>Registracija trase</Nav.Link>
+                        <Nav.Link as={Link} to="/unos-stanja" onClick={() => setMenuOpen(false)}>Pregled količina</Nav.Link>
+                        <Nav.Link href="/adminManual.pdf" target="_blank" onClick={() => setMenuOpen(false)}>Uputstvo</Nav.Link>
+                    </>
+                )}
+                {authState.userRole === "3" && (
+                    <>
+                        <Nav.Link as={Link} to="/" onClick={() => setMenuOpen(false)}>Pregled trasa</Nav.Link>
+                        <Nav.Link as={Link} to="/changepassword" onClick={() => setMenuOpen(false)}>Promena lozinke</Nav.Link>
+                        <Nav.Link href="/readerManual.pdf" target="_blank" onClick={() => setMenuOpen(false)}>Uputstvo</Nav.Link>
+                        <Nav.Link as={Link} to="/faq" onClick={() => setMenuOpen(false)}>FAQ</Nav.Link>
+                    </>
+                )}
+                <Button variant="outline-danger" className='logout' onClick={logout}>Logout</Button>
+            </>
+        ) : (
+            <>
+                <Nav.Link as={Link} to="/" onClick={() => setMenuOpen(false)}>Početna</Nav.Link>
+                <Nav.Link as={Link} to="/login" onClick={() => setMenuOpen(false)}>Login</Nav.Link>
+                <Nav.Link as={Link} to="/kalkulator" onClick={() => setMenuOpen(false)}>Kalkulator</Nav.Link>
+                <Nav.Link as={Link} to="/havarije" onClick={() => setMenuOpen(false)}>Havarije</Nav.Link>
+                <Nav.Link as={Link} to="/faq" onClick={() => setMenuOpen(false)}>FAQ</Nav.Link>
+            </>
+        )}
+    </Nav>
+</Navbar.Collapse>
+
     </Navbar>
 
 

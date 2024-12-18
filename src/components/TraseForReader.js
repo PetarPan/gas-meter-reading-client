@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 function TraseForReader() {
     const [uniqueTrases, setUniqueTrases] = useState([]);
     const { authState, setAuthState } = useContext(AuthContext);
+    const [status, setStatus] = useState(null); //prikaz statusa očitavanja za visible:hidden kolone
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -46,6 +48,16 @@ function TraseForReader() {
         navigate(`/unos-stanja/${selectedTrasaId}`);
     };
 
+    useEffect(() => {
+        axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/status')
+            .then(response => {
+                console.log("Server Response:", response.data); // Proveri šta vraća server
+                setStatus(response.data.status); // Postavlja status sa servera
+            })
+            .catch((error) => {
+                console.error('Greška pri učitavanju statusa:', error);
+            });
+    }, []);
     //promena statusa očitavanja
 
     const handleToggle = async () => {
@@ -82,43 +94,50 @@ function TraseForReader() {
                         <title>Pregled pripadajućih trasa</title>
                     </Helmet>
                     <InputMeterStateSt>
-                        <h2>Lista trasa za očitavanje</h2>
+                        <div className={`${status ? 'visible' : 'hidden'} input-mob-ver`}>
+                            <h2>Lista trasa za očitavanje</h2>
 
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Trasa ID</th>
-                                    <th>Trasa Name</th>
-                                    <th>Trasa Name 2</th>
-                                    <th>Reader ID</th>
-                                    <th>RJ</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {uniqueTrases.map((trase, index) => (
-                                    <tr key={index} onClick={() => handleTrasaClick(trase.trasaId)}>
-                                        <td>{trase.trasaId}</td>
-                                        <td>{trase.trasaName}</td>
-                                        <td>{trase.trasaName2}</td>
-                                        <td>{trase.readerId}</td>
-                                        <td>{trase.RJ}</td>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Trasa ID</th>
+                                        <th>Trasa Name</th>
+                                        <th>Trasa Name 2</th>
+                                        <th>Reader ID</th>
+                                        <th>RJ</th>
 
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        <div>
-                            <h3>Status očitavanja:</h3>
-                            <p className='verification-st'>Status očitavanja, odnosno verifikacije na početku očitavanja je podešen na vrednost
-                                "Ne", tek nakon završetka očitavanja, unosa količina i kontrole istih  postavljate status na "Da", odnosno klikom na dugme   =&gt;Verifikuj&lt;=
-                                vršite
-                                verifikaciju unesenih količina, odnosno očitavanja.</p>
-                            <p className='verification-st'>Verifikaciju očitavanja ne vršite sve dok ne budete sigurni da ste završili sa unosom svih očitanih količina!</p>
-{/*                             <p className='verification-st'>Verifikovano očitavanje: {authState.userStatus}</p>
+                                </thead>
+                                <tbody>
+                                    {uniqueTrases.map((trase, index) => (
+                                        <tr key={index} onClick={() => handleTrasaClick(trase.trasaId)}>
+                                            <td>{trase.trasaId}</td>
+                                            <td>{trase.trasaName}</td>
+                                            <td>{trase.trasaName2}</td>
+                                            <td>{trase.readerId}</td>
+                                            <td>{trase.RJ}</td>
+
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <div>
+                                <h3>Status očitavanja:</h3>
+                                <p className='verification-st'>Status očitavanja, odnosno verifikacije na početku očitavanja je podešen na vrednost
+                                    "Ne", tek nakon završetka očitavanja, unosa količina i kontrole istih  postavljate status na "Da", odnosno klikom na dugme   =&gt;Verifikuj&lt;=
+                                    vršite
+                                    verifikaciju unesenih količina, odnosno očitavanja.</p>
+                                <p className='verification-st'>Verifikaciju očitavanja ne vršite sve dok ne budete sigurni da ste završili sa unosom svih očitanih količina!</p>
+                                {/*                             <p className='verification-st'>Verifikovano očitavanje: {authState.userStatus}</p>
  */}
-                            <button className='verification-st ver-btn' onClick={handleToggle}>Verifikuj</button>
-                           
+                                <button className='verification-st ver-btn' onClick={handleToggle}>Verifikuj</button>
+
+                            </div>
+                        </div>
+                        <div className={`${status ? 'hidden' : 'visible'} input-mob-ver`}>
+                            <p>Datum za očitavanje potrošnje još uvek nije otvoren ili je očitavanje završeno.</p>
+                            <p>Molimo , vodite računa o dostavljenim rokovima koje dobijate mejlom i putem stranice Novosti na aplikaciji.</p>
+                            <p>Ukoliko je očitavanje u toku, a ne vidite svoje trase obratite se korisničkoj podršci.</p>
                         </div>
                     </InputMeterStateSt>
                 </HelmetProvider>
