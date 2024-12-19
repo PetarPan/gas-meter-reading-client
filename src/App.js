@@ -90,7 +90,7 @@ function App() {
 useEffect(() => {
   const accessToken = localStorage.getItem("accessToken");
   if (accessToken) {
-    axios.get('http://localhost:3001/auth/auth', {
+    axios.get('gas-meter-reading-c5519d2e37b4.herokuapp.com/auth/auth', {
       headers: {
         accessToken: accessToken,
       },
