@@ -124,27 +124,27 @@ function UpdateReader() {
           <tbody>
           <tr >
               <td style={{ background: 'grey' }}>ID čitača: </td>
-              <td onClick={() => editPost("userId")}>{userObject.userId}</td>
+              <td onDoubleClick={() => editPost("userId")}>{userObject.userId}</td>
             </tr>
             <tr >
               <td style={{ background: 'grey' }}>Korisničko ime čitača: </td>
-              <td onClick={() => editPost("userName")}>{userObject.userName}</td>
+              <td onDoubleClick={() => editPost("userName")}>{userObject.userName}</td>
             </tr>
             <tr >
               <td style={{ background: 'grey' }}>Ime čitača: </td>
-              <td onClick={() => editPost("userRealName")}>{userObject.userRealName}</td>
+              <td onDoubleClick={() => editPost("userRealName")}>{userObject.userRealName}</td>
             </tr>
             <tr>
               <td style={{ background: 'grey' }}>Prezime čitača: </td>
-              <td onClick={() => editPost("userSurName")}>{userObject.userSurName}</td>
+              <td onDoubleClick={() => editPost("userSurName")}>{userObject.userSurName}</td>
             </tr>
             <tr>
               <td style={{ background: 'grey' }}>Uloga: </td>
-              <td onClick={() => editPost("userRole")}>{userObject.userRole}</td>
+              <td onDoubleClick={() => editPost("userRole")}>{userObject.userRole}</td>
             </tr>
             <tr>
               <td style={{ background: 'grey' }}>Radna jedinica: </td>
-              <td onClick={() => editPost("userRJ")}>{userObject.userRJ}</td>
+              <td onDoubleClick={() => editPost("userRJ")}>{userObject.userRJ}</td>
             </tr>
 
           </tbody>

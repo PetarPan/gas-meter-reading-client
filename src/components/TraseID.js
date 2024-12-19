@@ -119,23 +119,23 @@ const TrasaID = () => {
                         <tr>
                             <td style={{ background: 'grey' }}>ID trase: </td>
 
-                            <td onClick={() => editPost("trasaId")}>{trase.trasaId}</td>
+                            <td onDoubleClick={() => editPost("trasaId")}>{trase.trasaId}</td>
                         </tr>
                         <tr>
                             <td style={{ background: 'grey' }}>Ime trase: </td>
-                            <td onClick={() => editPost("trasaName")}>{trase.trasaName}</td>
+                            <td onDoubleClick={() => editPost("trasaName")}>{trase.trasaName}</td>
                         </tr>
                         <tr>
                             <td style={{ background: 'grey' }}>Naziv 2: </td>
-                            <td onClick={() => editPost("trasaName2")}>{trase.trasaName2}</td>
+                            <td onDoubleClick={() => editPost("trasaName2")}>{trase.trasaName2}</td>
                         </tr>
                         <tr>
                             <td style={{ background: 'grey' }}>ID povezanog čitača</td>
-                            <td onClick={() => editPost("readerId")}>{trase.readerId}</td>
+                            <td onDoubleClick={() => editPost("readerId")}>{trase.readerId}</td>
                         </tr>
                         <tr>
                             <td style={{ background: 'grey' }}>RJ trase</td>
-                            <td onClick={() => editPost("RJ")}>{trase.RJ}</td>
+                            <td onDoubleClick={() => editPost("RJ")}>{trase.RJ}</td>
                         </tr>
 
                     </tbody>

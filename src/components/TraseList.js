@@ -63,7 +63,7 @@ const TraseList = () => {
                     <tbody>
                         {filteredTrase.length > 0 ? (
                             filteredTrase.map((trasa) => (
-                                <tr key={trasa.trasaId} onClick={() => handleRowClick(trasa.id)}>
+                                <tr key={trasa.trasaId} onDoubleClick={() => handleRowClick(trasa.id)}>
                                     <td>{trasa.trasaId}</td>
                                     <td>{trasa.trasaName}</td>
                                     <td>{trasa.trasaName2}</td>

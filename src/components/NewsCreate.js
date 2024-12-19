@@ -95,7 +95,7 @@ function NewsCreate() {
                                 <tbody>
                                     {news.length > 0 ? (
                                         news.map((news) => (
-                                            <tr key={news.id} onClick={() => handleRowClick(news.id)}>
+                                            <tr key={news.id} onDoubleClick={() => handleRowClick(news.id)}>
                                                 <td>{news.id}</td>
                                                 <td>{news.newsTitle}</td>
                                                 <td>{news.newsBody}</td>
