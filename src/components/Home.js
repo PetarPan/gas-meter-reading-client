@@ -101,7 +101,7 @@ function Home() {
                             <tbody>
                                 {filteredUsers.length > 0 ? (
                                     filteredUsers.map((user) => (
-                                        <tr key={user.id} onClick={() => handleRowClick(user.id)}>
+                                        <tr key={user.id} onDoubleClick={() => handleRowClick(user.id)}>
                                             <td>{user.userId}</td>
                                             <td>{user.userName}</td>
                                             <td>{user.userRealName}</td>
