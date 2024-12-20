@@ -49,8 +49,9 @@ function App() {
     status: false
   });
 
-  //const apiUrl = process.env.REACT_APP_API_URL;
-  const apiUrl = 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com'
+  const apiUrl = process.env.REACT_APP_API_URL;
+  //const apiUrl = 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com'
+console.log(apiUrl);
 
   //prevencija pristupa
   /*   useEffect(() => {
