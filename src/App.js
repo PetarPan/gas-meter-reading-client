@@ -89,8 +89,15 @@ function App() {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
+    const apiUrl = process.env.REACT_APP_API_URL;
+    
+    if (!apiUrl) {
+      console.error('API URL is not defined');
+      return;
+    }
+  
     if (accessToken) {
-      axios.get(`${apiUrl}/auth/auth`/* 'gas-meter-reading-c5519d2e37b4.herokuapp.com/auth/auth' */, {
+      axios.get(`${apiUrl}/auth/auth`, {
         headers: {
           accessToken: accessToken,
         },
@@ -115,6 +122,7 @@ function App() {
       setAuthState({ ...authState, status: false });
     }
   }, []);
+  
 
   return (
     <AuthContext.Provider value={{ authState, setAuthState }} >
