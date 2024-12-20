@@ -9,7 +9,7 @@ import { AuthContext } from '../helpers/AuthContext';
 import * as Yup from 'yup';
 
 
-function FAQCreate() {
+function FAQCreate({apiUrl}) {
   
     const [faqs, setFaqs] = useState([]);
 
@@ -34,7 +34,7 @@ function FAQCreate() {
 
     const addfaq = async (values, { resetForm }) => {
         try {
-            const response = await axios.post('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/faqs', values);
+            const response = await axios.post(`${apiUrl}/faqs`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/faqs' */, values);
             const newFaq = response.data; // Pretpostavlja se da ovde dolazi nova vest sa ID-jem
             resetForm();
             setFaqs((prevFaqs) => [...prevFaqs, newFaq])
@@ -45,7 +45,7 @@ function FAQCreate() {
     };
     //za pregled vesti-tabelarni
     useEffect(() => {
-        axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/faqs')
+        axios.get(`${apiUrl}/faqs`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/faqs' */)
             .then((response) => {
                 console.log(response.data)
                 setFaqs(response.data);

@@ -6,7 +6,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Table from '../styledComponents/Table.style';
 import { AuthContext } from '../helpers/AuthContext';
 
-function Home() {
+function Home({apiUrl}) {
     const [listOfUsers, setListOfUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [selectedRJ, setSelectedRJ] = useState('');
@@ -20,7 +20,7 @@ function Home() {
             alert('Niste ovlašćeni da vidite ovu stranicu, bićete preusmereni na login stranu');
             history("/login");
         } else {
-            axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users').then((response) => {
+            axios.get(`${apiUrl}/users`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users' */).then((response) => {
                 // Ako je userRole 1, prikazujemo sve korisnike
                 if (authState.userRole === '1') {
                     const usersWithoutFirst = response.data.slice(1);

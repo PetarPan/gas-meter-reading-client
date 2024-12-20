@@ -7,7 +7,7 @@ import { AuthContext } from "../helpers/AuthContext";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-function ChangePassword() {
+function ChangePassword({apiUrl}) {
   const { authState } = useContext(AuthContext);
   const history = useNavigate();
 
@@ -30,7 +30,7 @@ const validationSchema = Yup.object().shape({
   const changePassword = (values) => {   
     axios
       .put(
-        "https://gas-meter-reading-c5519d2e37b4.herokuapp.com/auth/changepassword",
+        `${apiUrl}/auth/changepassword`/* "https://gas-meter-reading-c5519d2e37b4.herokuapp.com/auth/changepassword" */,
         {
           oldPassword: values.oldPassword,
           newPassword: values.newPassword,

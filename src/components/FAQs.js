@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import FAQ from '../styledComponents/FAQ.style';
 import axios from 'axios';
 
-function FAQs() {
+function FAQs({apiUrl}) {
   const [faqs, setFaqs] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
 
   // Pregled FAQ-ova
   useEffect(() => {
     axios
-      .get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/faqs')
+      .get(`${apiUrl}/faqs`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/faqs' */)
       .then((response) => {
         console.log(response.data); // Proverite da li sadrži podatke
         setFaqs(response.data);

@@ -7,7 +7,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { AuthContext } from '../helpers/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-function Registration() {
+function Registration({apiUrl}) {
     const { authState } = useContext(AuthContext);
     const history = useNavigate();
 
@@ -43,7 +43,7 @@ function Registration() {
     });
     //funkcija za kreiranje novog čitača
     const register = (data, { resetForm }) => {
-        axios.post("https://gas-meter-reading-c5519d2e37b4.herokuapp.com/auth", data)
+        axios.post(`${apiUrl}/auth`/* "https://gas-meter-reading-c5519d2e37b4.herokuapp.com/auth" */, data)
             .then(() => {
                 console.log(data);
                 resetForm();

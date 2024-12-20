@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Table from '../styledComponents/Table.style';
 
 
-function NewsCreate() {
+function NewsCreate({apiUrl}) {
 
     const [news, setNews] = useState([]);
 
@@ -28,7 +28,7 @@ function NewsCreate() {
 
     const addNews = async (values, { resetForm }) => {
         try {
-            const response = await axios.post('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news', values);
+            const response = await axios.post(`${apiUrl}/news`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news' */, values);
             const newNews = response.data; // Pretpostavlja se da ovde dolazi nova vest sa ID-jem
             resetForm();
             setNews((prevNews) => [...prevNews, newNews])
@@ -39,7 +39,7 @@ function NewsCreate() {
     };
     //za pregled vesti-tabelarni
     useEffect(() => {
-        axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news')
+        axios.get(`${apiUrl}/news`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news' */)
             .then((response) => {
                 console.log(response.data)
                 setNews(response.data);

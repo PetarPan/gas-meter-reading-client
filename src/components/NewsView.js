@@ -6,8 +6,8 @@ import NewsSt from '../styledComponents/NewsSt.style'
 function NewsView() {
     const [news, setNews] = useState([]);
 
-    useEffect(() => {
-        axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news')
+    useEffect(({apiUrl}) => {
+        axios.get(`${apiUrl}/news`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news' */)
             .then((response) => {
                 const sortedNews = response.data.sort((a, b) => b.id - a.id);
                 setNews(sortedNews);

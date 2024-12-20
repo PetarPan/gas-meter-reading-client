@@ -5,7 +5,7 @@ import Table from '../styledComponents/Table.style';
 import { AuthContext } from '../helpers/AuthContext';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
-const TraseList = () => {
+const TraseList = ({apiUrl}) => {
     const [listOfTrase, setListOfTrase] = useState([]);
     const [filteredTrase, setFilteredTrase] = useState([]);
     const [selectedRJ, setSelectedRJ] = useState('');
@@ -14,7 +14,7 @@ const TraseList = () => {
     const { authState } = useContext(AuthContext);
 
     useEffect(() => {
-        axios.get("https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase")
+        axios.get(`${apiUrl}/trase`/* "https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase" */)
             .then(response => {
                 // Sortiraj trase uzlazno prema readerId
                 const sortedTrase = response.data.sort((a, b) => a.readerId - b.readerId);

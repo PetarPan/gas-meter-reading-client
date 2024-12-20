@@ -4,14 +4,14 @@ import axios from 'axios';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Table } from 'react-bootstrap';
 
-function UpdateReader() {
+function UpdateReader({apiUrl}) {
   let { id } = useParams();
   const [userObject, setUserObject] = useState({});
 
   let history = useNavigate();
 
   useEffect(() => {
-    axios.get(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/byId/${id}`).then((response) => {
+    axios.get(`${apiUrl}/users/byId/${id}`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/byId/${id}` */).then((response) => {
       setUserObject(response.data);
     });
 
@@ -20,7 +20,7 @@ function UpdateReader() {
   /* funkcija za brisanje čitača */
   const deleteUser = (id) => {
     axios
-      .delete(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/${id}`, {
+      .delete(`${apiUrl}/users/${id}`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/${id}` */, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then(() => {
@@ -41,7 +41,7 @@ function UpdateReader() {
   
           // Sačekajte da server završi pre nego što ažurirate stanje
           await axios.put(
-            `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userId`,
+            `${apiUrl}/users/userId`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userId` */,
             {
               newUserId: newValue,
               id: id,
@@ -58,7 +58,7 @@ function UpdateReader() {
   
           // Sačekajte da server završi pre nego što ažurirate stanje
           await axios.put(
-            `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userName`,
+            `${apiUrl}/users/userName`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userName` */,
             {
               newUserName: newValue,
               id: id,
@@ -73,7 +73,7 @@ function UpdateReader() {
         case "userRealName":
           newValue = prompt(`Enter new ${option}: `);
           await axios.put(
-            `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userRealName`,
+            `${apiUrl}/users/userRealName`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userRealName` */,
             { newUserRealName: newValue, id: id },
             { headers: { accessToken: localStorage.getItem("accessToken") } }
           );
@@ -83,7 +83,7 @@ function UpdateReader() {
         case "userSurName":
           newValue = prompt(`Enter new ${option}: `);
           await axios.put(
-            `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userSurName`,
+            `${apiUrl}/users/userSurName`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userSurName` */,
             { newUserSurName: newValue, id: id },
             { headers: { accessToken: localStorage.getItem("accessToken") } }
           );
@@ -93,7 +93,7 @@ function UpdateReader() {
         case "userRJ":
           newValue = prompt(`Enter new ${option}: `);
           await axios.put(
-            `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userRJ`,
+            `${apiUrl}/users/userRJ`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/userRJ` */,
             { newUserRJ: newValue, id: id },
             { headers: { accessToken: localStorage.getItem("accessToken") } }
           );

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../helpers/AuthContext';
 
 
-function OneNewsID() {
+function OneNewsID({apiUrl}) {
     let { id } = useParams();
     const [news, setNews] = useState({});
     const history = useNavigate();
@@ -15,7 +15,7 @@ function OneNewsID() {
 
 
     useEffect(() => {
-        axios.get(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news/byId/${id}`).then((response) => {
+        axios.get(`${apiUrl}/news/byId${id}`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news/byId/${id}` */).then((response) => {
             setNews(response.data);
         });
 
@@ -23,7 +23,7 @@ function OneNewsID() {
 
     const deleteNews = (id) => {
         axios
-            .delete(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news/${id}`, {
+            .delete(`${apiUrl}/news/${id}`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news/${id}` */, {
                 headers: { accessToken: localStorage.getItem("accessToken") },
             })
             .then(() => {

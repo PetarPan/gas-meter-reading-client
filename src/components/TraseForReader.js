@@ -5,7 +5,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { AuthContext } from '../helpers/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-function TraseForReader() {
+function TraseForReader({apiUrl}) {
     const [uniqueTrases, setUniqueTrases] = useState([]);
     const { authState, setAuthState } = useContext(AuthContext);
     const [status, setStatus] = useState(null); //prikaz statusa očitavanja za visible:hidden kolone
@@ -19,7 +19,7 @@ function TraseForReader() {
     }, [authState, navigate]);
 
     useEffect(() => {
-        axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase')
+        axios.get(`${apiUrl}/trase`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase' */)
             .then(response => {
                 // Izdvoj jedinstvene trase
                 const uniqueTrasesMap = new Map();
@@ -49,7 +49,7 @@ function TraseForReader() {
     };
 
     useEffect(() => {
-        axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/status')
+        axios.get(`${apiUrl}/status`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/status' */)
             .then(response => {
                 console.log("Server Response:", response.data); // Proveri šta vraća server
                 setStatus(response.data.status); // Postavlja status sa servera
@@ -63,7 +63,7 @@ function TraseForReader() {
     const handleToggle = async () => {
         const accessToken = localStorage.getItem("accessToken");
         try {
-            const response = await axios.put("https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/toggleStatus", {}, {
+            const response = await axios.put(`${apiUrl}/users/toggleStatus`/* "https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/toggleStatus" */, {}, {
                 headers: {
                     accessToken: accessToken  // Token za autentifikaciju
                 }

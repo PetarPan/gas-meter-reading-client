@@ -7,7 +7,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { AuthContext } from '../helpers/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-const TraseRegisterNew = () => {
+const TraseRegisterNew = ({apiUrl}) => {
     const { authState } = useContext(AuthContext);
     const history = useNavigate();
 
@@ -29,7 +29,7 @@ const TraseRegisterNew = () => {
 
     const dodajTrasu = async (values, { resetForm }) => {
         try {
-            await axios.post('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase', values);
+            await axios.post(`${apiUrl}/trase`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase' */, values);
             resetForm();
             alert('Trasa je uspešno registrovana.');
         } catch (error) {

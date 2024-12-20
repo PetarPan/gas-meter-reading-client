@@ -8,7 +8,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { AuthContext } from '../helpers/AuthContext';
 import { MdGasMeter } from 'react-icons/md';
 
-function Login() {
+function Login({apiUrl}) {
 
     const initialValues = {
         userName: "",
@@ -38,7 +38,7 @@ function Login() {
     //funkcija za login čitača i preusmeravanje na početnu stranicu u slučaju uspešnog logovanja
     const login = (values) => {
         const data = { userName: values.userName, userPassword: values.userPassword }
-        axios.post('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/auth/login', data).then((response) => {
+        axios.post(`${apiUrl}/auth/login`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/auth/login' */, data).then((response) => {
 
             if (response.data.error) {
                 alert(response.data.error);
