@@ -90,7 +90,7 @@ function App() {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-    const apiUrl = process.env.REACT_APP_API_URL;
+   // const apiUrl = process.env.REACT_APP_API_URL;
     
     if (!apiUrl) {
       console.error('API URL is not defined');
