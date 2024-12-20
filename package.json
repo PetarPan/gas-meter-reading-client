@@ -29,9 +29,6 @@
     "eject": "react-scripts eject"
   },
 
-  "proxy": "https://gas-meter-reading-c5519d2e37b4.herokuapp.com", 
-
-
   "eslintConfig": {
     "extends": [
       "react-app",

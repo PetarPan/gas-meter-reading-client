@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import NewsSt from '../styledComponents/NewsSt.style'
 
-function NewsView() {
+function NewsView(apiUrl) {
     const [news, setNews] = useState([]);
+console.log("news url: " + apiUrl);
 
     useEffect(({apiUrl}) => {
         axios.get(`${apiUrl}/news`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news' */)
