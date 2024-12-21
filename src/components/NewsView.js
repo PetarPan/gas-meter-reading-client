@@ -3,11 +3,14 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import NewsSt from '../styledComponents/NewsSt.style'
 
-function NewsView() {
+function NewsView(/* {apiUrl} */) {
     const [news, setNews] = useState([]);
    // const apiUrl = process.env.REACT_APP_API_URL;
 
-console.log("news url: " + apiUrl);
+//console.log("news url: " + apiUrl);
+//console.log("Environment variables:", process.env);
+//console.log("API URL in production:", process.env.REACT_APP_API_URL);
+
 
     useEffect(() => {
         axios.get(/* `${apiUrl}/news` */'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news')
