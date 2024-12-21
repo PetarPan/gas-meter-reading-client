@@ -42,6 +42,7 @@ const validationSchema = Yup.object().shape({
           headers: {
             accessToken: localStorage.getItem("accessToken"),
           },
+          withCredentials: true, // Omogućava slanje kolačića sa zahtevom
         }
       )
       .then((response) => {
