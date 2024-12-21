@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import NewsSt from '../styledComponents/NewsSt.style'
 
-function NewsView({apiUrl}) {
+function NewsView(/* {apiUrl} */) {
     const [news, setNews] = useState([]);
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 console.log("news url: " + apiUrl);
 console.log("Environment variables:", process.env);
@@ -12,17 +14,21 @@ console.log("API URL in production:", process.env.REACT_APP_API_URL);
 
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/news`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news' */)
+        axios.get(`${apiUrl}/news`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news' */)
         console.log("unutar effecta: " + `${apiUrl}/news`)
 
             .then((response) => {
                 const sortedNews = response.data.sort((a, b) => b.id - a.id);
-                setNews(sortedNews);          
+                setNews(sortedNews);    
+                console.log(response)
+                console.log(`${apiUrl}/news`);
+                      
             })
             .catch((error) => {
                 console.error('Greška prilikom prikaza vesti:', error);
             });
     }, [apiUrl]);
+    
     return (
         <HelmetProvider>
             <Helmet>
