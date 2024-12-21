@@ -14,21 +14,17 @@ console.log("API URL in production:", process.env.REACT_APP_API_URL);
 
 
     useEffect(() => {
-        axios.get(`${apiUrl}/news`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news' */)
-        console.log("unutar effecta: " + `${apiUrl}/news`)
+        axios.get(apiUrl + `/news`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news' */)
 
             .then((response) => {
                 const sortedNews = response.data.sort((a, b) => b.id - a.id);
-                setNews(sortedNews);    
-                console.log(response)
-                console.log(`${apiUrl}/news`);
-                      
+                setNews(sortedNews);                          
             })
             .catch((error) => {
                 console.error('Greška prilikom prikaza vesti:', error);
             });
     }, [apiUrl]);
-    
+
     return (
         <HelmetProvider>
             <Helmet>
