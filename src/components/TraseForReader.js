@@ -70,11 +70,16 @@ function TraseForReader(/* {apiUrl} */) {
         const apiUrl = process.env.REACT_APP_API_URL;
 
         try {
-            const response = await axios.put(apiUrl + `/users/toggleStatus`/* "https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/toggleStatus" */, {}, {
-                headers: {
-                    accessToken: accessToken  // Token za autentifikaciju
+            const response = await axios.put(
+                apiUrl + `/users/toggleStatus`, // API URL
+                {}, // Telo zahteva (prazno u ovom slučaju)
+                {
+                    headers: {
+                        accessToken: accessToken // Token za autentifikaciju
+                    },
+                    withCredentials: true // Dodaje kolačiće i druge poverljive podatke u zahtev
                 }
-            });
+            );
 
 
             // Ažuriraj authState nakon uspešnog odgovora
