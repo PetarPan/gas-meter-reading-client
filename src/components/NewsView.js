@@ -5,7 +5,6 @@ import NewsSt from '../styledComponents/NewsSt.style'
 
 function NewsView({apiUrl}) {
     const [news, setNews] = useState([]);
-    const apiUrl = process.env.REACT_APP_API_URL /* || 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com' */;
 
 console.log("news url: " + apiUrl);
 console.log("Environment variables:", process.env);
