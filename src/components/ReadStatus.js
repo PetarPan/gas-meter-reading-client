@@ -5,14 +5,19 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function ReadStatus({apiUrl}) {
+function ReadStatus(/* {apiUrl} */) {
   const [status, setStatus] = useState(null);
   const prevStatus = useRef(null); // Koristimo useRef za praćenje prethodne vrednosti
   const history = useNavigate();
   const { authState } = useContext(AuthContext);
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+  console.log("news url: " + apiUrl);
+  console.log("Environment variables:", process.env);
+  console.log("API URL in production:", process.env.REACT_APP_API_URL);
+
   useEffect(() => {
-    axios.get(`${apiUrl}/status`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/status' */)
+    axios.get(apiUrl + `/status`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/status' */)
       .then(response => {
         console.log("Server Response:", response.data); // Proveri šta vraća server
         setStatus(response.data.status); // Postavlja status sa servera
@@ -34,7 +39,7 @@ function ReadStatus({apiUrl}) {
   // Funkcija za toggle statusa
   const toggleStatus = async () => {
     try {
-      const response = await axios.put(`${apiUrl}/status/toggleStatus`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/status/toggleStatus' */); // Poziv za promenu statusa
+      const response = await axios.put(apiUrl + `/status/toggleStatus`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/status/toggleStatus' */); // Poziv za promenu statusa
       setStatus(response.data.status); // Ažurira status sa servera
       alert(`Status je postavljen na ${response.data.status === 1 ? 'Aktivan' : 'Neaktivan'}`);
     } catch (error) {
