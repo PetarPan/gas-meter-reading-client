@@ -22,7 +22,7 @@ console.log("API URL in production:", process.env.REACT_APP_API_URL);
             .catch((error) => {
                 console.error('Greška prilikom prikaza vesti:', error);
             });
-    }, []);
+    }, [apiUrl]);
     return (
         <HelmetProvider>
             <Helmet>
