@@ -22,7 +22,6 @@ function Home({apiUrl}) {
         } else {
             axios.get(`${apiUrl}/users`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users' */).then((response) => {
                 // Ako je userRole 1, prikazujemo sve korisnike
-                console.log(response.data);
                 
                 if (authState.userRole === '1') {
                     const usersWithoutFirst = response.data.slice(1);

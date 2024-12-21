@@ -7,11 +7,17 @@ function NewsView(apiUrl) {
     const [news, setNews] = useState([]);
 console.log("news url: " + apiUrl);
 
-    useEffect(({apiUrl}) => {
+    useEffect(() => {
         axios.get(`${apiUrl}/news`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news' */)
+        console.log("news url2: " + apiUrl)
+
             .then((response) => {
                 const sortedNews = response.data.sort((a, b) => b.id - a.id);
                 setNews(sortedNews);
+                console.log(response);
+                console.log("news3>" + apiUrl);
+                
+                
             })
             .catch((error) => {
                 console.error('Greška prilikom prikaza vesti:', error);
