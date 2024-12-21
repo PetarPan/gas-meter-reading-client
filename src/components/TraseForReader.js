@@ -53,6 +53,7 @@ function TraseForReader(/* {apiUrl} */) {
 
 
     useEffect(() => {
+
         axios.get(apiUrl + `/status`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/status' */)
             .then(response => {
                 console.log("Server Response:", response.data); // Proveri šta vraća server
@@ -66,6 +67,8 @@ function TraseForReader(/* {apiUrl} */) {
 
     const handleToggle = async () => {
         const accessToken = localStorage.getItem("accessToken");
+        const apiUrl = process.env.REACT_APP_API_URL;
+
         try {
             const response = await axios.put(apiUrl + `/users/toggleStatus`/* "https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/toggleStatus" */, {}, {
                 headers: {

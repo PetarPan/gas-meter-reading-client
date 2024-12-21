@@ -7,7 +7,7 @@ import { AuthContext } from "../helpers/AuthContext";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-function ChangePassword(/* {apiUrl} */) {
+function ChangePassword( /* {apiUrl} */ ) {
   const { authState } = useContext(AuthContext);
   const history = useNavigate();
 
