@@ -11,7 +11,7 @@ console.log("news url: " + apiUrl);
 
     useEffect(() => {
         axios.get(`${apiUrl}/news`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news' */)
-        console.log("news url2: " + apiUrl)
+        console.log(`${apiUrl}/news`)
 
             .then((response) => {
                 const sortedNews = response.data.sort((a, b) => b.id - a.id);
