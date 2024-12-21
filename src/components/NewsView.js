@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import NewsSt from '../styledComponents/NewsSt.style'
 
-function NewsView(apiUrl) {
+function NewsView({apiUrl}) {
     const [news, setNews] = useState([]);
 console.log("news url: " + JSON.stringify(apiUrl));
 
