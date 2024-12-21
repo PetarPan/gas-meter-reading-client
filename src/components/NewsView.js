@@ -12,7 +12,7 @@ console.log("API URL in production:", process.env.REACT_APP_API_URL);
 
 
     useEffect(() => {
-        axios.get(`${apiUrl}/news`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news' */)
+        axios.get(`${apiUrl}/api/news`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/news' */)
         console.log("unutar effecta: " + `${apiUrl}/news`)
 
             .then((response) => {
