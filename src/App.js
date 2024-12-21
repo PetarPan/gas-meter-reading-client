@@ -50,8 +50,6 @@ function App() {
   });
 
   const apiUrl = process.env.REACT_APP_API_URL;
-  //const apiUrl = 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com'
-console.log(apiUrl);
 
   //prevencija pristupa
   /*   useEffect(() => {
@@ -91,7 +89,6 @@ console.log(apiUrl);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-   // const apiUrl = process.env.REACT_APP_API_URL;
     
     if (!apiUrl) {
       console.error('API URL is not defined');
