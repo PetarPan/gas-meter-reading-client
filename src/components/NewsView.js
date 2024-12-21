@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import NewsSt from '../styledComponents/NewsSt.style'
 
-function NewsView(/* {apiUrl} */) {
+function NewsView({apiUrl}) {
     const [news, setNews] = useState([]);
-   // const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = process.env.REACT_APP_API_URL /* || 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com' */;
 
 console.log("news url: " + apiUrl);
 console.log("Environment variables:", process.env);
