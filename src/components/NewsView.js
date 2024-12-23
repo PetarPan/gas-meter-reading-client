@@ -6,14 +6,14 @@ import NewsSt from '../styledComponents/NewsSt.style'
 function NewsView() {
     const [news, setNews] = useState([]);
 
-const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         axios.get(apiUrl + `/news`)
 
             .then((response) => {
                 const sortedNews = response.data.sort((a, b) => b.id - a.id);
-                setNews(sortedNews);                          
+                setNews(sortedNews);
             })
             .catch((error) => {
                 console.error('Greška prilikom prikaza vesti:', error);
