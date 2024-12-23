@@ -64,13 +64,17 @@ function NavBar() {
                 )}
                 {authState.userRole === "3" && (
                     <>
-                        <Nav.Link as={Link} to="/" onClick={() => setMenuOpen(false)}>Pregled trasa</Nav.Link>
+                        <Nav.Link as={Link} to="/" onClick={() => setMenuOpen(false)}>Početna strana</Nav.Link>
+                        <Nav.Link as={Link} to="/pregled-trasa-citaci" onClick={() => setMenuOpen(false)}>Pregled trasa</Nav.Link>
                         <Nav.Link as={Link} to="/changepassword" onClick={() => setMenuOpen(false)}>Promena lozinke</Nav.Link>
                         <Nav.Link href="/readerManual.pdf" target="_blank" onClick={() => setMenuOpen(false)}>Uputstvo</Nav.Link>
                         <Nav.Link as={Link} to="/faq" onClick={() => setMenuOpen(false)}>FAQ</Nav.Link>
                     </>
                 )}
-                <Button variant="outline-danger" className='logout' onClick={logout}>Logout</Button>
+                <Button variant="outline-danger" className='logout' onClick={() => {
+                    logout();
+                    setMenuOpen(false);
+                }}>Logout</Button>
             </>
         ) : (
             <>

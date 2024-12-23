@@ -159,7 +159,7 @@ function App() {
           <Route path="/faq-create" exact element={<FAQCreate apiUrl={apiUrl}/>} />
           {/* news */}
           <Route path="/news-create" exact element={<NewsCreate apiUrl={apiUrl}/>} />
-          <Route path="/news-view" exact element={<NewsView />} />
+          <Route path="/home-news-view" exact element={<NewsView />} />
           <Route path="/news/:id" element={<OneNewsID apiUrl={apiUrl}/>} />
           {/* 404 page */}
           <Route path="*" exact element={<Page404 />} />

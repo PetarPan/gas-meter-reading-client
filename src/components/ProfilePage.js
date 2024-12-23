@@ -13,7 +13,7 @@ function ProfilePage() {
                 authState.userRole === "1" || authState.userRole === "2" ? (
                     <Home />
                 ) : authState.userRole === "3" ? (
-                    <TraseForReader />
+                    <NewsView />
                 ) : null
             ) : (
                 <>
