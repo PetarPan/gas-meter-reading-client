@@ -5,10 +5,10 @@ function Havarije() {
   return (
     <HelmetProvider>
     <Helmet>
-    <title>Promena lozinke</title>
+    <title>Aplikacija za računanje havarija</title>
   </Helmet>
     <div>
-      Havarije
+      Havarije - aplikacija je u izradi
     </div>
     </HelmetProvider>
   )

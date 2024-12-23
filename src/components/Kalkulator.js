@@ -5,10 +5,10 @@ function Kalkulator() {
   return (
     <HelmetProvider>
     <Helmet>
-      <title>Kalkulator</title>
+      <title>Kalkulator količina</title>
     </Helmet>
     <div>
-      Kalkulator nelegalne potrošnje
+      Kalkulator nelegalne potrošnje, kalkulator količina - aplikacija je u izradi
     </div>
     </HelmetProvider>
   )
