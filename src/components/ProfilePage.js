@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import Home from './Home';
-import TraseForReader from './TraseForReader';
+import React, { useContext } from 'react';
 import { AuthContext } from '../helpers/AuthContext';
+import Home from './Home';
 import NewsView from './NewsView';
+import PreLoginPage from './PreLoginPage';
 
 function ProfilePage() {
     const { authState } = useContext(AuthContext);
@@ -21,7 +21,7 @@ function ProfilePage() {
                         <h1>Novosti:</h1>
                      
                     </div>
-                    <NewsView />
+                    <PreLoginPage />
                     
                 </>
             )}

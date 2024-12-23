@@ -60,6 +60,8 @@ function NavBar() {
                         <Nav.Link as={Link} to="/registracija-trase" onClick={() => setMenuOpen(false)}>Registracija trase</Nav.Link>
                         <Nav.Link as={Link} to="/unos-stanja" onClick={() => setMenuOpen(false)}>Pregled količina</Nav.Link>
                         <Nav.Link href="/adminManual.pdf" target="_blank" onClick={() => setMenuOpen(false)}>Uputstvo</Nav.Link>
+                        <Nav.Link as={Link} to="/faq" onClick={() => setMenuOpen(false)}>FAQ</Nav.Link>
+
                     </>
                 )}
                 {authState.userRole === "3" && (
@@ -82,7 +84,6 @@ function NavBar() {
                 <Nav.Link as={Link} to="/login" onClick={() => setMenuOpen(false)}>Login čitača</Nav.Link>
                 <Nav.Link as={Link} to="/kalkulator" onClick={() => setMenuOpen(false)}>Kalkulator</Nav.Link>
                 <Nav.Link as={Link} to="/havarije" onClick={() => setMenuOpen(false)}>Havarije</Nav.Link>
-                <Nav.Link as={Link} to="/faq" onClick={() => setMenuOpen(false)}>FAQ</Nav.Link>
             </>
         )}
     </Nav>
