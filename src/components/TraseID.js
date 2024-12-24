@@ -12,7 +12,7 @@ const TrasaID = ({apiUrl}) => {
     const history = useNavigate();
 
     useEffect(() => {
-        axios.get(`${apiUrl}/trase/byId/${id}`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/byId/${id}` */).then((response) => {
+        axios.get(`${apiUrl}/trase/byId/${id}`).then((response) => {
             setTrase(response.data);
         });
 
@@ -20,7 +20,7 @@ const TrasaID = ({apiUrl}) => {
     /* funkcija za brisanje trase */
     const deleteTrasa = (id) => {
         axios
-            .delete(`${apiUrl}/trase/${id}`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/${id}` */, {
+            .delete(`${apiUrl}/trase/${id}`, {
                 headers: { accessToken: localStorage.getItem("accessToken") },
             })
             .then(() => {
@@ -38,7 +38,7 @@ const TrasaID = ({apiUrl}) => {
             case "trasaId":
                 newValue = prompt(`Enter new ${option}: `);
                 axios.put(
-                    `${apiUrl}/trase/trasaId`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/trasaId` */,
+                    `${apiUrl}/trase/trasaId`,
                     {
                         newTrasaId: newValue,
                         id: id,
@@ -51,7 +51,7 @@ const TrasaID = ({apiUrl}) => {
             case "trasaName":
                 newValue = prompt(`Enter new ${option}: `);
                 axios.put(
-                    `${apiUrl}/trase/trasaName`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/trasaName` */,
+                    `${apiUrl}/trase/trasaName`,
                     {
                         newTrasaName: newValue,
                         id: id,
@@ -64,7 +64,7 @@ const TrasaID = ({apiUrl}) => {
             case "trasaName2":
                 newValue = prompt(`Enter new ${option}: `);
                 axios.put(
-                    `${apiUrl}/trase/trasaName2`/* `http://localhost:3001/trase/trasaName2` */,
+                    `${apiUrl}/trase/trasaName2`,
                     {
                         newTrasaName2: newValue,
                         id: id,
@@ -77,7 +77,7 @@ const TrasaID = ({apiUrl}) => {
             case "readerId":
                 newValue = prompt(`Enter new ${option}: `);
                 axios.put(
-                    `${apiUrl}/trase/readerId`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/readerId` */,
+                    `${apiUrl}/trase/readerId`,
                     {
                         newReaderId: newValue,
                         id: id,
@@ -90,7 +90,7 @@ const TrasaID = ({apiUrl}) => {
             case "RJ":
                 newValue = prompt(`Enter new ${option}: `);
                 axios.put(
-                    `${apiUrl}/trase/RJ`/* `https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/RJ` */,
+                    `${apiUrl}/trase/RJ`,
                     {
                         newRJ: newValue,
                         id: id,

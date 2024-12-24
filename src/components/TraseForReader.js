@@ -5,7 +5,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { AuthContext } from '../helpers/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-function TraseForReader(/* {apiUrl} */) {
+function TraseForReader( ) {
     const [uniqueTrases, setUniqueTrases] = useState([]);
     const { authState, setAuthState } = useContext(AuthContext);
     const [status, setStatus] = useState(null); //prikaz statusa očitavanja za visible:hidden kolone
@@ -22,7 +22,7 @@ function TraseForReader(/* {apiUrl} */) {
     }, [authState.userRole, navigate]);
 
     useEffect(() => {
-        axios.get(apiUrl + `/trase`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase' */)
+        axios.get(apiUrl + `/trase`)
             .then(response => {
                 // Izdvoj jedinstvene trase
                 const uniqueTrasesMap = new Map();
@@ -54,10 +54,10 @@ function TraseForReader(/* {apiUrl} */) {
 
     useEffect(() => {
 
-        axios.get(apiUrl + `/status`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/status' */)
+        axios.get(apiUrl + `/status`)
             .then(response => {
-                console.log("Server Response:", response.data); // Proveri šta vraća server
-                setStatus(response.data.status); // Postavlja status sa servera
+                console.log("Server Response:", response.data); 
+                setStatus(response.data.status);
             })
             .catch((error) => {
                 console.error('Greška pri učitavanju statusa:', error);
@@ -71,13 +71,13 @@ function TraseForReader(/* {apiUrl} */) {
 
         try {
             const response = await axios.put(
-                apiUrl + `/users/toggleStatus`, // API URL
-                {}, // Telo zahteva (prazno u ovom slučaju)
+                apiUrl + `/users/toggleStatus`,
+                {}, 
                 {
                     headers: {
-                        accessToken: accessToken // Token za autentifikaciju
+                        accessToken: accessToken 
                     },
-                    withCredentials: true // Dodaje kolačiće i druge poverljive podatke u zahtev
+                    withCredentials: true
                 }
             );
 

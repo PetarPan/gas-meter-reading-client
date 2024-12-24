@@ -7,7 +7,7 @@ import { AuthContext } from "../helpers/AuthContext";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-function ChangePassword( /* {apiUrl} */ ) {
+function ChangePassword(  ) {
   const { authState } = useContext(AuthContext);
   const history = useNavigate();
 
@@ -18,7 +18,7 @@ function ChangePassword( /* {apiUrl} */ ) {
     oldPassword: "",
     newPassword: ""
   };
-    // Yup sema za validaciju lozinke
+    
 const validationSchema = Yup.object().shape({
   oldPassword: Yup.string().required("Polje za staru lozinku je obavezno"),
   newPassword: Yup.string()
@@ -34,7 +34,7 @@ const validationSchema = Yup.object().shape({
     
     axios
       .put(
-        `${apiUrl}/auth/changepassword`/* "https://gas-meter-reading-c5519d2e37b4.herokuapp.com/auth/changepassword" */,
+        `${apiUrl}/auth/changepassword`,
         {
           oldPassword: values.oldPassword,
           newPassword: values.newPassword,
@@ -43,7 +43,7 @@ const validationSchema = Yup.object().shape({
           headers: {
             accessToken: localStorage.getItem("accessToken"),
           },
-          withCredentials: true, // Omogućava slanje kolačića sa zahtevom
+          withCredentials: true,
         }
       )
       .then((response) => {

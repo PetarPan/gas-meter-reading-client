@@ -29,7 +29,7 @@ const TraseRegisterNew = ({apiUrl}) => {
 
     const dodajTrasu = async (values, { resetForm }) => {
         try {
-            await axios.post(`${apiUrl}/trase`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase' */, values);
+            await axios.post(`${apiUrl}/trase`, values);
             resetForm();
             alert('Trasa je uspešno registrovana.');
         } catch (error) {
@@ -45,7 +45,6 @@ const TraseRegisterNew = ({apiUrl}) => {
 
                 <HelmetProvider>
 
-                    {/* Helmet - naziv kartice u pregledaču */}
                     <Helmet>
                         <title>Kreiranje trase</title>
                     </Helmet>

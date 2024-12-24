@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import ReadStatus from './ReadStatus';
 
-function AdminStuff(/* {apiUrl} */) {
+function AdminStuff( ) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [message, setMessage] = useState('');
@@ -16,11 +16,11 @@ function AdminStuff(/* {apiUrl} */) {
     // Funkcija za resetovanje statusa svih korisnika
     const resetUserStatus = async () => {
         setLoading(true);
-        setError(null); // Resetovanje greške pre nego što pokušamo
+        setError(null); // Resetovanje greške 
         try {
             // Poziv nove rute za resetovanje statusa
-            const response = await axios.put(apiUrl + `/users/resetStatus`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/users/resetStatus' */);
-            setMessage(response.data.message); // Prikazivanje poruke
+            const response = await axios.put(apiUrl + `/users/resetStatus`);
+            setMessage(response.data.message);
         } catch (err) {
             setError('Došlo je do greške prilikom resetovanja statusa čitača.');
             console.error(err);
@@ -29,7 +29,6 @@ function AdminStuff(/* {apiUrl} */) {
         }
     };
 
-    //funkcija za reset statusa očitavanja
 
     return (
         <HelmetProvider>

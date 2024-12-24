@@ -6,7 +6,7 @@ const ListaSvihTrasa = ({apiUrl}) => {
     const [trase, setTrase] = useState([]);
 
     useEffect(() => {
-        axios.get(`${apiUrl}/trase/lista-svih-trasa`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/lista-svih-trasa' */)
+        axios.get(`${apiUrl}/trase/lista-svih-trasa`)
             .then(response => {
                 setTrase(response.data);
             })

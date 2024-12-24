@@ -9,9 +9,9 @@ function FAQs({apiUrl}) {
   // Pregled FAQ-ova
   useEffect(() => {
     axios
-      .get(`${apiUrl}/faqs`/* 'https://gas-meter-reading-c5519d2e37b4.herokuapp.com/faqs' */)
+      .get(`${apiUrl}/faqs`)
       .then((response) => {
-        console.log(response.data); // Proverite da li sadrži podatke
+        console.log(response.data); 
         setFaqs(response.data);
       })
       .catch((error) => {
@@ -20,7 +20,7 @@ function FAQs({apiUrl}) {
   }, []);
 
   const toggleAnswer = (index) => {
-    setOpenIndex(openIndex === index ? null : index); // Otvori/zatvori odgovor
+    setOpenIndex(openIndex === index ? null : index); 
   };
 
   return (
