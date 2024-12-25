@@ -162,7 +162,7 @@ function App() {
           {/* news */}
           <Route path="/home-prelogin-page" exact element={<PreLoginPage />} />
           <Route path="/news-create" exact element={<NewsCreate apiUrl={apiUrl}/>} />
-          <Route path="/home-news-view" exact element={<NewsView />} />
+          <Route path="/home-news-view" exact element={<NewsView apiUrl={apiUrl}/>} />
           <Route path="/news/:id" element={<OneNewsID apiUrl={apiUrl}/>} />
           {/* 404 page */}
           <Route path="*" exact element={<Page404 />} />

@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import NewsSt from '../styledComponents/NewsSt.style'
 
-function NewsView() {
+function NewsView({apiUrl}) {
     const [news, setNews] = useState([]);
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    //const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         axios.get(apiUrl + `/news`)
