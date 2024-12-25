@@ -5,12 +5,12 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { AuthContext } from '../helpers/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-function TraseForReader( ) {
+function TraseForReader({apiUrl} ) {
     const [uniqueTrases, setUniqueTrases] = useState([]);
     const { authState, setAuthState } = useContext(AuthContext);
     const [status, setStatus] = useState(null); //prikaz statusa očitavanja za visible:hidden kolone
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    //const apiUrl = process.env.REACT_APP_API_URL;
 
 
     const navigate = useNavigate();
