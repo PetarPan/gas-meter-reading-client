@@ -10,7 +10,6 @@ function NewsView() {
 
     axios.get(apiUrl + `/news`)
         .then((response) => {
-            console.log('API odgovor:', response.data); // Ovdje možete da vidite šta tačno dolazi
             if (Array.isArray(response.data)) {
                 const sortedNews = response.data.sort((a, b) => b.id - a.id);
                 setNews(sortedNews);
