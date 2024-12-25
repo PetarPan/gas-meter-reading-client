@@ -9,7 +9,9 @@ import { CSVLink } from "react-csv";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 
 
-function InputMeterStateAdmin({apiUrl}) {
+function InputMeterStateAdmin(/* {apiUrl} */) {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     const [states, setStates] = useState([]);
     const [selectedRow, setSelectedRow] = useState(0);
     const [newMeterValues, setNewMeterValues] = useState([]);
