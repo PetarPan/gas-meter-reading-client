@@ -25,7 +25,7 @@ function InputMeterState({apiUrl}) {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    //const apiUrl = process.env.REACT_APP_API_URL;
 
 
     /* useEffect za optimizovani prikaz preko mob/komp */

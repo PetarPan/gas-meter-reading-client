@@ -150,7 +150,7 @@ function App() {
           <Route path="/admin-page" exact element={<AdminPage apiUrl={apiUrl}/>} />
           <Route path="/admin-stuff" exact element={<AdminStuff />} />
           {/* pregled trasa unique + unos stanja za admina svi */}
-          <Route path="/pregled-trasa-citaci" exact element={<TraseForReader />} />
+          <Route path="/pregled-trasa-citaci" exact element={<TraseForReader apiUrl={apiUrl}/>} />
           <Route path="/unos-stanja/:id" exact element={<InputMeterState apiUrl={apiUrl}/>} />
           <Route path="/unos-stanja" exact element={<InputMeterStateAdmin apiUrl={apiUrl}/>} />
           {/* posebna aplikacija */}
