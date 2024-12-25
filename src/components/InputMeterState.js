@@ -57,7 +57,7 @@ function InputMeterState({apiUrl}) {
 
         setLoading(true);
         if (id) {
-            axios.get(`${apiUrl}/trase/${id}`)
+            axios.get(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/${id}`)
                 .then(response => {
                     setStates(response.data);
                     //setNewMeterValue(response.data.map(() => ''));

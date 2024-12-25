@@ -36,7 +36,7 @@ function TraseForReader({apiUrl} ) {
                             RJ: item.RJ,
                         });
                     }
-                },[apiUrl]);
+                });
 
                 // Dobavi RJ za svaku jedinstvenu trasu
                 const uniqueTrasesWithRJ = Array.from(uniqueTrasesMap.values());
@@ -81,8 +81,6 @@ function TraseForReader({apiUrl} ) {
                     withCredentials: true
                 }
             );
-
-
             // Ažuriraj authState nakon uspešnog odgovora
             const newStatus = authState.userStatus === 'Da' ? 'Ne' : 'Da';
             setAuthState((prevState) => ({
@@ -95,10 +93,6 @@ function TraseForReader({apiUrl} ) {
             alert("Došlo je do greške pri ažuriranju statusa.");
         }
     };
-
-
-
-
     return (
         <>
            
