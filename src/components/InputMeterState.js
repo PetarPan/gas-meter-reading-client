@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { confirmAlert } from 'react-confirm-alert';
 
 
-function InputMeterState(/* {apiUrl} */) {
+function InputMeterState({apiUrl}) {
     const [isMobile, setIsMobile] = useState(false);
     const [states, setStates] = useState([]);
     const [selectedRow, setSelectedRow] = useState(0);
