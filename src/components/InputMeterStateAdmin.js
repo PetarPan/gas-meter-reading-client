@@ -56,6 +56,8 @@ function InputMeterStateAdmin(/* {apiUrl} */) {
     //kraj sort funkcije
 
     useEffect(() => {
+        const apiUrl = process.env.REACT_APP_API_URL;
+
         setLoading(true);
         axios.get(`${apiUrl}/trasa/unos`)
             .then(response => {
@@ -68,6 +70,7 @@ function InputMeterStateAdmin(/* {apiUrl} */) {
                 setLoading(false);
             });
     }, [authState]);
+    
     useEffect(() => {
         if (authState.userRole == 1 || authState.userRole == 2) {
             history('/unos-stanja');
