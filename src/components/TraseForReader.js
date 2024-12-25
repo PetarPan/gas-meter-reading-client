@@ -48,7 +48,7 @@ function TraseForReader( ) {
     }, [Number(authState.userId)]);
 
     const handleTrasaClick = (selectedTrasaId) => {
-        navigate(`/unos-stanja/${Number(selectedTrasaId)}`);    
+        navigate(`/unos-stanja/${selectedTrasaId}`);    
     };
 
 
@@ -122,7 +122,7 @@ function TraseForReader( ) {
                                 </thead>
                                 <tbody>
                                     {uniqueTrases.map((trase, index) => (
-                                        <tr key={index} onClick={() => handleTrasaClick(Number(trase.trasaId))}>
+                                        <tr key={index} onClick={() => handleTrasaClick(trase.trasaId)}>
                                             <td>{trase.trasaId}</td>
                                             <td>{trase.trasaName}</td>
                                             <td>{trase.trasaName2}</td>
