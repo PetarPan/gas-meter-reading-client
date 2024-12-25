@@ -36,7 +36,7 @@ function TraseForReader({apiUrl} ) {
                             RJ: item.RJ,
                         });
                     }
-                });
+                },[apiUrl]);
 
                 // Dobavi RJ za svaku jedinstvenu trasu
                 const uniqueTrasesWithRJ = Array.from(uniqueTrasesMap.values());
@@ -48,6 +48,7 @@ function TraseForReader({apiUrl} ) {
     }, [Number(authState.userId)]);
 
     const handleTrasaClick = (selectedTrasaId) => {
+        console.log("Navigating to trasa ID:", selectedTrasaId);  // Dodajte log za debugovanje
         navigate(`/unos-stanja/${selectedTrasaId}`);    
     };
 
