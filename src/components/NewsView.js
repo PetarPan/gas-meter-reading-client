@@ -9,7 +9,7 @@ function NewsView({apiUrl}) {
     //const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
-        axios.get(apiUrl + `/news`)
+        axios.get(`${apiUrl}/news`)
 
             .then((response) => {
                 const sortedNews = response.data.sort((a, b) => b.id - a.id);

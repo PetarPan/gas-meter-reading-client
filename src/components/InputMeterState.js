@@ -58,7 +58,7 @@ function InputMeterState(/* {apiUrl} */) {
 
         setLoading(true);
         if (id) {
-            axios.get(`${apiUrl}/trase/${id}`)
+            axios.get(apiUrl + `/trase/${id}`)
                 .then(response => {
                     setStates(response.data);
                     //setNewMeterValue(response.data.map(() => ''));

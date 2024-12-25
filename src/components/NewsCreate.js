@@ -41,7 +41,6 @@ function NewsCreate({apiUrl}) {
     useEffect(() => {
         axios.get(`${apiUrl}/news`)
             .then((response) => {
-                console.log(response.data)
                 setNews(response.data);
             })
             .catch((error) => {
