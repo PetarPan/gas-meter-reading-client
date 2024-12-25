@@ -59,7 +59,7 @@ function InputMeterStateAdmin(/* {apiUrl} */) {
         const apiUrl = process.env.REACT_APP_API_URL;
 
         setLoading(true);
-        axios.get(`${apiUrl}/trasa/unos`)
+        axios.get(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/${id}`) /* `${apiUrl}/trasa/unos` */
             .then(response => {
                 setStates(response.data);
                 // setNewMeterValues(response.data.map(() => ''));
