@@ -15,7 +15,7 @@ function OneNewsID({ apiUrl }) {
 
 
     useEffect(() => {
-        axios.get(`${apiUrl}/news/byId${id}`).then((response) => {
+        axios.get(`${apiUrl}/news/byId/${id}`).then((response) => {
             setNews(response.data);
         });
 
