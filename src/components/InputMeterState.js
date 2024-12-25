@@ -54,6 +54,8 @@ function InputMeterState(/* {apiUrl} */) {
     }, [authState, navigate]);
     /* useEffect za komunikaciju */
     useEffect(() => {
+        const apiUrl = process.env.REACT_APP_API_URL;
+
         setLoading(true);
         if (id) {
             axios.get(`${apiUrl}/trase/${id}`)
