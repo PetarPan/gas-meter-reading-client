@@ -5,6 +5,4 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
   Permissions-Policy: geolocation=self
-  Access-Control-Allow-Origin: https://gas-meter-reading.netlify.app
-  Access-Control-Allow-Methods: GET, POST, PUT, DELETE
-  Access-Control-Allow-Headers: Content-Type, Authorization, accesstoken
+
