@@ -415,7 +415,7 @@ function InputMeterStateAdmin() {
                             </thead>
                             {/* Redovi tabele */}
                             <tbody>
-                                {filteredData
+                                {states 
                                     .filter(state => authState.userRole !== 2 || state.RJ === authState.userRJ) // Filtriranje podataka
                                     .map((state, index) => (
                                         <tr key={index} onKeyDown={(e) => handleKeyDown(e, index)}>
