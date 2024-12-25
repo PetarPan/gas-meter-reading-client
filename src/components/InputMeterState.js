@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { confirmAlert } from 'react-confirm-alert';
 
 
-function InputMeterState(/* {apiUrl} */) {
+function InputMeterState({apiUrl}) {
     const [isMobile, setIsMobile] = useState(false);
     const [states, setStates] = useState([]);
     const [selectedRow, setSelectedRow] = useState(0);
@@ -25,7 +25,7 @@ function InputMeterState(/* {apiUrl} */) {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    //const apiUrl = process.env.REACT_APP_API_URL;
 
 
     /* useEffect za optimizovani prikaz preko mob/komp */
@@ -58,7 +58,7 @@ function InputMeterState(/* {apiUrl} */) {
 
         setLoading(true);
         if (id) {
-            axios.get(apiUrl + `/trase/${id}`)
+            axios.get(`${apiUrl}/trase/${id}`)
                 .then(response => {
                     setStates(response.data);
                     //setNewMeterValue(response.data.map(() => ''));
