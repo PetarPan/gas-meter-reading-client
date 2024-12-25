@@ -8,17 +8,21 @@ function NewsView() {
 
     const apiUrl = process.env.REACT_APP_API_URL;
 
-    useEffect(() => {
-        axios.get(apiUrl + `/news`)
-
-            .then((response) => {
+    axios.get(apiUrl + `/news`)
+        .then((response) => {
+            console.log('API odgovor:', response.data); // Ovdje možete da vidite šta tačno dolazi
+            if (Array.isArray(response.data)) {
                 const sortedNews = response.data.sort((a, b) => b.id - a.id);
                 setNews(sortedNews);
-            })
-            .catch((error) => {
-                console.error('Greška prilikom prikaza vesti:', error);
-            });
-    }, [apiUrl]);
+            } else {
+                console.error('Greška: Očekivao se niz, a dobio sam:', response.data);
+            }
+        })
+        .catch((error) => {
+            console.error('Greška prilikom prikaza vesti:', error);
+        });
+
+
 
     return (
         <HelmetProvider>
