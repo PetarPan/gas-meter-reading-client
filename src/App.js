@@ -31,6 +31,7 @@ import NewsCreate from "./components/NewsCreate";
 import NewsView from "./components/NewsView";
 import OneNewsID from "./components/OneNewsID";
 import PreLoginPage from "./components/PreLoginPage";
+import 'reactjs-popup/dist/index.css';
 
 
 

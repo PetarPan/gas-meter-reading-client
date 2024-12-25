@@ -81,6 +81,9 @@ const FormSt = styled.div`
   height: 200px;
 }
 
+.popup-content {
+  color: red;
+}
 
 /* Media Query for Mobile Devices */
 @media (max-width: 600px) {

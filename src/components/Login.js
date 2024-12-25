@@ -7,6 +7,8 @@ import axios from 'axios';
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { AuthContext } from '../helpers/AuthContext';
 import { MdGasMeter } from 'react-icons/md';
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import Popup from 'reactjs-popup';
 
 function Login({apiUrl}) {
 
@@ -73,7 +75,15 @@ function Login({apiUrl}) {
                         <Form>
                             <div className='container'>
                                 <ErrorMessage name='userName' component='span' />
-                                <label className='label'>Korisničko ime:</label>
+                                <Popup
+                                    trigger={() => (
+                                        <label className='label'><IoMdInformationCircleOutline /> Korisničko ime:</label>)}
+                                    position="right center"
+                                    closeOnDocumentClick
+                                    on={['hover', 'focus']}
+                                >
+                                    <span className=''> Unesite svoje korisničko ime </span>
+                                </Popup>
                                 <Field
                                     innerRef={inputRef}
                                     className='inputCreatePost'
@@ -82,7 +92,16 @@ function Login({apiUrl}) {
                                 />
                                 <br></br>
                                 <ErrorMessage name='userPassword' component='span' />
-                                <label className='label'>Lozinka:</label>
+                                <Popup
+                                    trigger={() => (
+                                        <label className='label'><IoMdInformationCircleOutline /> Lozinka:</label>)}
+                                    position="right center"
+                                    closeOnDocumentClick
+                                    on={['hover', 'focus']}
+                                    
+                                >
+                                    <span className=''> Unesite svoju lozinku </span>
+                                </Popup>
                                 <Field
                                     className='inputCreatePost'
                                     name='userPassword'
