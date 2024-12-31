@@ -25,9 +25,6 @@ function InputMeterState({apiUrl}) {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    //const apiUrl = process.env.REACT_APP_API_URL;
-
-
     /* useEffect za optimizovani prikaz preko mob/komp */
     useEffect(() => {
         const handleResize = () => {
@@ -54,10 +51,9 @@ function InputMeterState({apiUrl}) {
     }, [authState, navigate]);
     /* useEffect za komunikaciju */
     useEffect(() => {
-
         setLoading(true);
         if (id) {
-            axios.get(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trase/${id}`)
+            axios.get(`${apiUrl}/trase/${id}`)
                 .then(response => {
                     setStates(response.data);
                     //setNewMeterValue(response.data.map(() => ''));

@@ -9,9 +9,7 @@ function AdminStuff( ) {
     const [message, setMessage] = useState('');
 
     const apiUrl = process.env.REACT_APP_API_URL;
-    console.log("news url: " + apiUrl);
-    console.log("Environment variables:", process.env);
-    console.log("API URL in production:", process.env.REACT_APP_API_URL);
+   
 
     // Funkcija za resetovanje statusa svih korisnika
     const resetUserStatus = async () => {

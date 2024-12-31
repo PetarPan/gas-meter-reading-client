@@ -9,15 +9,13 @@ import { CSVLink } from "react-csv";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 
 
-function InputMeterStateAdmin() {
+function InputMeterStateAdmin({apiUrl}) {
     const [states, setStates] = useState([]);
     const [selectedRow, setSelectedRow] = useState(0);
     const [newMeterValues, setNewMeterValues] = useState([]);
     const inputRefs = useRef([]);
     const { authState } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
-
-    
 
     const history = useNavigate();
 
@@ -57,7 +55,7 @@ function InputMeterStateAdmin() {
 
     useEffect(() => {
         setLoading(true);
-        axios.get('https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos')
+        axios.get(`${apiUrl}/trasa/unos`)
             .then(response => {
                 setStates(response.data);
                 // setNewMeterValues(response.data.map(() => ''));
@@ -68,7 +66,6 @@ function InputMeterStateAdmin() {
                 setLoading(false);
             });
     }, [authState]);
-
     useEffect(() => {
         if (authState.userRole == 1 || authState.userRole == 2) {
             history('/unos-stanja');
@@ -114,7 +111,7 @@ function InputMeterStateAdmin() {
             // Snimamo samo promenjena stanja
             await Promise.all(
                 statesToSave.map(async (state) => {
-                    await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${state.id}`, { newMeter: state.newMeter });
+                    await axios.put(`${apiUrl}/trasa/unos/${state.id}`, { newMeter: state.newMeter });
                 })
             );
 
@@ -178,7 +175,7 @@ function InputMeterStateAdmin() {
 
                             // Snimanje u bazu
                             try {
-                                await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${states[rowIndex].id}`, { newMeter: newMeterValue, newMeterOfficial: oldMeterValue, lessState: newMeterValue });
+                                await axios.put(`${apiUrl}/trasa/unos/${states[rowIndex].id}`, { newMeter: newMeterValue, newMeterOfficial: oldMeterValue, lessState: newMeterValue });
                             } catch (error) {
                                 console.error('Greška prilikom čuvanja unosa:', error);
                             }
@@ -210,7 +207,7 @@ function InputMeterStateAdmin() {
 
             // Snimanje u bazu
             try {
-                await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${states[rowIndex].id}`, { newMeter: newMeterValue, newMeterOfficial: newMeterValue, lessState: "" });
+                await axios.put(`${apiUrl}/trasa/unos/${states[rowIndex].id}`, { newMeter: newMeterValue, newMeterOfficial: newMeterValue, lessState: "" });
             } catch (error) {
                 console.error('Greška prilikom čuvanja unosa:', error);
             }
@@ -237,7 +234,7 @@ function InputMeterStateAdmin() {
 
             // Umesto da ažurirate sve, šaljite samo za trenutni state
             const stateToUpdate = updatedStates.find(state => state.id === stateId);
-            await axios.put(`https://gas-meter-reading-c5519d2e37b4.herokuapp.com/trasa/unos/${stateId}/comment`, { comment: stateToUpdate.comment });
+            await axios.put(`${apiUrl}/trasa/unos/${stateId}/comment`, { comment: stateToUpdate.comment });
 
             alert('Komentar je uspešno sačuvan!');
         } catch (error) {
@@ -256,7 +253,7 @@ function InputMeterStateAdmin() {
         { label: "SIFRA", key: "contructNumber" },
         { label: "MERAC_SER_BROJ", key: "meterId" },
         { label: "STARO_STANJE", key: "oldMeter" },
-        { label: "NOVO_STANJE", key: "newMeter" }
+        { label: "NOVO_STANJE", key: "newMeterOfficial" }
     ]
     //izvoz MI sa manjim stanjima 
     const headersLessState = [
@@ -336,26 +333,30 @@ function InputMeterStateAdmin() {
                                 {/* dugme za preuzimanje unesenih/očitanih količina za sve trase sa potrebnim poljima za uvoz u orakl */}
 
                                 <button className='export-csv'>
-                                        <CSVLink
-                                            data={states.filter(
-                                                (state) =>
-                                                    state.newMeterOfficial && // Proverava da li `newMeter` postoji
-                                                    state.newMeterOfficial.length > 0 && // Proverava da li `newMeter` nije prazan
-                                                    state.RJ.toLowerCase() === authState.userRJ.toLowerCase() // Proverava da li `state.RJ` odgovara `authState.userRJ`
-                                            )}
-                                            
-                                            headers={headersQuantities}
-                                            filename={"očitavanja.csv"}
-                                            target="_blank"
-                                        >
+                                    <CSVLink
+                                        data={states.filter(
+                                            (state) =>
+                                                state.newMeterOfficial && // Proverava da li `newMeterOfficial` postoji
+                                                state.newMeterOfficial.length > 0 && // Proverava da li `newMeter` nije prazan
+                                                state.RJ.toLowerCase() === authState.userRJ.toLowerCase() // Proverava da li `state.RJ` odgovara `authState.userRJ`
+                                        )}
+
+                                        headers={headersQuantities}
+                                        filename={"očitavanja.csv"}
+                                        target="_blank"
+                                    >
                                         Preuzmi očitane količine
                                     </CSVLink></button>
                                 {/* dugme za preuzimanje neočitanih MI */}
                                 <button className='export-csv'>
                                     <CSVLink
-                                        data={states.filter(state => (state.newMeter) == "")} //Provera polja bez unesenih količina
+                                        data={states.filter(
+                                            (state) =>
+                                                state.newMeter == "" && //provera polja bez unesenihi kolicina
+                                                state.RJ.toLowerCase() === authState.userRJ.toLowerCase() // Proverava da li `state.RJ` odgovara `authState.userRJ`                                               
+                                        )}
                                         headers={headersUnread}
-                                        filename={"neočitana-MI.csv"}
+                                        filename={"Neočitana-MI.csv"}
                                         target="_blank"
                                     >
                                         Neočitana MI
@@ -365,9 +366,13 @@ function InputMeterStateAdmin() {
 
                                 <button className='export-csv'>
                                     <CSVLink
-                                        data={states.filter(state => (state.lessState) > 0)} //Provera i eksport manjih stanja
+                                        data={states.filter(
+                                            (state) =>
+                                                state.lessState > 0 && //Provera i eksport manjih stanja
+                                                state.RJ.toLowerCase() === authState.userRJ.toLowerCase() // Proverava da li `state.RJ` odgovara `authState.userRJ`
+                                        )}
                                         headers={headersLessState}
-                                        filename={"manja-stanja-MI.csv"}
+                                        filename={"Manja-stanja-MI.csv"}
                                         target="_blank"
                                     >
                                         Preuzmi MI sa manjim stanjima
@@ -375,14 +380,18 @@ function InputMeterStateAdmin() {
                                 </button>
                                 <button className='export-csv'>
                                     <CSVLink
-                                        data={states.filter(state => (state.comment))}
+                                        data={states.filter(
+                                            (state) =>
+                                                state.comment && //provera da li postoji komentar u polju 
+                                                state.RJ.toLowerCase() === authState.userRJ.toLowerCase() // Proverava da li `state.RJ` odgovara `authState.userRJ`
+                                        )}
                                         headers={headersComment}
                                         filename={"komentari.csv"}
                                         target="_blank"
                                     >
                                         Preuzmi komentare
                                     </CSVLink>
-                                {/* napravi export svih podataka iz baze, sa update kolonom kao vremenom poslednjeg unosa stanja */}
+                                    {/* napravi eksport cele baze sa datumima i vremenima update stanja */}
                                 </button>
                                 {/* dugme za čuvanje unesenih vrednosti u kolonu Novo stanje */}
                                 <button className='save' onClick={handleSave}>Sačuvaj</button> <br />
@@ -415,7 +424,7 @@ function InputMeterStateAdmin() {
                             </thead>
                             {/* Redovi tabele */}
                             <tbody>
-                                {states 
+                                {filteredData
                                     .filter(state => authState.userRole !== 2 || state.RJ === authState.userRJ) // Filtriranje podataka
                                     .map((state, index) => (
                                         <tr key={index} onKeyDown={(e) => handleKeyDown(e, index)}>

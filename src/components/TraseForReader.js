@@ -117,7 +117,7 @@ function TraseForReader({apiUrl} ) {
                                 </thead>
                                 <tbody>
                                     {uniqueTrases.map((trase, index) => (
-                                        <tr key={index} onClick={() => handleTrasaClick(trase.trasaId)}>
+                                        <tr key={index} onDoubleClick={() => handleTrasaClick(trase.trasaId)}>
                                             <td>{trase.trasaId}</td>
                                             <td>{trase.trasaName}</td>
                                             <td>{trase.trasaName2}</td>
