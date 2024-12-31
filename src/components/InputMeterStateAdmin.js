@@ -289,7 +289,7 @@ function InputMeterStateAdmin({apiUrl}) {
     //broj MI, očitani/neočitani...
     const mi = filteredData.filter(MI => MI.name.length > 0);
     const numberMi = mi.length;
-    const miRead = filteredData.filter(MI => MI.newMeter.length > 0);
+    const miRead = filteredData.filter(MI => MI.newMeterOfficial.length > 0);
     const numberMiRead = miRead.length;
     const miUnread = numberMi - numberMiRead;
 
